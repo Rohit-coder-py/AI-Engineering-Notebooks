@@ -91,27 +91,6 @@ Instead, it is a collection of my:
 </ul>
 
 
-<h3>
-<font color="DarkRed">Current Focus</font>
-</h3>
-
-<ul>
-
-<li>Machine Learning Fundamentals</li>
-
-<li>Data Analysis</li>
-
-<li>Mathematics for AI</li>
-
-<li>Building Real Projects</li>
-
-<li>Developing AI Engineering Skills</li>
-
-</ul>
-
-<hr>
-
-<h3>
 <font color="Teal">Thank You</font>
 </h3>
 
