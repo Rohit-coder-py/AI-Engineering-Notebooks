@@ -42,17 +42,17 @@ This repository is my personal learning space where I document everything I lear
 
 <ul>
 
-<li>📚 <mark style="background-color:#FFF59D;">Notes</mark></li>
+<li> <mark style="background-color:#FFF59D;">Notes</mark></li>
 
-<li>📓 <mark style="background-color:#B3E5FC;">Jupyter Notebooks</mark></li>
+<li> <mark style="background-color:#B3E5FC;">Jupyter Notebooks</mark></li>
 
-<li>📊 <mark style="background-color:#FFE082;">Data Analysis</mark></li>
+<li> <mark style="background-color:#FFE082;">Data Analysis</mark></li>
 
-<li>🤖 <mark style="background-color:#C8E6C9;">Machine Learning</mark></li>
+<li> <mark style="background-color:#C8E6C9;">Machine Learning</mark></li>
 
-<li>🧮 <mark style="background-color:#E1BEE7;">Mathematics</mark></li>
+<li> <mark style="background-color:#E1BEE7;">Mathematics</mark></li>
 
-<li>🚀 <mark style="background-color:#FFCCBC;">Projects and Experiments</mark></li>
+<li> <mark style="background-color:#FFCCBC;">Projects and Experiments</mark></li>
 
 </ul>
 
@@ -90,24 +90,6 @@ Instead, it is a collection of my:
 
 </ul>
 
-<hr>
-
-<h2>
-<font color="Purple">Learning in Public</font>
-</h2>
-
-<p>
-I'm
-<mark style="background-color:#C8E6C9;">learning in public</mark>
-and continuously improving this repository as I grow.
-</p>
-
-<p>
-Every notebook, project, and note represents another step toward my goal of becoming a
-<mark style="background-color:#FFF59D;">professional AI Engineer</mark>.
-</p>
-
-<hr>
 
 <h3>
 <font color="DarkRed">Current Focus</font>
