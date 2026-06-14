@@ -47,5 +47,5 @@ The model was evaluated using:
 
 ## Author
 
-Harsh
+Rohit Jha
 Aspiring AI Engineer
