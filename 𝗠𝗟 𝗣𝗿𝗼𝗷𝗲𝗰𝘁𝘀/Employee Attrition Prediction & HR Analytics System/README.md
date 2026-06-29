@@ -46,49 +46,6 @@ This project uses HR analytics data to build and compare multiple classification
 * Model Serialization using Pickle
 * Interactive Streamlit Web Application
 
----
-
-# Machine Learning Workflow
-
-```text
-Business Understanding
-        ↓
-Data Collection
-        ↓
-Dataset Understanding
-        ↓
-Data Cleaning
-        ↓
-Exploratory Data Analysis (EDA)
-        ↓
-Feature Engineering
-        ↓
-Encoding
-        ↓
-Define X and y
-        ↓
-Train-Test Split
-        ↓
-Feature Scaling (if required)
-        ↓
-(Optional) PCA / Feature Selection
-        ↓
-Train Multiple Models
-        ↓
-Cross Validation
-        ↓
-Hyperparameter Tuning
-        ↓
-Final Model Selection
-        ↓
-Evaluation on Test Set
-        ↓
-Save Model
-        ↓
-Deployment (Streamlit)
-        ↓
-GitHub + README
-```
 
 ---
 
