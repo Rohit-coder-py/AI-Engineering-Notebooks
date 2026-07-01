@@ -143,7 +143,7 @@ C:.
 
 # Author
 
-**Rohit Jha**
+** Rohit Jha **
 
 Aspiring Artificial Intelligence Engineer
 
