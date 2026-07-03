@@ -104,4 +104,9 @@
 > **Note:** A table can have **only one `PRIMARY KEY`** (it may contain multiple columns) but can have **multiple `UNIQUE` constraints**.
 
 These data types and constraints are used in **90% of SQL projects**.
-s
+
+
+
+Syntax ; column datatype constraints 
+
+We can provide multiple constraints as well 
