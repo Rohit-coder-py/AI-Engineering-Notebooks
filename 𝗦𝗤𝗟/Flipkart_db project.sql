@@ -116,3 +116,67 @@ Values
 ('Streaming Stick','87654419',3499,18,True,'Electronics'),
 ('Router','87654420',2299,21,True,'Networking');
 
+
+
+
+--phase 3
+
+-- clause and operators and agreegation functions 
+-- query extracton questions 
+
+-- Q1. Show the name and price of all products.
+
+
+
+SELECT Product_name, Price_Max FROM flipkart_db;
+
+
+
+-- Q2. Show all products where the category is 'Electronics'
+
+Select * from flipkart_db  where category='Electronics';
+
+
+-- Q3. Group products by category. Show each category once.
+
+SELECT Category FROM flipkart_db
+GROUP BY Category;
+
+
+-- Q4. Show categories that have more than 1 product. (Use after
+-- GROUP BY)
+
+SELECT Category,
+       COUNT(*) AS Total_Products
+FROM flipkart_db
+GROUP BY Category
+HAVING COUNT(*) > 1;
+
+
+-- Q5. Show all products sorted by price in ascending order
+
+SELECT * FROM flipkart_db ORDER BY Stock_quantity desc;
+
+-- asc and desc
+
+Select * from flipkart_db ORDER BY Category , Price_Max desc;
+
+
+-- Q6. Show only the first 3 products from the table.
+
+Select * from flipkart_db LIMIT 3;
+
+
+-- Q7. Show product name as "Item_Name" and price as "Item_Price"
+
+SELECT Product_name, Price_Max FROM flipkart_db;
+
+SELECT Product_name AS Item_Name,Price_Max AS Item_Price
+FROM flipkart_db;
+
+
+"tem_Price".
+
+-- Q8. Show all the unique categories from the products
+
+Select DISTINCT category from flipkart_db;
