@@ -197,28 +197,6 @@ C:.
 
 ---
 
-# Installation
-
-1. Clone the repository
-
-```bash
-git clone https://github.com/rohit-jha-ai/employee-attrition-prediction.git
-cd employee-attrition-prediction
-```
-
-2. Install the required dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the Streamlit application
-
-```bash
-streamlit run "Final App/app.py"
-```
-
----
 
 # Future Improvements
 
