@@ -1,4 +1,3 @@
-````md
 # Employee Attrition Prediction & HR Analytics System
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue)
@@ -24,6 +23,7 @@ An end-to-end Machine Learning project that predicts whether an employee is like
 - [Technologies Used](#technologies-used)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
+- [Future Improvements](#future-improvements)
 - [Author](#author)
 - [License](#license)
 
@@ -150,21 +150,21 @@ The dataset includes employee demographic information, salary details, work expe
 C = 0.1
 kernel = "linear"
 gamma = "scale"
-````
+```
 
 ---
 
 # Technologies Used
 
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* XGBoost
-* Streamlit
-* Matplotlib
-* Seaborn
-* Pickle
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- XGBoost
+- Streamlit
+- Matplotlib
+- Seaborn
+- Pickle
 
 ---
 
@@ -195,8 +195,24 @@ C:.
         Output.png
 ```
 
+---
 
-Run the Streamlit application
+# Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/rohit-jha-ai/employee-attrition-prediction.git
+cd employee-attrition-prediction
+```
+
+2. Install the required dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the Streamlit application
 
 ```bash
 streamlit run "Final App/app.py"
@@ -206,13 +222,13 @@ streamlit run "Final App/app.py"
 
 # Future Improvements
 
-* SHAP Explainability
-* Feature Importance Visualization
-* Employee Risk Score
-* HR Recommendation System
-* Docker Support
-* Cloud Deployment
-* REST API Integration
+- SHAP Explainability
+- Feature Importance Visualization
+- Employee Risk Score
+- HR Recommendation System
+- Docker Support
+- Cloud Deployment
+- REST API Integration
 
 ---
 
@@ -222,7 +238,7 @@ streamlit run "Final App/app.py"
 
 **Aspiring Artificial Intelligence Engineer**
 
-* LinkedIn: https://www.linkedin.com/in/rohit-jha-ai/
+- LinkedIn: https://www.linkedin.com/in/rohit-jha-ai/
 
 If you found this project useful, consider giving it a ⭐ on GitHub.
 
@@ -231,6 +247,3 @@ If you found this project useful, consider giving it a ⭐ on GitHub.
 # License
 
 This project is licensed under the MIT License.
-
-```
-```
