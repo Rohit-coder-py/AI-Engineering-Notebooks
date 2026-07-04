@@ -169,8 +169,7 @@ https://www.linkedin.com/in/rohit-jha-ai/
 
 **GitHub**
 
-https://github.com/<your-github-username>
-
+https://github.com/Rohit-coder-py
 ---
 
 ## Author
