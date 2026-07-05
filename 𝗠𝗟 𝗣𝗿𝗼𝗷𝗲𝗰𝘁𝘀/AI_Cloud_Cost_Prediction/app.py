@@ -1,6 +1,7 @@
 import pickle
 import datetime as dt
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -15,20 +16,26 @@ st.set_page_config(
 )
 
 # ----------------------------------------------------------------------------
-# Load artifacts
+# Load artifacts (separate model + scaler + encoders — no Pipeline)
 # ----------------------------------------------------------------------------
 @st.cache_resource
 def load_artifacts():
-    with open("models/linear_regression_pipeline.pkl", "rb") as f:
-        pipeline = pickle.load(f)
+    with open("models/linear_regression_model.pkl", "rb") as f:
+        model = pickle.load(f)
+    with open("models/scaler.pkl", "rb") as f:
+        scaler = pickle.load(f)
+    with open("models/onehot_encoder.pkl", "rb") as f:
+        onehot_encoder = pickle.load(f)
+    with open("models/ordinal_encoder.pkl", "rb") as f:
+        ordinal_encoder = pickle.load(f)
     with open("models/feature_schema.pkl", "rb") as f:
         schema = pickle.load(f)
     with open("models/category_options.pkl", "rb") as f:
         options = pickle.load(f)
-    return pipeline, schema, options
+    return model, scaler, onehot_encoder, ordinal_encoder, schema, options
 
 
-pipeline, schema, category_options = load_artifacts()
+model, scaler, onehot_encoder, ordinal_encoder, schema, category_options = load_artifacts()
 
 # ----------------------------------------------------------------------------
 # Design tokens — dark cloud-console aesthetic
@@ -220,7 +227,14 @@ with col_output:
     st.markdown('<div class="readout-label">Estimated Cost</div>', unsafe_allow_html=True)
 
     if predict_clicked:
-        input_row = pd.DataFrame([{
+        # Build the raw feature row exactly like in the notebook, in the
+        # SAME numeric / onehot / ordinal groupings — but transform each
+        # group manually since there's no single Pipeline to do it for us.
+        numeric_features = schema["numeric_features"]
+        onehot_features = schema["onehot_features"]
+        ordinal_features = schema["ordinal_features"]
+
+        raw_row = pd.DataFrame([{
             "Year": billing_date.year,
             "Month": billing_date.month,
             "Day": billing_date.day,
@@ -230,9 +244,17 @@ with col_output:
             "ResourceLocation": resource_location,
             "MeterSubCategory": meter_sub_category,
             "MeterName": meter_name,
-        }])[schema["all_features_in_order"]]
+        }])
 
-        prediction = float(pipeline.predict(input_row)[0])
+        # Apply the exact same three transforms, fitted in the notebook,
+        # in the exact same order: numeric -> onehot -> ordinal.
+        num_part = scaler.transform(raw_row[numeric_features])
+        onehot_part = onehot_encoder.transform(raw_row[onehot_features])
+        ordinal_part = ordinal_encoder.transform(raw_row[ordinal_features])
+
+        input_processed = np.hstack([num_part, onehot_part, ordinal_part])
+
+        prediction = float(model.predict(input_processed)[0])
         prediction = max(prediction, 0.0)  # cost can't be negative
 
         st.markdown(f'<div class="readout-value">${prediction:,.4f}</div>', unsafe_allow_html=True)
@@ -244,4 +266,4 @@ with col_output:
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("<div style='height:2rem'></div>", unsafe_allow_html=True)
-st.caption("Model: Linear Regression (scikit-learn Pipeline) · Trained on anonymized Azure billing data · For estimation purposes only")
+st.caption("Model: Linear Regression (manual preprocessing, no Pipeline) · Trained on anonymized Azure billing data · For estimation purposes only")
