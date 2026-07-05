@@ -1,4 +1,4 @@
-# SQL Clauses
+# SQL Clauses :
 
 | Clause | Syntax | Description |
 |--------|--------|-------------|
