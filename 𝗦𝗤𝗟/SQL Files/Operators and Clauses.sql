@@ -147,3 +147,4 @@ SELECT DISTINCT UPPER(category) FROM flipkart_db ORDER BY UPPER(category) DESC;
 -- order
 
 SELECT DISTINCT UPPER(category) FROM flipkart_db ORDER BY UPPER(category) DESC;
+

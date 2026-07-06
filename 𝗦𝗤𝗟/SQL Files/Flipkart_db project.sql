@@ -180,3 +180,5 @@ FROM flipkart_db;
 -- Q8. Show all the unique categories from the products
 
 Select DISTINCT category from flipkart_db;
+
+
