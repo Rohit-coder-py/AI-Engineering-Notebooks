@@ -130,3 +130,20 @@ SELECT product_name, price_max FROM flipkart_db ORDER BY price_max ASC LIMIT 1;
 
 
 Select AVG(price_max) from flipkart_db where category in ('Home & Kitchen','Fitness');
+
+
+-- Q3. Show product names and stock quantity where the product is
+-- available, stock is more than 50, and price is not equal to ₹299.
+
+
+Select product_name,stock_quantity from Flipkart_db where stock_quantity >=50 and  price_max !=299;
+
+-- Q4. Find the most expensive product in each category (name and price).
+
+SELECT DISTINCT UPPER(category) FROM flipkart_db ORDER BY UPPER(category) DESC;
+
+
+-- Q5. Show all unique categories in uppercase, sorted in descer
+-- order
+
+SELECT DISTINCT UPPER(category) FROM flipkart_db ORDER BY UPPER(category) DESC;
