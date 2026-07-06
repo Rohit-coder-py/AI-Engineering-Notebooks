@@ -114,4 +114,19 @@ Select MAX(price_max) from flipkart_db;
 Select MAX(price_max) from flipkart_db where category = 'Electronics' or category = 'Furniture';
 
 
+--- Test Time
 
+-- Q1. Display the name and price of the cheapest product in the
+-- entire table
+
+
+Select * from flipkart_db;
+
+SELECT product_name, price_max FROM flipkart_db ORDER BY price_max ASC LIMIT 1;
+
+
+-- Q2.Find the average price of products that belong to the 'Home &
+-- Kitchen' or 'Fitness' category
+
+
+Select AVG(price_max) from flipkart_db where category in ('Home & Kitchen','Fitness');
