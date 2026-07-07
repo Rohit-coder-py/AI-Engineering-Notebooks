@@ -50,5 +50,27 @@ Select left('Heyy_letscodee',5)
 Select right('Heyy_letscodee',5)
 
 
+-- Concat() concatnate two strings
+
+
+Select concat(product_name,category) from flipkart_db;
+
+Select concat(product_name,' ',category) from flipkart_db;
+
+
+--trim() remove spaces 
+
+select trim('             Harsh            ');
+
+
+
+-- replace() values 
+
+
+SELECT product_name,REPLACE(LEFT(skucode, 2), '99', '11')FROM flipkart_db;
+
+
+Select * from flipkart_db;
+
 
 
