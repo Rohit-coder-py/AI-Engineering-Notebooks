@@ -1,57 +1,354 @@
-# AI Cloud Cost Prediction using Machine Learning
+\# ☁️ AI Cloud Cost Predictor
 
-Predicts Azure billing cost (`CostInBillingCurrency`) for a given service line item using a Linear Regression model, deployed as a Streamlit app.
 
-## Results
 
-| Metric | Value |
-|---|---|
-| MAE | 0.1058 |
-| RMSE | 0.3068 |
-| R² | 0.459 |
+!\[Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
 
-(See `notebooks/01_Cloud_Cost_Prediction.ipynb` for full EDA and derivation.)
+!\[Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-orange?logo=scikitlearn)
 
-## Project structure
+!\[Streamlit](https://img.shields.io/badge/Streamlit-Deployed-red?logo=streamlit)
 
-```
-AI Cloud Cost Prediction
+!\[Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?logo=pandas)
+
+!\[NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243?logo=numpy)
+
+!\[License](https://img.shields.io/badge/License-MIT-green)
+
+
+
+> \*\*Predict Azure cloud billing costs using Machine Learning.\*\*
+
+
+
+\---
+
+
+
+\## 📖 Overview
+
+
+
+Modern cloud platforms like \*\*Microsoft Azure\*\* generate thousands of billing records every day. As organizations deploy Virtual Machines, Storage, Databases, Networking, and AI services, understanding future cloud costs becomes increasingly challenging.
+
+
+
+Unexpected cloud expenses can lead to \*\*budget overruns, inefficient resource allocation, and reduced cost visibility\*\*.
+
+
+
+\*\*AI Cloud Cost Predictor\*\* addresses this problem by estimating the billing cost of an Azure resource \*\*before the invoice is generated\*\*. Using historical Azure billing data and Machine Learning, the application predicts the expected \*\*CostInBillingCurrency\*\* from service information, resource location, meter details, and billing date.
+
+
+
+The project demonstrates a complete end-to-end Machine Learning workflow, from data analysis and feature engineering to model deployment using Streamlit.
+
+
+
+\---
+
+
+
+\## 🚀 Live Demo
+
+
+
+\*\*🌐 Streamlit Application\*\*
+
+
+
+https://ai-cloud-cost-predictor.streamlit.app/
+
+
+
+\---
+
+
+
+\## 📸 Application Preview
+
+
+
+| Home Page                                         | Input Interface                                   |
+
+| ------------------------------------------------- | ------------------------------------------------- |
+
+| !\[](preview/Screenshot%202026-07-07%20201930.png) | !\[](preview/Screenshot%202026-07-07%20201936.png) |
+
+
+
+\### Prediction Result
+
+
+
+<p align="center">
+
+<img src="preview/Screenshot%202026-07-07%20202029.png" width="900">
+
+</p>
+
+
+
+\---
+
+
+
+\## ✨ Features
+
+
+
+\* 📊 Exploratory Data Analysis (EDA)
+
+\* 🧹 Data Cleaning \& Feature Engineering
+
+\* 📅 Date Feature Extraction
+
+\* 🔄 Manual Feature Encoding (No Pipeline)
+
+\* 🤖 Linear Regression Model
+
+\* 📈 Model Performance Evaluation
+
+\* 🌐 Interactive Streamlit Web Application
+
+\* 💾 Saved Model \& Preprocessing Artifacts
+
+
+
+\---
+
+
+
+\## 🛠️ Tech Stack
+
+
+
+| Category             | Technologies        |
+
+| -------------------- | ------------------- |
+
+| Programming Language | Python              |
+
+| Data Analysis        | Pandas, NumPy       |
+
+| Data Visualization   | Matplotlib, Seaborn |
+
+| Machine Learning     | Scikit-learn        |
+
+| Web Application      | Streamlit           |
+
+| Model Serialization  | Pickle              |
+
+
+
+\---
+
+
+
+\## 📂 Project Structure
+
+
+
+```text
+
+AI-Cloud-Cost-Predictor
+
 │
-├── data
-│   └── anonymized_costs.csv
-│
-├── notebooks
-│   └── 01_Cloud_Cost_Prediction.ipynb
-│
-├── models
-│   ├── linear_regression_pipeline.pkl   # preprocessing + scaler + encoders + model, bundled
-│   ├── feature_schema.pkl               # required input columns, in order
-│   └── category_options.pkl             # valid category values (populates the app's dropdowns)
-│
-├── images                                # exported EDA charts
+
 ├── app.py
+
+├── README.md
+
 ├── requirements.txt
-└── README.md
+
+│
+
+├── data/
+
+│   └── anonymized\_costs.csv
+
+│
+
+├── images/
+
+│   ├── EDA Visualizations
+
+│
+
+├── models/
+
+│   ├── linear\_regression\_model.pkl
+
+│   ├── scaler.pkl
+
+│   ├── onehot\_encoder.pkl
+
+│   ├── ordinal\_encoder.pkl
+
+│   ├── feature\_schema.pkl
+
+│   └── category\_options.pkl
+
+│
+
+├── notebooks/
+
+│   └── Cloud\_Cost\_Predictior.ipynb
+
+│
+
+└── preview/
+
+&#x20;   ├── Home Page
+
+&#x20;   ├── Input Interface
+
+&#x20;   └── Prediction Result
+
 ```
 
-## Design decision: one bundled pipeline instead of separate scaler/encoder files
 
-The original plan called for saving the Linear Regression model and `StandardScaler` separately. Instead, preprocessing (scaling + one-hot encoding + ordinal encoding) and the model are combined into a single `sklearn.pipeline.Pipeline`, saved as one `.pkl`. This removes an entire class of bugs where the app's manual encoding/column-order logic drifts out of sync with what the model was trained on — the app calls `pipeline.predict(df)` and the same transform always runs.
 
-## Feature handling
+\---
 
-- **Dropped** (pure identifiers, no predictive signal): `InvoiceSectionName`, `SubscriptionName`, `ResourceGroup`, `ResourceName`
-- **One-hot encoded**: `MeterCategory`, `ConsumedService`, `ResourceLocation`
-- **Ordinal encoded** (high cardinality — one-hot would explode dimensionality): `MeterSubCategory`, `MeterName`
-- **Engineered from `Date`**: `Year`, `Month`, `Day`, `Weekday`
 
-## Run it
+
+\## ⚙️ Installation
+
+
+
+Clone the repository
+
+
 
 ```bash
-pip install -r requirements.txt
-streamlit run app.py
+
+git clone https://github.com/rohitjha7386/AI-Cloud-Cost-Predictor.git
+
 ```
 
-## Known limitation / next step
 
-Cost data is heavily right-skewed and non-linear (a small number of services dominate spend). Linear Regression is a reasonable, interpretable baseline; a v2 would compare Random Forest / Gradient Boosting regressors, which should fit the non-linear cost tail better.
+
+Move into the project directory
+
+
+
+```bash
+
+cd AI-Cloud-Cost-Predictor
+
+```
+
+
+
+Install dependencies
+
+
+
+```bash
+
+pip install -r requirements.txt
+
+```
+
+
+
+Run the Streamlit application
+
+
+
+```bash
+
+streamlit run app.py
+
+```
+
+
+
+\---
+
+
+
+\## 📊 Machine Learning Workflow
+
+
+
+```text
+
+Azure Billing Data
+
+&#x20;       │
+
+&#x20;       ▼
+
+Exploratory Data Analysis
+
+&#x20;       │
+
+&#x20;       ▼
+
+Data Cleaning
+
+&#x20;       │
+
+&#x20;       ▼
+
+Feature Engineering
+
+&#x20;       │
+
+&#x20;       ▼
+
+Feature Encoding
+
+&#x20;       │
+
+&#x20;       ▼
+
+Linear Regression
+
+&#x20;       │
+
+&#x20;       ▼
+
+Model Evaluation
+
+&#x20;       │
+
+&#x20;       ▼
+
+Streamlit Deployment
+
+```
+
+
+
+\---
+
+
+
+\## 👨‍💻 Author
+
+
+
+\*\*Rohit Jha\*\*
+
+
+
+\*\*Aspiring AI Engineer | Building Real-World AI \& Machine Learning Projects\*\*
+
+
+
+\* \*\*GitHub:\*\* https://github.com/rohitjha7386
+
+\* \*\*LinkedIn:\*\* https://linkedin.com/in/rohit-jha-ai
+
+
+
+\---
+
+
+
+⭐ \*\*If you found this project useful, consider giving it a star!\*\*
+
+
+
