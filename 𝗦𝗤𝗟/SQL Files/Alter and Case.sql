@@ -8,15 +8,15 @@
 -- 4. Change data types
 -- 5. Set or remove default values
 -- 6. Add or remove constraints
--- 7. Rename the table
-
+-- 7. Drop a constraints
+-- 8. Rename the table
 
 
 
 CREATE TABLE students(
 student_id SERIAL Primary Key,
 name VARCHAR(100),
-age bigint
+age bigint)
 ;
 
 insert into students(name,age)
@@ -73,16 +73,53 @@ ALTER COLUMN age
 SET DEFAULT 18;
 
 
--- 6. Add or remove constraints
-
+-- SET or remove default values
 ALTER TABLE students
 Alter column age 
 DROP Default
 
 
--- 7. Rename the table
-
+-- Add or remove constraints
 ALTER Table students 
 ADD Constraint age_check check (age>=0)
 
-Select * from students
+Select * from college_students
+
+
+
+-- 8. Drop a constraints
+
+ALTER Table students
+DRop constraint age_check
+
+
+
+-- Rename a table
+
+ALTER table students
+Rename to  college_students
+
+Select * from college_students
+
+
+
+----------------------------------------------------------------
+----------------------------------------------------------------
+----------------------------------------------------------------
+
+
+-- Cases in SQL 
+
+-- CASE is a conditional expression in SQL that works
+-- like an if-else or switch statement. It lets you
+-- return different values based on different
+-- conditions - all within a single query.
+
+
+-- WHY DO WE USE CASE?
+
+-- . To create custom columns on-the-fly
+-- · To categorize data based on certain logic
+-- . To replace values conditionally
+-- . To handle nulls or missing values gracefully
+-- . To simplify complex logic inside SELECT queries
