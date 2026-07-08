@@ -108,7 +108,92 @@ ON s.student_id = sp.student_id;
 
 ====================================================================
 2. One to many relationship
+
+One record in the first table can be related to many records in the second table.
 ====================================================================
+
+
+STEP 1: CREATE TABLES
+
+• students table → student info
+• marks table → subject-wise marks (linked to student)
+
+STEP 2: INSERT SAMPLE DATA
+
+STEP 3: ADD FOREIGN KEY CONSTRAINT
+
+STEP 4: TEACH JOINS (WITH EXAMPLES LIKE INNER JOIN, LEFT JOIN, ETC.)
+
+==================================================================================================================================
+
+
+
+CREATE TABLE students (
+student_id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL)
+
+CREATE TABLE marks (
+mark_id SERIAL PRIMARY KEY,
+student_id INT,
+subject VARCHAR(50),
+marks INT,
+FOREIGN KEY (student_id) REFERENCES students(student_id))
+
+
+
+INSERT INTO students (name)
+VALUES ('Akarsh Vyas'), ('Simran Mehta'), ('Rohan Gupta');
+
+INSERT INTO marks (student_id, subject, marks)
+VALUES
+
+(1, 'English', 85),
+(1, 'Math', 89),
+(1, 'Science', 92),
+
+(2, 'English', 80),
+(2, 'Math', 75),
+(2, 'Science', 78),
+
+(3, 'English', 72),
+(3, 'Math', 70),
+(3, 'Science', 74);
+
+
+
+
+Select * from students;
+select * from marks;
+
+
+-- now lets join both 
+
+=============================================
+SYNTAX:
+
+SELECT
+    t1.column1,
+    t1.column2,
+    t2.column3,
+    t2.column4
+FROM table1 AS t1
+JOIN table2 AS t2
+ON t1.common_column = t2.common_column;
+
+===============================================
+Select * from students;
+select * from marks;
+
+
+Select 
+      s.student_id,
+	  s.name,
+	  m.subject,
+	  m.marks
+From students s
+JOIN marks m
+ON s.student_id = m.student_id
+
 
 
 
