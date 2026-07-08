@@ -77,3 +77,43 @@ Case WHEN (is_available = True) then 'in_stock'
      When is_available = False then 'out of stock'
 	 Else 'out_of_stock'
 End as Stock_Status from flipkart_db;
+
+
+
+
+update flipkart_db
+SET is_available = False
+where product_id = 99
+
+
+
+Select * from flipkart_db
+
+-- HIGHLIGHT STOCK STATUS
+
+-- " Show product name, stock quantity, and label:
+-- . "High Stock" if quantity > 100
+-- . "Medium Stock" if between 30 and 100
+-- . "Low Stock" otherwise
+
+Select product_name , stock_quantity,
+Case when stock_quantity > 100 then 'High Quantity'
+     when stock_quantity between 30 and 100 then 'Medium Stock'
+	 Else 'Low Stock'
+End as stock_count from flipkart_db
+
+
+
+Alter table flipkart_db
+add column stock_count text;
+
+
+Update flipkart_db 
+Set stock_count = 
+case 
+    when stock_quantity > 100 then 'High Quantity'
+     when stock_quantity between 30 and 100 then 'Medium Stock'
+	 Else 'Low Stock'
+END;
+
+Select * from flipkart_db
