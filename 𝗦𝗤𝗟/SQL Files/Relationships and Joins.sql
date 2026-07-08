@@ -197,3 +197,81 @@ ON s.student_id = m.student_id
 
 
 
+
+========================================================
+========================================================
+
+
+| **Join Type**  | **Description**                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| **INNER JOIN** | Returns **only matching rows** in both tables                                             |
+| **LEFT JOIN**  | Returns **all rows from the left table**, even if there's **no match in the right table** |
+| **RIGHT JOIN** | Returns **all rows from the right table**, even if there's **no match in the left table** |
+| **FULL JOIN**  | Returns **all rows from both tables**, fills **NULL** for missing matches                 |
+| **CROSS JOIN** | Returns **cartesian product** (every combination)                                         |
+
+
+========================================================
+========================================================
+
+
+1. Inner join 
+
+Syntax : 
+
+SELECT columns FROM table1
+JOIN table2
+ON table1.common_column = table2.common_column;
+
+
+Select * from students 
+JOIN marks ON students.student_id = marks.student_id
+
+
+Select s.student_id, m.subject,m.marks from students s
+JOIN marks m ON s.student_id = m.student_id
+
+Select s.name, m.subject,m.marks from students s
+JOIN marks m ON s.student_id = m.student_id
+where name = 'Simran Mehta'
+========================================================
+========================================================
+
+
+2.Left Join 
+
+Show all values even if null 
+
+
+Syntax : 
+
+SELECT columns FROM table1
+left JOIN table2
+ON table1.common_column = table2.common_column;
+
+
+
+Insert into students 
+Values (6,'ROHIT JHA')
+
+Select s.name, m.subject,m.marks from students s
+left JOIN marks m ON s.student_id = m.student_id
+
+========================================================
+========================================================
+
+3. Right Join 
+
+
+
+Syntax : 
+
+SELECT columns FROM table1
+right JOIN table2
+ON table1.common_column = table2.common_column;
+
+
+
+
+
+
