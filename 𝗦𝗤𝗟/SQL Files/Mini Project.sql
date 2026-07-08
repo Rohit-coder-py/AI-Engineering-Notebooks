@@ -74,16 +74,38 @@ GROUP BY p.product_name;
 
 -- Q6.Show total revenue earned per product.
 
+SELECT
+    p.product_name,
+    SUM(p.price * o.quantity) AS total_revenue
+FROM products p
+INNER JOIN orders o
+ON p.product_id = o.product_id
+GROUP BY p.product_name;
 
 
 
 
 
+-- Q7.Show products where total order revenue > ₹2000.
+
+
+SELECT
+    p.product_name,
+    SUM(p.price * o.quantity) AS total_revenue
+FROM products p
+INNER JOIN orders o
+ON p.product_id = o.product_id
+GROUP BY p.product_name
+Having SUM(p.price * o.quantity)>2000;
 
 
 
+-- Q8.Show unique customers who ordered 'Fitness' products.
 
-select * from products
+SELECT DISTINCT
+    o.customer_name
+FROM products p
+INNER JOIN orders o
+ON p.product_id = o.product_id
+WHERE p.category = 'Fitness';
 
-
-select * from orders
