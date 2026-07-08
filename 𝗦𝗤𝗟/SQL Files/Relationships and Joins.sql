@@ -13,6 +13,7 @@ Foreign Keys)
 2. One-to-Many (1:N) MOST COMMON)
 3. Many-to-Many (M:N)
 
+This is called Normalization.
 ---------------------------------------------------------------------
 1. One-to-One (1:1) RelationShips
 ---------------------------------------------------------------------
@@ -73,6 +74,41 @@ REFERENCES students(student_id)
 Select * from Students;
 
 Select * from student_profiles;
+
+
+-- now lets join both 
+
+=============================================
+SYNTAX:
+
+SELECT
+    t1.column1,
+    t1.column2,
+    t2.column3,
+    t2.column4
+FROM table1 AS t1
+JOIN table2 AS t2
+ON t1.common_column = t2.common_column;
+
+===============================================
+
+
+SELECT
+s.student_id,
+s. name,
+sp.address,
+sp.age,
+sp.phone
+FROM students s
+JOIN student_profiles sp
+ON s.student_id = sp.student_id;
+
+
+
+
+====================================================================
+2. One to many relationship
+====================================================================
 
 
 
