@@ -215,7 +215,7 @@ ON s.student_id = m.student_id
 ========================================================
 
 
-1. Inner join 
+1. Inner join ( Give me only the rows that exist in BOTH tables )
 
 Syntax : 
 
