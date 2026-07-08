@@ -238,7 +238,7 @@ where name = 'Simran Mehta'
 ========================================================
 
 
-2.Left Join 
+2.Left Join ( Give me everything from the LEFT table, even if there is no match ) left table = table which is written first
 
 Show all values even if null 
 
@@ -260,8 +260,7 @@ left JOIN marks m ON s.student_id = m.student_id
 ========================================================
 ========================================================
 
-3. Right Join 
-
+3. Right Join (RIGHT JOIN never loses rows from the right table) 
 
 
 Syntax : 
@@ -273,5 +272,36 @@ ON table1.common_column = table2.common_column;
 
 
 
+Select s.name, m.subject,m.marks from students s
+right JOIN marks m ON s.student_id = m.student_id
 
 
+4. FULL Join 
+
+I dont want to lose anything.
+Missing values become NULL.
+
+FULL JOIN = LEFT JOIN + RIGHT JOIN
+
+
+Select s.name, m.subject,m.marks from students s
+FULL JOIN marks m ON s.student_id = m.student_id
+
+
+5.Cross Join 
+
+CROSS JOIN = Every possible combination (Cartesian Product)
+
+
+Syntax ; 
+
+SELECT column_names
+FROM table1
+CROSS JOIN table2;
+
+
+
+
+SELECT *
+FROM students
+CROSS JOIN marks;
