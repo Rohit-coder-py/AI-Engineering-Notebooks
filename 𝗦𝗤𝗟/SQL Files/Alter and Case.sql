@@ -123,3 +123,4 @@ Select * from college_students
 -- . To replace values conditionally
 -- . To handle nulls or missing values gracefully
 -- . To simplify complex logic inside SELECT queries
+
