@@ -33,10 +33,10 @@ select * from orders
 -- Q1. Show each order along with the product name and price 
 
 SELECT
-    orders.order_id,
-    orders.customer_name,
     products.product_name,
-    products.price
+    products.price orders.order_id,
+    orders.customer_name,
+   
 FROM products
 INNER JOIN orders
 ON products.product_id = orders.product_id;
@@ -59,11 +59,31 @@ where products.category = 'Electronics'
 
 -- Q4.List all orders sorted by product price (high to low)
 
-Select pr.product_name , pr.category,pr.price from products pr left join orders on products.product_id = orders.product_id
-GROUP BY 
+Select pr.product_name , pr.category,pr.price from products pr left join orders on pr.product_id = orders.product_id
+ORDER BY pr.price DESC;
+
+
+-- Q5.Show number of orders placed for each product.
+
+SELECT p.product_name,COUNT(o.order_id) AS total_orders 
+FROM products p INNER JOIN orders o ON p.product_id = o.product_id
+GROUP BY p.product_name;
+
+
+
+
+-- Q6.Show total revenue earned per product.
+
+
+
+
+
+
 
 
 
 
 select * from products
+
+
 select * from orders
