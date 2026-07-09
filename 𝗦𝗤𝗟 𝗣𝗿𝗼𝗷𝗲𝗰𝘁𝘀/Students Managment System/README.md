@@ -1,47 +1,464 @@
-# Heart Disease Predictor
-
-A machine learning project that predicts the risk of heart disease using patient health data such as age, blood pressure, cholesterol level, heart rate, ECG results, and other medical attributes.
-
-## Use Case
-
-Heart disease is one of the leading causes of death worldwide. This project can be used for preliminary risk assessment and awareness by analyzing a patient's medical information.
-
-## Real-World Applications
-
-* Hospital patient screening systems
-* Health insurance risk analysis
-* Healthcare analytics platforms
-* AI-powered medical assistance tools
-* Preventive healthcare applications
-
-## Project Highlights
-
-* Performed Exploratory Data Analysis (EDA)
-* Handled missing and invalid values
-* Applied Feature Engineering & Scaling
-* Trained multiple classification models
-* Compared model performance
-* Built an interactive Streamlit application
-
-## Models Used
-
-* Logistic Regression
-* KNN
-* Naive Bayes
-* Decision Tree
-* SVM
-
-## Tech Stack
-
-Python • Pandas • NumPy • Matplotlib • Seaborn • Scikit-Learn • Streamlit
-
-## Demo
-
-Similar Examples :
-
-https://mohitscodiclab.github.io/Heart_Attack_Prediction/
+\# 🎓 Student Management System
 
 
-## Author
 
-Rohit Jha
+A beginner-friendly SQL project built using PostgreSQL to manage student records, marks, and fee payments. This project demonstrates database design, relationships, SQL queries, and views using a real-world Student Management System.
+
+
+
+\---
+
+
+
+\## 📌 Project Introduction
+
+
+
+The Student Management System is designed to store and manage student information efficiently. It keeps track of student details, academic marks, and fee payment records while demonstrating the core concepts of relational database management.
+
+
+
+This project was created to practice SQL fundamentals and build a portfolio-ready database project.
+
+
+
+\---
+
+
+
+\## ✨ Features
+
+
+
+\- Store student information
+
+\- Manage subject-wise marks
+
+\- Track fee payments
+
+\- Generate reports using SQL queries
+
+\- Create reusable database views
+
+\- Demonstrate relationships using foreign keys
+
+
+
+\---
+
+
+
+\## 🛠 Technologies Used
+
+
+
+\- PostgreSQL
+
+\- pgAdmin 4
+
+\- SQL
+
+
+
+\---
+
+
+
+\## 🗄 Database Schema
+
+
+
+The database consists of three tables:
+
+
+
+\### Students
+
+
+
+Stores personal details of students.
+
+
+
+\### Marks
+
+
+
+Stores subject-wise marks for each student.
+
+
+
+\### Fees
+
+
+
+Stores fee payment information and payment status.
+
+
+
+\---
+
+
+
+\## 📋 Tables Description
+
+
+
+\### Students
+
+
+
+| Column | Description |
+
+|---------|-------------|
+
+| student\_id | Primary Key |
+
+| name | Student Name |
+
+| gender | Gender |
+
+| dob | Date of Birth |
+
+| phone | Phone Number |
+
+| email | Email Address |
+
+| city | City |
+
+| admission\_date | Admission Date |
+
+
+
+\---
+
+
+
+\### Marks
+
+
+
+| Column | Description |
+
+|---------|-------------|
+
+| mark\_id | Primary Key |
+
+| student\_id | Foreign Key |
+
+| subject | Subject Name |
+
+| marks | Marks Obtained |
+
+
+
+\---
+
+
+
+\### Fees
+
+
+
+| Column | Description |
+
+|---------|-------------|
+
+| payment\_id | Primary Key |
+
+| student\_id | Foreign Key |
+
+| amount | Fee Amount |
+
+| payment\_date | Payment Date |
+
+| status | Paid / Pending |
+
+
+
+\---
+
+
+
+\## 🔗 Relationships
+
+
+
+\- One student can have multiple marks.
+
+\- One student can have multiple fee records.
+
+\- `student\_id` is used as the foreign key in both the `marks` and `fees` tables.
+
+
+
+Entity Relationship Diagram:
+
+
+
+```
+
+Students (1)
+
+&#x20;    |
+
+&#x20;    |------< Marks (Many)
+
+
+
+Students (1)
+
+&#x20;    |
+
+&#x20;    |------< Fees (Many)
+
+```
+
+
+
+A graphical ER Diagram is available in:
+
+
+
+```
+
+docs/Entity\_Relationships\_diagram.png
+
+```
+
+
+
+\---
+
+
+
+\## 📚 SQL Concepts Used
+
+
+
+\- Database Creation
+
+\- Tables
+
+\- Primary Keys
+
+\- Foreign Keys
+
+\- Constraints
+
+\- INSERT
+
+\- SELECT
+
+\- WHERE
+
+\- ORDER BY
+
+\- GROUP BY
+
+\- HAVING
+
+\- Aggregate Functions
+
+\- INNER JOIN
+
+\- LEFT JOIN
+
+\- Subqueries
+
+\- CASE
+
+\- Window Functions
+
+\- Views
+
+
+
+\---
+
+
+
+\## 🚀 Installation Steps
+
+
+
+1\. Clone this repository.
+
+
+
+```bash
+
+git clone https://github.com/your-username/Student-Management-System.git
+
+```
+
+
+
+2\. Open PostgreSQL using pgAdmin.
+
+
+
+3\. Execute the SQL files in the following order:
+
+
+
+```
+
+01\_create\_database.sql
+
+02\_create\_tables.sql
+
+03\_insert\_sample\_data.sql
+
+04\_queries.sql
+
+05\_views.sql
+
+```
+
+
+
+4\. Explore the database using the provided queries and views.
+
+
+
+\---
+
+
+
+\## 💻 Sample Queries
+
+
+
+Some example operations included in this project:
+
+
+
+\- Display all students
+
+\- Find students by city
+
+\- Student marks report
+
+\- Student fee report
+
+\- Students with pending fees
+
+\- Students with paid fees
+
+\- Average marks of each student
+
+\- Top-performing students
+
+\- Complete student report using JOINs
+
+\- Ranking students using Window Functions
+
+
+
+\---
+
+
+
+\## 📷 Screenshots
+
+
+
+\### Tables
+
+
+
+```
+
+screenshots/tables.png
+
+```
+
+
+
+\### Sample Data
+
+
+
+```
+
+screenshots/sample data.png
+
+```
+
+
+
+\### Views
+
+
+
+```
+
+screenshots/views.png
+
+```
+
+
+
+\---
+
+
+
+\## 📈 Future Improvements
+
+
+
+\- Course Management
+
+\- Teacher Management
+
+\- Attendance Module
+
+\- Examination Module
+
+\- Result Generation
+
+\- Stored Procedures
+
+\- Triggers
+
+\- Functions
+
+\- User Authentication
+
+
+
+\---
+
+
+
+\## 👨‍💻 Author
+
+
+
+\*\*Rohit Jha\*\*
+
+
+
+Aspiring AI Engineer | Data Science \& Machine Learning Enthusiast
+
+
+
+GitHub: https://github.com/your-github-username
+
+
+
+LinkedIn: https://linkedin.com/in/your-linkedin-profile
+
+
+
+\---
+
+
+
+\## 📄 License
+
+
+
+This project is created for educational and portfolio purposes.
+
