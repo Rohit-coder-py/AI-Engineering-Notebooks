@@ -108,4 +108,4 @@ FROM products p
 INNER JOIN orders o
 ON p.product_id = o.product_id
 WHERE p.category = 'Fitness';
-
+s
