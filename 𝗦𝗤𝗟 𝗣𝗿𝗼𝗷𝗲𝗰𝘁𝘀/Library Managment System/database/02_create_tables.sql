@@ -36,7 +36,3 @@ CREATE TABLE fees (
     REFERENCES students(student_id)
     ON DELETE CASCADE
 );
-
-
-
-Select * from students join marks on students.student_id 

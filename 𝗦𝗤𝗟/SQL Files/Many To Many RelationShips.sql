@@ -31,6 +31,10 @@ INSERT INTO courses (course_id, course_name) VALUES
 
 --created 2 tables 
 
+-- now junction table
+
+
+
 CREATE TABLE student_courses (
 student_id INT,
 course_id INT,
