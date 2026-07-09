@@ -1,96 +1,16 @@
-# SQL JOIN Types Cheat Sheet
+# | Join Type | Syntax | What it Returns | When to Use |
 
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Join Type   Syntax                                                                                                  What it Returns   When to Use     Real-World Use Case
-  ----------- ------------------------------------------------------------------------------------------------------- ----------------- --------------- ---------------------
-  **INNER     `SELECT * FROM table1 INNER JOIN table2 ON table1.column = table2.column;`                              Only the rows     When you only   Show customers who
-  JOIN**                                                                                                              that have         need records    have placed orders,
-                                                                                                                      matching values   that exist in   products that have
-                                                                                                                      in both tables.   both tables.    been sold, employees
-                                                                                                                                                        assigned to a
-                                                                                                                                                        department.
+# |-----------|--------|-----------------|-------------|
 
-  **LEFT JOIN `SELECT * FROM table1 LEFT JOIN table2 ON table1.column = table2.column;`                               All rows from the When the left   Show all products,
-  (LEFT OUTER                                                                                                         left table and    table is more   even those that have
-  JOIN)**                                                                                                             matching rows     important and   never been ordered.
-                                                                                                                      from the right    you don't want  Show all employees,
-                                                                                                                      table. If no      to lose any of  even if they are not
-                                                                                                                      match exists, the its records.    assigned to a
-                                                                                                                      right table                       project.
-                                                                                                                      columns contain                   
-                                                                                                                      `NULL`.                           
+# | \*\*INNER JOIN\*\* | `SELECT \* FROM table1 INNER JOIN table2 ON table1.column = table2.column;` | Only the rows that have matching values in both tables. | When you only need records that exist in both tables. |
 
-  **RIGHT     `SELECT * FROM table1 RIGHT JOIN table2 ON table1.column = table2.column;`                              All rows from the When the right  Show all orders, even
-  JOIN (RIGHT                                                                                                         right table and   table is more   if the product record
-  OUTER                                                                                                               matching rows     important and   has been deleted.
-  JOIN)**                                                                                                             from the left     you want every  Show all departments,
-                                                                                                                      table. If no      record from it. even if no employees
-                                                                                                                      match exists, the (Less commonly  work there.
-                                                                                                                      left table        used because    
-                                                                                                                      columns contain   LEFT JOIN is    
-                                                                                                                      `NULL`.           usually         
-                                                                                                                                        preferred.)     
+# | \*\*LEFT JOIN (LEFT OUTER JOIN)\*\* | `SELECT \* FROM table1 LEFT JOIN table2 ON table1.column = table2.column;` | All rows from the left table and matching rows from the right table. If no match exists, the right table columns contain `NULL`. | When the left table is more important and you don't want to lose any of its records. |
 
-  **FULL JOIN `SELECT * FROM table1 FULL JOIN table2 ON table1.column = table2.column;`                               All rows from     When you need   Find unmatched
-  (FULL OUTER                                                                                                         both tables.      every record    customers and
-  JOIN)**                                                                                                             Matching rows are from both       unmatched orders.
-                                                                                                                      combined;         tables,         Compare two datasets
-                                                                                                                      non-matching rows regardless of   to identify missing
-                                                                                                                      show `NULL` for   whether a match records.
-                                                                                                                      missing values.   exists.         
+# | \*\*RIGHT JOIN (RIGHT OUTER JOIN)\*\* | `SELECT \* FROM table1 RIGHT JOIN table2 ON table1.column = table2.column;` | All rows from the right table and matching rows from the left table. If no match exists, the left table columns contain `NULL`. | When the right table is more important and you want every record from it. (Less commonly used because LEFT JOIN is usually preferred.) |
 
-  **CROSS     `SELECT * FROM table1 CROSS JOIN table2;`                                                               Every row from    When you        Generate all
-  JOIN**                                                                                                              the first table   intentionally   student-course
-                                                                                                                      is combined with  want every      combinations, all
-                                                                                                                      every row from    possible        color-size
-                                                                                                                      the second table  combination of  combinations for
-                                                                                                                      (Cartesian        two tables.     products, all
-                                                                                                                      Product).                         possible test cases.
+# | \*\*FULL JOIN (FULL OUTER JOIN)\*\* | `SELECT \* FROM table1 FULL JOIN table2 ON table1.column = table2.column;` | All rows from both tables. Matching rows are combined; non-matching rows show `NULL` for missing values. | When you need every record from both tables, regardless of whether a match exists. |
 
-  **SELF      `SELECT a.column, b.column FROM table_name a JOIN table_name b ON a.common_column = b.common_column;`   Joins a table     When related    Employee-Manager
-  JOIN**                                                                                                              with itself using information     relationships,
-                                                                                                                      aliases.          exists within   category-parent
-                                                                                                                                        the same table. category hierarchy,
-                                                                                                                                                        family tree
-                                                                                                                                                        relationships.
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# | \*\*CROSS JOIN\*\* | `SELECT \* FROM table1 CROSS JOIN table2;` | Every row from the first table is combined with every row from the second table (Cartesian Product). | When you intentionally want every possible combination of two tables. |
 
-------------------------------------------------------------------------
+# | \*\*SELF JOIN\*\* | `SELECT a.column, b.column FROM table\_name a JOIN table\_name b ON a.common\_column = b.common\_column;` | Joins a table with itself using aliases. | When related information exists within the same table. |
 
-# Quick Decision Guide
-
-  Situation                               Join to Use
-  --------------------------------------- --------------
-  Need only matching records              `INNER JOIN`
-  Need all records from the left table    `LEFT JOIN`
-  Need all records from the right table   `RIGHT JOIN`
-  Need every record from both tables      `FULL JOIN`
-  Need every possible combination         `CROSS JOIN`
-  Need to join a table with itself        `SELF JOIN`
-
-------------------------------------------------------------------------
-
-# SQL Join Cheat Sheet
-
-  ---------------------------------------------------------------------------
-  Join    Keeps All Left  Keeps All Right  Requires     Returns `NULL` for
-               Rows            Rows          Match         Missing Data
-  ------- --------------- --------------- ----------- -----------------------
-  INNER         ❌              ❌            ✅                ❌
-  JOIN                                                
-
-  LEFT          ✅              ❌            ❌            Right Table
-  JOIN                                                
-
-  RIGHT         ❌              ✅            ❌            Left Table
-  JOIN                                                
-
-  FULL          ✅              ✅            ❌            Both Tables
-  JOIN                                                
-
-  CROSS         N/A             N/A           ❌                ❌
-  JOIN                                                
-
-  SELF    Depends on Join Depends on Join Depends on   Depends on Join Type
-  JOIN         Type            Type        Join Type  
-  ---------------------------------------------------------------------------
