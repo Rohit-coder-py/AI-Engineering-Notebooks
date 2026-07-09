@@ -1,4 +1,10 @@
-\# 🎓 Student Management System
+# 🎓 Student Management System
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-025E8C?style=for-the-badge&logo=postgresql&logoColor=white)
+![Database](https://img.shields.io/badge/Database-Relational-success?style=for-the-badge)
+![Beginner Project](https://img.shields.io/badge/Level-Beginner-blue?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 
 
