@@ -120,3 +120,26 @@ END;
 $$;
 
 CALL procedure_name(value1, value2);
+
+
+
+===================================
+
+SELECT * FROM flipkart_db;
+
+
+CREATE OR REPLACE PROCEDURE increase_price()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE flipkart_db
+    SET price_max = price_max + 100;
+END;
+$$;
+
+
+CALL increase_price();
+
+
+SELECT product_name, price_max
+FROM flipkart_db;
