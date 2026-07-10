@@ -1,6 +1,6 @@
 <div style="
 border:3px solid #E5E7EB;
-border-radius:27px;
+border-radius:28px;
 padding:30px;
 background-color:white;
 ">
