@@ -361,3 +361,21 @@ Which student borrowed which book?
 select student_id,name,book_name,borrow_date,status from all_tables
 
 
+===========================================
+Students + Borrow Records + Books
+
+Rahul borrowed which books?
+============================================
+
+SELECT 
+    s.name AS student_name, 
+    b.title AS book_title, 
+    br.borrow_date, 
+    br.status
+FROM students s
+JOIN borrow_records br 
+    ON s.student_id = br.student_id
+JOIN books b 
+    ON br.book_id = b.book_id
+WHERE s.name LIKE 'Rahul%';
+
