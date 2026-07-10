@@ -318,3 +318,46 @@ where br.borrow_date = '2026-07-10'
 -- 5.Total borrowed books.
 
 Select COUNT(status) as Borrowed_Books from borrow_records where status = 'Borrowed'
+
+
+
+
+==========================================================
+                   --TABLE JOINS QUERIES
+==========================================================
+
+====================================
+1. Students + Library_Cards
+
+Which student owns which card?
+======================================
+
+select name,card_number from students s join library_cards lc on s.student_id = lc.student_id
+
+
+========================================
+Books + Authors
+
+Who wrote each book?
+==========================================
+
+select b.author_id , a.author_name from books b join authors a on b.author_id = a.author_id
+
+==========================================
+Books + Categories
+
+Which category does each book belong to?
+===========================================
+
+select b.title,c.category_name from books b join categories c on b.category_id = c.category_id 
+
+
+==================================
+Students + Borrow Records
+
+Which student borrowed which book?
+===================================
+
+select student_id,name,book_name,borrow_date,status from all_tables
+
+
