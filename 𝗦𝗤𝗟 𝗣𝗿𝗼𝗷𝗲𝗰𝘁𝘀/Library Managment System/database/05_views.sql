@@ -1,122 +1,132 @@
-CREATE VIEW student_details AS
-SELECT
-    student_id,
-    name,
-    gender,
-    city,
-    phone,
-    email,admission_date
-FROM students;
----------------
 
-CREATE VIEW student_marks AS
+--View data 
+
+
+Select * from students;
+Select * from library_cards;
+Select * from categories;
+Select * from books;
+Select * from authors;
+
+
+--
+
+
 SELECT
     s.student_id,
     s.name,
-    m.subject,
-    m.marks
-	
+    s.phone,
+    s.email,
+
+    lc.card_number,
+    lc.issue_date,
+
+    b.title AS book_name,
+    a.author_name,
+    c.category_name,
+
+    br.borrow_date,
+    br.due_date,
+    br.return_date,
+    br.status
+
 FROM students s
-JOIN marks m
-ON s.student_id = m.student_id;
---------
 
-CREATE VIEW student_performance AS
+JOIN library_cards lc
+ON s.student_id = lc.student_id
+
+LEFT JOIN borrow_records br
+ON s.student_id = br.student_id
+
+LEFT JOIN books b
+ON br.book_id = b.book_id
+
+LEFT JOIN authors a
+ON b.author_id = a.author_id
+
+LEFT JOIN categories c
+ON b.category_id = c.category_id
+
+WHERE s.name = 'Rahul Sharma';
+
+
+--
+
 SELECT
     s.student_id,
     s.name,
-    ROUND(AVG(m.marks), 2) AS average_marks
-FROM students s
-JOIN marks m
-ON s.student_id = m.student_id
-GROUP BY s.student_id, s.name;
-------------------
+    s.phone,
+    s.email,
 
-CREATE VIEW paid_students AS
+    lc.card_number,
+    lc.issue_date,
+
+    b.title AS book_name,
+    a.author_name,
+    c.category_name,
+
+    br.borrow_date,
+    br.due_date,
+    br.return_date,
+    br.status
+
+FROM students s
+
+JOIN library_cards lc
+ON s.student_id = lc.student_id
+
+LEFT JOIN borrow_records br
+ON s.student_id = br.student_id
+
+LEFT JOIN books b
+ON br.book_id = b.book_id
+
+LEFT JOIN authors a
+ON b.author_id = a.author_id
+
+LEFT JOIN categories c
+ON b.category_id = c.category_id
+ORDER BY student_id DESC;
+
+
+
+--creating view of all joined table 
+
+
+CREATE VIEW all_tables AS
 SELECT
     s.student_id,
     s.name,
-    f.amount,
-    f.payment_date
+    s.phone,
+    s.email,
+
+    lc.card_number,
+    lc.issue_date,
+
+    b.title AS book_name,
+    a.author_name,
+    c.category_name,
+
+    br.borrow_date,
+    br.due_date,
+    br.return_date,
+    br.status
+
 FROM students s
-JOIN fees f
-ON s.student_id = f.student_id
-WHERE f.status = 'Paid';
-----------------
 
-CREATE VIEW pending_fees AS
-SELECT
-    s.student_id,
-    s.name,
-    f.amount
-FROM students s
-JOIN fees f
-ON s.student_id = f.student_id
-WHERE f.status = 'Pending';
----------------
+JOIN library_cards lc
+ON s.student_id = lc.student_id
 
-CREATE VIEW student_fee_report AS
-SELECT
-    s.student_id,
-    s.name,
-    s.city,
-    f.amount,
-    f.status,
-    f.payment_date
-FROM students s
-JOIN fees f
-ON s.student_id = f.student_id;
--------------------
+LEFT JOIN borrow_records br
+ON s.student_id = br.student_id
 
-CREATE VIEW topper_students AS
-SELECT
-    s.student_id,
-    s.name,
-    ROUND(AVG(m.marks), 2) AS average_marks
-FROM students s
-JOIN marks m
-ON s.student_id = m.student_id
-GROUP BY s.student_id, s.name
-HAVING AVG(m.marks) >= 80;
-------------------
+LEFT JOIN books b
+ON br.book_id = b.book_id
 
-CREATE VIEW complete_student_report AS
-SELECT
-    s.student_id,
-    s.name,
-    s.city,
-    ROUND(AVG(m.marks), 2) AS average_marks,
-    f.amount,
-    f.status
-FROM students s
-JOIN marks m
-ON s.student_id = m.student_id
-JOIN fees f
-ON s.student_id = f.student_id
-GROUP BY
-    s.student_id,
-    s.name,
-    s.city,
-    f.amount,
-    f.status;
+LEFT JOIN authors a
+ON b.author_id = a.author_id
 
+LEFT JOIN categories c
+ON b.category_id = c.category_id;
 
-
---now lets call all views
-
-SELECT * FROM student_details;
-
-SELECT * FROM student_marks;
-
-SELECT * FROM student_performance;
-
-SELECT * FROM paid_students;
-
-
-SELECT * FROM pending_fees;
-
-SELECT * FROM student_fee_report;
-
-SELECT * FROM topper_students;
-
-SELECT * FROM complete_student_report;
+Select * from all_tables
