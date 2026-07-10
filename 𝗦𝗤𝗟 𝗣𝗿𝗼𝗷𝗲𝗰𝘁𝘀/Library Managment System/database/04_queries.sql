@@ -132,7 +132,9 @@ ON b.category_id = c.category_id;
 
 Select * from all_tables
 
+=========================================
 --- queries from students table 
+=========================================
 
 -- 1.Show all students.
 -- 2.Find a student by name.
@@ -244,11 +246,75 @@ where copies_available > 5;
 -- 4.Books in Fantasy.
 
 
-Select * from books
+
+
+Select books.title,categories.category_name from books join categories  on books.author_id = categories.category_id 
+where category_name = 'Fantasy'
+
+
+-- 5.Books written by J.K. Rowling
+Select authors.author_name,books.title from books join authors  on books.author_id = authors.author_id
+where author_name = 'J.K. Rowling'
+
+
+===========================================================
+--now queries from authors table 
+===========================================================
+
+1.List all authors.
+2.Find authors from India.
+3.Count authors by country.
+
+-- 1.List all authors.
+
 Select * from authors
 
-SELECT
+-- 2.Find authors from India.
+
+Select * from authors where country = 'India'
 
 
-Select books.title,categories.category_name, from books join categories  on books.author_id = categories.category_id 
+-- 3.Count authors by country
 
+Select country,Count(country) from authors Group by country
+
+
+
+
+===========================================================
+--now queries from borrow_records
+===========================================================
+
+
+-- 1.Borrowed books.
+-- 2.Returned books.
+-- 3.Overdue books.
+-- 4.Today's borrowings.
+-- 5.Total borrowed books.
+
+-- 1.Borrowed books.
+Select * from borrow_records
+
+
+Select b.title , br.status from books b join borrow_records br on b.book_id = br.book_id
+
+-- 2.Returned books.
+
+Select b.title , br.status from books b join borrow_records br on b.book_id = br.book_id
+where br.status = 'Returned'
+
+
+-- 3.Overdue books.
+
+Select b.title , br.status from books b join borrow_records br on b.book_id = br.book_id
+where br.status = 'Borrowed'
+
+-- 4.Today's borrowings.
+
+Select b.title , br.status,br.borrow_date from books b join borrow_records br on b.book_id = br.book_id
+where br.borrow_date = '2026-07-10'
+
+
+-- 5.Total borrowed books.
+
+Select COUNT(status) as Borrowed_Books from borrow_records where status = 'Borrowed'
