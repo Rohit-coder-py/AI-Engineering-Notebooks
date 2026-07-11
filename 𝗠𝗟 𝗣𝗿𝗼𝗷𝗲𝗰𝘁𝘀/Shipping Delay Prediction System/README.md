@@ -157,8 +157,7 @@ https://shipsense-dashboard.streamlit.app/
 
 ## 📁 Repository
 
-https://github.com/Harsh-Projects-Here/shipsense
-
+https://github.com/Rohit-coder-py/Shipsense-shipping-delay-prediction
 ---
 
 ## 👨‍💻 Author
