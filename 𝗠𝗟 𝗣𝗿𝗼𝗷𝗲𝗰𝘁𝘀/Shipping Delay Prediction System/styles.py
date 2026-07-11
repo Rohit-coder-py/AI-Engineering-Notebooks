@@ -3,52 +3,58 @@ styles.py
 ----------
 Design system for the Shipment Delay Intelligence application.
 
+v2 -- "Control Tower" direction.
+Same public API as before (inject / route_divider / section_head) and the
+same CSS class names, so nothing in app.py needs to change. Only the look
+has been rebuilt.
+
 Palette (named tokens):
-    --bg-0        #070B14   deep space navy background
-    --bg-1        #0D1220   panel background
-    --bg-2        #131a2b   card surface
-    --bg-3        #1a2238   raised / hover surface
-    --line        rgba(255,255,255,0.08)   hairline borders
-    --ink-0       #EDEFF7   primary text
-    --ink-1       #9AA3B8   secondary text
-    --ink-2       #616B84   tertiary / caption text
-    --brand       #6C63FF   electric indigo -- primary accent
-    --brand-2     #2DD4BF   transit teal -- motion / "in progress" accent
-    --amber       #F5A524   caution / delay-risk accent
-    --danger      #F5455C   high risk / error
-    --success     #33D17A   on-time / success
+    --bg-0        #0A0B0F   graphite black background
+    --bg-1        #0F1116   panel background
+    --bg-2        #15171F   card surface
+    --bg-3        #1C1F29   raised / hover surface
+    --line        rgba(255,255,255,0.07)   hairline borders
+    --ink-0       #F4F5F7   primary text
+    --ink-1       #979CA8   secondary text
+    --ink-2       #5A5F6C   tertiary / caption text
+    --brand       #4C8EFF   signal blue -- primary accent ("in transit")
+    --brand-2     #34D399   arrival green -- motion / confirm accent
+    --amber       #FFB020   caution / delay-risk accent
+    --danger      #FF5C72   high risk / error
+    --success     #34D399   on-time / success
 
 Typography:
-    Display / headings : "Space Grotesk"
+    Display / headings : "Outfit"        -- geometric, technical, quiet confidence
     Body                : "Inter"
-    Data / labels / mono: "JetBrains Mono"
+    Data / labels / mono: "IBM Plex Mono"
 
-Signature element: the "route line" -- a dashed horizontal path with a
-travelling dot, used as a section divider and inside the prediction
-result card as a shipment-progress motif.
+Signature element: the "manifest line" -- a hairline route rail with a
+single glowing signal ping that sweeps between two waypoint nodes. No
+emoji, no clutter -- the motion itself carries the "shipment in progress"
+idea. Used as a section divider and inside the prediction result card.
 """
 
 CSS = """
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-    --bg-0:#070B14;
-    --bg-1:#0D1220;
-    --bg-2:#131a2b;
-    --bg-3:#1a2238;
-    --line: rgba(255,255,255,0.08);
-    --ink-0:#EDEFF7;
-    --ink-1:#9AA3B8;
-    --ink-2:#616B84;
-    --brand:#6C63FF;
-    --brand-soft: rgba(108,99,255,0.14);
-    --brand-2:#2DD4BF;
-    --amber:#F5A524;
-    --danger:#F5455C;
-    --success:#33D17A;
+    --bg-0:#0A0B0F;
+    --bg-1:#0F1116;
+    --bg-2:#15171F;
+    --bg-3:#1C1F29;
+    --line: rgba(255,255,255,0.07);
+    --ink-0:#F4F5F7;
+    --ink-1:#979CA8;
+    --ink-2:#5A5F6C;
+    --brand:#4C8EFF;
+    --brand-soft: rgba(76,142,255,0.12);
+    --brand-2:#34D399;
+    --amber:#FFB020;
+    --danger:#FF5C72;
+    --success:#34D399;
 }
 
 /* ---------- base resets ---------- */
@@ -59,14 +65,15 @@ html, body, [class*="css"]{
 
 .stApp{
     background:
-        radial-gradient(1200px 600px at 85% -10%, rgba(108,99,255,0.16), transparent 60%),
-        radial-gradient(900px 500px at -10% 110%, rgba(45,212,191,0.10), transparent 55%),
+        linear-gradient(180deg, rgba(76,142,255,0.05) 0%, transparent 22%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 40px),
         var(--bg-0);
 }
 
 h1, h2, h3, h4, .display{
-    font-family:'Space Grotesk', sans-serif !important;
-    letter-spacing:-0.01em;
+    font-family:'Outfit', sans-serif !important;
+    letter-spacing:-0.015em;
     color: var(--ink-0);
 }
 
@@ -74,8 +81,65 @@ p, span, li, label, div{
     font-family:'Inter', sans-serif;
 }
 
+/* ---------- force-override Streamlit's own (light-mode) text colors ----------
+   Streamlit ships its own default text-color rules scoped to data-testid
+   containers (e.g. stMarkdownContainer, stSidebarNav). Those selectors are
+   more specific than plain element selectors above, so without !important
+   here they win and text renders in Streamlit's default dark-gray -- which
+   is invisible on our dark background. This block guarantees our palette
+   always wins, everywhere Streamlit renders text. */
+.stApp, .stApp p, .stApp span, .stApp label, .stApp li,
+[data-testid="stMarkdownContainer"],
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] span,
+[data-testid="stMarkdownContainer"] strong,
+[data-testid="stText"],
+[data-testid="stCaptionContainer"]{
+    color: var(--ink-0) !important;
+}
+
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stMarkdownContainer"] h4,
+.stApp h1, .stApp h2, .stApp h3, .stApp h4{
+    font-family:'Outfit', sans-serif !important;
+    color: var(--ink-0) !important;
+}
+
+/* muted / secondary text that should stay dimmer than ink-0 */
+[data-testid="stCaptionContainer"],
+.stApp small{
+    color: var(--ink-1) !important;
+}
+
+/* ---------- sidebar page navigation ---------- */
+[data-testid="stSidebarNav"] a,
+[data-testid="stSidebarNav"] span,
+[data-testid="stSidebarNav"] a *,
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p{
+    color: var(--ink-1) !important;
+    font-family:'Inter', sans-serif !important;
+}
+[data-testid="stSidebarNav"] a:hover span,
+[data-testid="stSidebarNav"] a:hover *,
+[data-testid="stSidebarNav"] a[aria-current="page"] span,
+[data-testid="stSidebarNav"] a[aria-current="page"] *{
+    color: var(--ink-0) !important;
+}
+[data-testid="stSidebarNav"] a[aria-current="page"]{
+    background: var(--bg-3) !important;
+    border-radius: 8px;
+}
+
+/* generic widget labels (selectbox, slider, radio, etc.) */
+.stApp [data-testid="stWidgetLabel"] p{
+    color: var(--ink-1) !important;
+}
+
 .mono{
-    font-family:'JetBrains Mono', monospace !important;
+    font-family:'IBM Plex Mono', monospace !important;
     letter-spacing:0.02em;
 }
 
@@ -90,7 +154,7 @@ header[data-testid="stHeader"]{background:transparent;}
 
 /* ---------- sidebar ---------- */
 section[data-testid="stSidebar"]{
-    background: linear-gradient(180deg, #0A0E19 0%, #090D17 100%);
+    background: linear-gradient(180deg, #0B0C11 0%, #08090C 100%);
     border-right: 1px solid var(--line);
 }
 section[data-testid="stSidebar"] .block-container{
@@ -109,26 +173,26 @@ section[data-testid="stSidebar"] .block-container{
     display:inline-flex;
     align-items:center;
     gap:8px;
-    font-family:'JetBrains Mono', monospace;
+    font-family:'IBM Plex Mono', monospace;
     font-size:0.72rem;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color: var(--brand-2);
-    background: rgba(45,212,191,0.08);
-    border:1px solid rgba(45,212,191,0.25);
+    color: var(--brand);
+    background: rgba(76,142,255,0.08);
+    border:1px solid rgba(76,142,255,0.28);
     padding:6px 14px;
-    border-radius:999px;
+    border-radius:6px;
     margin-bottom:14px;
 }
 .eyebrow .dot{
     width:6px;height:6px;border-radius:50%;
-    background: var(--brand-2);
-    box-shadow: 0 0 8px var(--brand-2);
+    background: var(--brand);
+    box-shadow: 0 0 8px var(--brand);
     animation: pulse 1.8s ease-in-out infinite;
 }
 @keyframes pulse{
     0%,100%{ opacity:1; transform:scale(1);}
-    50%{ opacity:0.4; transform:scale(0.7);}
+    50%{ opacity:0.35; transform:scale(0.7);}
 }
 
 /* ---------- hero ---------- */
@@ -137,7 +201,11 @@ section[data-testid="stSidebar"] .block-container{
     font-weight:700;
     line-height:1.05;
     margin-bottom:18px;
-    background: linear-gradient(100deg, #FFFFFF 20%, #B9B4FF 55%, #2DD4BF 100%);
+    color: var(--ink-0);
+}
+.hero-title em{
+    font-style:normal;
+    background: linear-gradient(100deg, var(--brand) 0%, var(--brand-2) 100%);
     -webkit-background-clip:text;
     background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -150,7 +218,7 @@ section[data-testid="stSidebar"] .block-container{
     margin-bottom: 28px;
 }
 
-/* ---------- route line signature element ---------- */
+/* ---------- route line signature element ("manifest line") ---------- */
 .route{
     position:relative;
     height:64px;
@@ -162,15 +230,16 @@ section[data-testid="stSidebar"] .block-container{
     content:"";
     position:absolute;
     left:0; right:0; top:50%;
-    height:2px;
-    background: repeating-linear-gradient(90deg, var(--line) 0 10px, transparent 10px 18px);
+    height:1px;
+    background: var(--line);
 }
 .route .node{
     position:relative;
     z-index:2;
-    width:11px; height:11px; border-radius:50%;
+    width:9px; height:9px; border-radius:2px;
     background: var(--bg-2);
     border:2px solid var(--brand-2);
+    transform: rotate(45deg);
 }
 .route .node.origin{ border-color: var(--brand); }
 .route .node.dest{ border-color: var(--brand-2); margin-left:auto; }
@@ -178,10 +247,20 @@ section[data-testid="stSidebar"] .block-container{
     position:absolute;
     top:50%;
     left:0;
+    width:8px; height:8px;
+    border-radius:50%;
+    background: var(--brand);
+    box-shadow: 0 0 0 4px rgba(76,142,255,0.15), 0 0 16px 2px rgba(76,142,255,0.8);
     transform: translate(-50%, -50%);
-    font-size:1.15rem;
     animation: travel 4.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 6px rgba(108,99,255,0.6));
+}
+.route .truck::after{
+    content:"";
+    position:absolute;
+    top:50%; right:100%;
+    width:46px; height:1px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, transparent, rgba(76,142,255,0.6));
 }
 @keyframes travel{
     0%{ left:2%; }
@@ -191,42 +270,52 @@ section[data-testid="stSidebar"] .block-container{
 
 /* ---------- glass card ---------- */
 .card{
-    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008));
     border:1px solid var(--line);
-    border-radius:18px;
+    border-radius:14px;
     padding:26px 26px;
-    backdrop-filter: blur(14px);
+    position:relative;
     transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
     height:100%;
 }
+.card::before{
+    content:"";
+    position:absolute;
+    top:-1px; left:14px; right:14px; height:1px;
+    background: linear-gradient(90deg, transparent, rgba(76,142,255,0.5), transparent);
+    opacity:0;
+    transition: opacity .25s ease;
+}
 .card:hover{
     transform: translateY(-4px);
-    border-color: rgba(108,99,255,0.4);
-    box-shadow: 0 18px 40px -20px rgba(108,99,255,0.45);
+    border-color: rgba(76,142,255,0.35);
+    box-shadow: 0 18px 40px -22px rgba(76,142,255,0.5);
 }
+.card:hover::before{ opacity:1; }
 .card h3{ margin-top:0; margin-bottom:8px; font-size:1.05rem;}
 .card p{ color:var(--ink-1); font-size:0.92rem; line-height:1.55; margin:0;}
 .card .icon{
-    font-size:1.6rem;
+    font-size:1.4rem;
     display:inline-flex;
-    width:46px; height:46px;
+    width:44px; height:44px;
     align-items:center; justify-content:center;
-    border-radius:12px;
+    border-radius:10px;
     background: var(--brand-soft);
+    border:1px solid rgba(76,142,255,0.2);
     margin-bottom:14px;
 }
 
 /* ---------- metric card ---------- */
 .metric{
-    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.008));
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.006));
     border:1px solid var(--line);
-    border-radius:16px;
+    border-radius:12px;
     padding:20px 22px;
     transition: all .2s ease;
 }
-.metric:hover{ border-color: rgba(45,212,191,0.35); transform: translateY(-2px);}
+.metric:hover{ border-color: rgba(52,211,153,0.3); transform: translateY(-2px);}
 .metric .label{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'IBM Plex Mono', monospace;
     font-size:0.7rem;
     letter-spacing:0.1em;
     text-transform:uppercase;
@@ -234,13 +323,13 @@ section[data-testid="stSidebar"] .block-container{
     margin-bottom:6px;
 }
 .metric .value{
-    font-family:'Space Grotesk', sans-serif;
+    font-family:'Outfit', sans-serif;
     font-size:1.9rem;
     font-weight:700;
     color: var(--ink-0);
 }
 .metric .delta{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'IBM Plex Mono', monospace;
     font-size:0.78rem;
     color: var(--brand-2);
     margin-top:4px;
@@ -257,7 +346,7 @@ section[data-testid="stSidebar"] .block-container{
 }
 .section-head h2{ margin:0; font-size:1.55rem; }
 .section-head .tag{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'IBM Plex Mono', monospace;
     font-size:0.72rem;
     color: var(--ink-2);
     letter-spacing:0.08em;
@@ -267,34 +356,41 @@ section[data-testid="stSidebar"] .block-container{
 .badge{
     display:inline-block;
     padding:4px 12px;
-    border-radius:999px;
-    font-family:'JetBrains Mono', monospace;
+    border-radius:6px;
+    font-family:'IBM Plex Mono', monospace;
     font-size:0.72rem;
     letter-spacing:0.05em;
     border:1px solid var(--line);
     color: var(--ink-1);
 }
-.badge.brand{ color: var(--brand); border-color: rgba(108,99,255,0.4); background: var(--brand-soft);}
-.badge.teal{ color: var(--brand-2); border-color: rgba(45,212,191,0.35); background: rgba(45,212,191,0.08);}
+.badge.brand{ color: var(--brand); border-color: rgba(76,142,255,0.4); background: var(--brand-soft);}
+.badge.teal{ color: var(--brand-2); border-color: rgba(52,211,153,0.35); background: rgba(52,211,153,0.08);}
 
 /* ---------- result cards ---------- */
 .result{
-    border-radius:20px;
+    border-radius:16px;
     padding:32px;
     border:1px solid var(--line);
     position:relative;
     overflow:hidden;
 }
+.result::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; bottom:0; width:3px;
+}
 .result.ontime{
-    background: linear-gradient(135deg, rgba(51,209,122,0.14), rgba(51,209,122,0.02));
-    border-color: rgba(51,209,122,0.4);
+    background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(52,211,153,0.015));
+    border-color: rgba(52,211,153,0.35);
 }
+.result.ontime::before{ background: var(--success); }
 .result.delay{
-    background: linear-gradient(135deg, rgba(245,69,92,0.14), rgba(245,69,92,0.02));
-    border-color: rgba(245,69,92,0.4);
+    background: linear-gradient(135deg, rgba(255,92,114,0.12), rgba(255,92,114,0.015));
+    border-color: rgba(255,92,114,0.35);
 }
+.result.delay::before{ background: var(--danger); }
 .result .headline{
-    font-family:'Space Grotesk', sans-serif;
+    font-family:'Outfit', sans-serif;
     font-size:1.7rem;
     font-weight:700;
     margin-bottom:6px;
@@ -310,8 +406,8 @@ section[data-testid="stSidebar"] .block-container{
 }
 .step:last-child{ border-bottom:none; }
 .step .n{
-    font-family:'JetBrains Mono', monospace;
-    color: var(--brand-2);
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--brand);
     font-size:0.85rem;
     min-width:34px;
 }
@@ -333,30 +429,31 @@ section[data-testid="stSidebar"] .block-container{
 
 /* ---------- streamlit widget overrides ---------- */
 div[data-testid="stMetric"]{
-    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.008));
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.006));
     border:1px solid var(--line);
-    border-radius:16px;
+    border-radius:12px;
     padding:16px 18px;
 }
 .stButton>button{
-    background: linear-gradient(100deg, var(--brand), #8B5CF6);
-    color:white;
+    background: var(--brand);
+    color:#08090C;
     border:none;
-    border-radius:12px;
+    border-radius:9px;
     padding:0.65rem 1.6rem;
     font-weight:600;
     letter-spacing:0.01em;
-    transition: transform .18s ease, box-shadow .18s ease;
-    box-shadow: 0 10px 24px -12px rgba(108,99,255,0.7);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    box-shadow: 0 10px 24px -14px rgba(76,142,255,0.8);
 }
 .stButton>button:hover{
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px -12px rgba(108,99,255,0.85);
+    background: #6BA1FF;
+    box-shadow: 0 14px 30px -14px rgba(76,142,255,0.9);
 }
 .stTabs [data-baseweb="tab-list"]{ gap: 6px; }
 .stTabs [data-baseweb="tab"]{
     background: var(--bg-2);
-    border-radius: 10px 10px 0 0;
+    border-radius: 8px 8px 0 0;
     color: var(--ink-1);
 }
 .stTabs [aria-selected="true"]{
@@ -376,11 +473,11 @@ def inject(st):
 
 
 def route_divider(origin_label="WAREHOUSE", dest_label="CUSTOMER"):
-    """Returns HTML for the animated dashed 'route' signature element."""
+    """Returns HTML for the animated 'manifest line' signature element."""
     return f"""
     <div class="route">
         <div class="node origin"></div>
-        <div class="truck">📦</div>
+        <div class="truck"></div>
         <div class="node dest"></div>
     </div>
     """
