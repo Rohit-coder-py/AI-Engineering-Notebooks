@@ -1,157 +1,174 @@
-# 📦 ShipSense — Shipment Delay Intelligence
+# 🚢 ShipSense - AI-Powered Shipping Delay Prediction
 
-A production-quality Streamlit application that predicts whether a shipment
-will arrive **on time** or be **delayed**, before it leaves the warehouse —
-built on a Stacking Classifier trained across 10 candidate models.
+<p align="center">
+  <b>Predict shipment delays before dispatch using Machine Learning.</b><br>
+  An end-to-end ML project built with <b>Python, Scikit-learn, and Streamlit</b>.
+</p>
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B)
-![Model](https://img.shields.io/badge/Model-Stacking%20Classifier-6C63FF)
-![F1](https://img.shields.io/badge/F1%20Score-0.7157-33D17A)
+---
+
+## 📖 About the Project
+
+Late deliveries impact customer satisfaction, increase operational costs, and reduce business efficiency. **ShipSense** is an AI-powered Shipping Delay Prediction System that analyzes shipment, customer, and product information to predict whether a shipment is likely to be delivered on time or delayed.
+
+The project covers the complete Machine Learning workflow—from data preprocessing and exploratory data analysis to model training, evaluation, and deployment through an interactive Streamlit dashboard.
 
 ---
 
 ## ✨ Features
 
-- **Live prediction** — enter shipment details and get an instant delay
-  risk score with a confidence gauge
-- **Explainable** — feature importance view showing which signals drive
-  predictions
-- **Analytics dashboard** — interactive delay-rate breakdowns by warehouse,
-  shipment mode, product importance, weight, and discount
-- **Full project narrative** — business problem, dataset, modeling, workflow
-  and conclusion pages
-- **Premium dark UI** — glassmorphism cards, animated route motif, metric
-  cards, gauges, and smooth hover transitions
-- **Defensive by design** — missing data/model files degrade gracefully
-  with clear on-screen guidance instead of crashing
+* 🤖 Real-time shipment delay prediction
+* 📊 Interactive analytics dashboard
+* 📈 Model performance visualization
+* 🌲 Feature importance analysis
+* 📉 Exploratory data analysis
+* 🎨 Modern responsive Streamlit interface
+* 📥 Download prediction results
+* ⚡ Fast and easy-to-use web application
 
 ---
 
-## 🗂️ Project Structure
+## 🖼️ Application Preview
 
-```
-.
-├── app.py                     # Streamlit entry point (all pages/sections)
-├── utils.py                   # Data & model loading, inference pipeline
-├── styles.py                  # Design system: CSS tokens + components
-├── requirements.txt
-├── .gitignore
-├── .streamlit/
-│   └── config.toml            # Dark theme configuration
-├── data/
-│   ├── README.md
-│   └── (cleaned.csv, raw_data.csv, ...)      # add your dataset(s)
-├── models/
-│   ├── README.md
-│   └── (shipping_delay_model.pkl, scaler.pkl, *_encoder.pkl)  # add artifacts
-├── graphs/
-│   ├── README.md
-│   └── (*.png)                # optional pre-rendered notebook graphs
-└── notebook/
-    └── shipping_delay_prediction_notebook.ipynb
-```
+### 🏠 Home
 
-## 🧩 Feature Set Used by the Model
+![Home](preview/Home.png)
 
-| Feature | Type | Notes |
-|---|---|---|
-| `Warehouse_block` | Categorical | A, B, C, D, F |
-| `Mode_of_Shipment` | Categorical | Flight, Road, Ship |
-| `Customer_care_calls` | Numeric | Support calls for the order |
-| `Cost_of_the_Product` | Numeric | Product cost |
-| `Prior_purchases` | Numeric | Customer purchase history |
-| `Product_importance` | Categorical | low, medium, high |
-| `Discount_offered` | Numeric | Discount % |
-| `Weight_in_gms` | Numeric | Package weight |
+### 📊 Analytics Dashboard
 
-`ID`, `Gender`, and `Customer_rating` were dropped during feature engineering
-(`Customer_rating` in particular introduces data leakage, since it's only
-known after delivery). The deployed **Stacking Classifier** (Random Forest +
-Decision Tree base learners → Logistic Regression meta-learner) achieved the
-best held-out **F1 Score of 0.7157**, ahead of tuned AdaBoost and XGBoost.
+![Analytics Dashboard](preview/Analytics%20Dashboard.png)
+
+### 🤖 Model Performance
+
+![Model Performance](preview/Model%20Performance.png)
 
 ---
 
-## 🚀 Getting Started
+## 🧠 Machine Learning Pipeline
 
-### 1. Clone and install
-
-```bash
-git clone <your-repo-url>
-cd shipping-delay-prediction
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-### 2. Add your trained artifacts
-
-Copy the following files from your training environment into their
-respective folders (see each folder's `README.md` for details):
-
-```
-models/shipping_delay_model.pkl
-models/scaler.pkl
-models/warehouse_encoder.pkl
-models/shipment_encoder.pkl
-models/importance_encoder.pkl
-data/cleaned.csv
-graphs/*.png            # optional
-```
-
-### 3. Run the app
-
-```bash
-streamlit run app.py
-```
-
-The app opens at `http://localhost:8501`.
-
-> If model or data files are missing, the app still runs — affected pages
-> show a clear notice explaining what to add instead of crashing.
+* Data Cleaning
+* Exploratory Data Analysis (EDA)
+* Feature Engineering
+* Label Encoding
+* Feature Scaling
+* Model Training
+* Hyperparameter Tuning
+* Model Evaluation
+* Streamlit Deployment
 
 ---
 
-## ☁️ Deploying to Streamlit Community Cloud
+## 🏆 Model Performance
 
-1. Push this repository to GitHub (including your `data/` and `models/`
-   files — Streamlit Cloud needs them at runtime; there's no separate
-   file-upload step for the base app).
-2. Go to [share.streamlit.io](https://share.streamlit.io), connect your
-   GitHub account, and select this repo.
-3. Set the main file path to `app.py`.
-4. Deploy — no additional configuration required. All paths in the code are
-   relative to the project root, so it works unmodified in the cloud.
+| Metric       |      Score |
+| ------------ | ---------: |
+| **F1 Score** | **0.7157** |
+
+**Why F1 Score?**
+
+Shipping delay prediction is an imbalanced classification problem, making the F1 Score a better evaluation metric than accuracy because it balances both precision and recall.
+
+---
+
+## 🌲 Feature Importance
+
+The trained model identifies the most influential features affecting shipment delays.
+
+![Feature Importance](graphs/Feature_Importance.png)
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Streamlit** — application framework & UI
-- **scikit-learn** — StandardScaler, LabelEncoder, RandomForest, Stacking, etc.
-- **XGBoost** — gradient boosting comparison model
-- **Plotly** — interactive gauges and charts
-- **Pandas / NumPy** — data handling
-- **joblib** — model & encoder persistence
+**Programming Language**
+
+* Python
+
+**Machine Learning**
+
+* Scikit-learn
+* Pandas
+* NumPy
+
+**Visualization**
+
+* Matplotlib
+* Plotly
+
+**Deployment**
+
+* Streamlit
 
 ---
 
-## 📈 Model Leaderboard (F1 Score)
+## 📂 Project Structure
 
-| Rank | Model | F1 Score |
-|---|---|---|
-| 1 | **Stacking Classifier** ✅ deployed | **0.7157** |
-| 2 | AdaBoost (tuned) | 0.7051 |
-| 3 | XGBoost (tuned) | 0.7030 |
-
-Full comparison across all 10 models (Logistic Regression, KNN, SVM,
-Gaussian Naive Bayes, Decision Tree, Random Forest, AdaBoost, Gradient
-Boosting, XGBoost, Stacking Classifier) is available in the notebook and
-in the app's **Model Info** page.
+```text
+.
+├── app.py
+├── styles.py
+├── utils.py
+├── requirements.txt
+├── README.md
+├── data/
+├── models/
+├── graphs/
+├── notebook/
+└── preview/
+```
 
 ---
 
-## 📄 License
+## 🚀 Installation
 
-This project is provided as-is for portfolio and educational use.
+Clone the repository
+
+```bash
+git clone https://github.com/Harsh-Projects-Here/shipsense.git
+```
+
+Move into the project directory
+
+```bash
+cd shipsense
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 🌐 Live Demo
+
+**🚀 Streamlit App**
+
+https://shipsense-dashboard.streamlit.app/
+
+---
+
+## 📁 Repository
+
+https://github.com/Harsh-Projects-Here/shipsense
+
+---
+
+## 👨‍💻 Author
+
+**Harsh**
+
+Aspiring AI Engineer passionate about building practical Machine Learning applications and intelligent data-driven solutions.
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a **⭐ Star** on GitHub.
