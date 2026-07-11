@@ -1,4 +1,4 @@
-# 🚢 ShipSense - AI-Powered Shipping Delay Prediction
+#  ShipSense - AI-Powered Shipping Delay Prediction
 
 <p align="center">
   <b>Predict shipment delays before dispatch using Machine Learning.</b><br>
