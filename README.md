@@ -1,6 +1,6 @@
 <div style="
 border:3px solid #E5E7EB;
-border-radius:29px;
+border-radius:30px;
 padding:30px;
 background-color:white;
 ">
@@ -145,8 +145,8 @@ Some of the projects currently available in this repository include:
 
 <p>
 
-This repository is <mark style="background-color:#FFCDD2;">not a course</mark>
-or a <mark style="background-color:#FFCDD2;">tutorial</mark>.
+<b>This repository is <mark style="background-color:#FFCDD2;">not a course</mark>
+or a <mark style="background-color:#FFCDD2;">tutorial</mark></b>.
 
 </p>
 
