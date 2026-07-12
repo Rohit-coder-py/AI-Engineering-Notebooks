@@ -39,7 +39,7 @@ VALUES ('Ananya','Kumar','ananya.kumar13@gmail.com','9150603738','2003-10-22','O
 INSERT INTO customers(first_name,last_name,email,phone,date_of_birth,gender,city,state,country)
 VALUES ('Sneha','Kumar','sneha.kumar14@gmail.com','9756826124','2000-03-12','Male','Delhi','Delhi','India');
 INSERT INTO customers(first_name,last_name,email,phone,date_of_birth,gender,city,state,country)
-VALUES ('Arjun','Gupta','arjun.gupta15@gmail.com','9367445361','2000-11-20','Male','Bengaluru','Karnataka','India');
+VALUES ('Arjun','Gupta','arjun.gupta15@gmail.com','9367445361','2000-19-20','Male','Bengaluru','Karnataka','India');
 INSERT INTO customers(first_name,last_name,email,phone,date_of_birth,gender,city,state,country)
 VALUES ('Karan','Kumar','karan.kumar16@gmail.com','9227371361','1983-08-18','Male','Mumbai','Maharashtra','India');
 INSERT INTO customers(first_name,last_name,email,phone,date_of_birth,gender,city,state,country)
