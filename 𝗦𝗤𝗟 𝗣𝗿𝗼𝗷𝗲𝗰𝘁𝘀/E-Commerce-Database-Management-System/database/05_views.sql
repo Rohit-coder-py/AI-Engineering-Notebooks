@@ -1,13 +1,5 @@
 -- =========================================================
--- E-Commerce Database Management System
--- 05_views.sql
--- Reusable reporting views built on top of the schema
--- =========================================================
-
--- =========================================================
 -- 1. order_summary
--- One row per order: customer, order value, status,
--- payment and shipping status all in a single joined view.
 -- =========================================================
 CREATE OR REPLACE VIEW order_summary AS
 SELECT
@@ -126,7 +118,7 @@ FROM products p
 LEFT JOIN reviews r ON p.product_id = r.product_id
 GROUP BY p.product_id, p.product_name;
 
--- Select * from product_ratings order by avg_rating desc nulls last;
+Select * from product_ratings order by avg_rating desc nulls last;
 
 
 -- =========================================================
@@ -167,4 +159,4 @@ JOIN categories cat ON p.category_id = cat.category_id
 LEFT JOIN payments pay ON o.order_id = pay.order_id
 LEFT JOIN shipping s ON o.order_id = s.order_id;
 
--- Select * from all_joined order by order_id desc;
+Select * from all_joined order by order_id desc;
