@@ -1,325 +1,244 @@
---now we will write queries 
+-- =========================================================
+-- E-Commerce Database Management System
+-- 04_queries.sql
+-- Business queries used to explore and report on the data
+-- =========================================================
 
---View data 
+-- View data
+-- =========================================================
+
+SELECT * FROM customers;
+SELECT * FROM categories;
+SELECT * FROM products;
+SELECT * FROM inventory;
+SELECT * FROM orders;
+SELECT * FROM order_items;
+SELECT * FROM payments;
+SELECT * FROM shipping;
+SELECT * FROM reviews;
 
 
-Select * from students;
-Select * from library_cards;
-Select * from categories;
-Select * from books;
-Select * from authors;
+-- =========================================================
+-- Queries on customers table
+-- =========================================================
+
+-- 1. Show all customers.
+SELECT * FROM customers;
+
+-- 2. Find a customer by email.
+SELECT * FROM customers
+WHERE email = 'aditya.kumar1@gmail.com';
+
+-- 3. Count total customers.
+SELECT COUNT(*) AS total_customers FROM customers;
+
+-- 4. Find customers whose first name starts with 'A'.
+SELECT * FROM customers
+WHERE first_name LIKE 'A%';
+
+-- 5. Count customers by city.
+SELECT city, COUNT(*) AS total_customers
+FROM customers
+GROUP BY city
+ORDER BY total_customers DESC;
 
 
---
+-- =========================================================
+-- Queries on products table
+-- =========================================================
+
+-- 6. Show all products with category name.
+SELECT p.product_id, p.product_name, p.brand, p.price, c.category_name
+FROM products p
+JOIN categories c ON p.category_id = c.category_id;
+
+-- 7. Find products priced above 50000.
+SELECT product_name, brand, price
+FROM products
+WHERE price > 50000
+ORDER BY price DESC;
+
+-- 8. Count products by category.
+SELECT c.category_name, COUNT(p.product_id) AS total_products
+FROM categories c
+JOIN products p ON c.category_id = p.category_id
+GROUP BY c.category_name
+ORDER BY total_products DESC;
+
+-- 9. Find the most expensive product per category.
+SELECT c.category_name, p.product_name, p.price
+FROM products p
+JOIN categories c ON p.category_id = c.category_id
+WHERE p.price = (
+    SELECT MAX(p2.price)
+    FROM products p2
+    WHERE p2.category_id = p.category_id
+);
 
 
+-- =========================================================
+-- Queries on inventory table
+-- =========================================================
+
+-- 10. Products that are low on stock (at or below reorder level).
+SELECT p.product_name, i.stock_quantity, i.reorder_level
+FROM inventory i
+JOIN products p ON i.product_id = p.product_id
+WHERE i.stock_quantity <= i.reorder_level
+ORDER BY i.stock_quantity ASC;
+
+-- 11. Products that are completely out of stock.
+SELECT p.product_name, i.stock_quantity
+FROM inventory i
+JOIN products p ON i.product_id = p.product_id
+WHERE i.stock_quantity = 0;
+
+-- 12. Total stock value held in inventory.
+SELECT ROUND(SUM(p.price * i.stock_quantity), 2) AS total_inventory_value
+FROM inventory i
+JOIN products p ON i.product_id = p.product_id;
+
+
+-- =========================================================
+-- Queries on orders table
+-- =========================================================
+
+-- 13. Show all orders with customer name.
+SELECT o.order_id, c.first_name, c.last_name, o.order_date, o.order_status, o.total_amount
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+ORDER BY o.order_date DESC;
+
+-- 14. Count orders by status.
+SELECT order_status, COUNT(*) AS total_orders
+FROM orders
+GROUP BY order_status
+ORDER BY total_orders DESC;
+
+-- 15. Total revenue from delivered orders.
+SELECT ROUND(SUM(total_amount), 2) AS total_revenue
+FROM orders
+WHERE order_status = 'Delivered';
+
+-- 16. Monthly revenue trend.
+SELECT TO_CHAR(order_date, 'YYYY-MM') AS order_month,
+       ROUND(SUM(total_amount), 2) AS monthly_revenue,
+       COUNT(*) AS total_orders
+FROM orders
+GROUP BY TO_CHAR(order_date, 'YYYY-MM')
+ORDER BY order_month;
+
+-- 17. Cancellation rate.
 SELECT
-    s.student_id,
-    s.name,
-    s.phone,
-    s.email,
-
-    lc.card_number,
-    lc.issue_date,
-
-    b.title AS book_name,
-    a.author_name,
-    c.category_name,
-
-    br.borrow_date,
-    br.due_date,
-    br.return_date,
-    br.status
-
-FROM students s
-
-JOIN library_cards lc
-ON s.student_id = lc.student_id
-
-LEFT JOIN borrow_records br
-ON s.student_id = br.student_id
-
-LEFT JOIN books b
-ON br.book_id = b.book_id
-
-LEFT JOIN authors a
-ON b.author_id = a.author_id
-
-LEFT JOIN categories c
-ON b.category_id = c.category_id
-
-WHERE s.name = 'Rahul Sharma';
+    ROUND(
+        100.0 * SUM(CASE WHEN order_status = 'Cancelled' THEN 1 ELSE 0 END) / COUNT(*),
+        2
+    ) AS cancellation_rate_percent
+FROM orders;
 
 
---
+-- =========================================================
+-- Queries on order_items table (joins across orders / products)
+-- =========================================================
 
+-- 18. Full order detail: customer, products, quantity, and line total.
 SELECT
-    s.student_id,
-    s.name,
-    s.phone,
-    s.email,
-
-    lc.card_number,
-    lc.issue_date,
-
-    b.title AS book_name,
-    a.author_name,
-    c.category_name,
-
-    br.borrow_date,
-    br.due_date,
-    br.return_date,
-    br.status
-
-FROM students s
-
-JOIN library_cards lc
-ON s.student_id = lc.student_id
-
-LEFT JOIN borrow_records br
-ON s.student_id = br.student_id
-
-LEFT JOIN books b
-ON br.book_id = b.book_id
-
-LEFT JOIN authors a
-ON b.author_id = a.author_id
-
-LEFT JOIN categories c
-ON b.category_id = c.category_id
-ORDER BY student_id DESC;
-
-
-
---creating view of all joined table 
-
-
-CREATE VIEW all_tables AS
-SELECT
-    s.student_id,
-    s.name,
-    s.phone,
-    s.email,
-
-    lc.card_number,
-    lc.issue_date,
-
-    b.title AS book_name,
-    a.author_name,
-    c.category_name,
-
-    br.borrow_date,
-    br.due_date,
-    br.return_date,
-    br.status
-
-FROM students s
-
-JOIN library_cards lc
-ON s.student_id = lc.student_id
-
-LEFT JOIN borrow_records br
-ON s.student_id = br.student_id
-
-LEFT JOIN books b
-ON br.book_id = b.book_id
-
-LEFT JOIN authors a
-ON b.author_id = a.author_id
-
-LEFT JOIN categories c
-ON b.category_id = c.category_id;
-
-Select * from all_tables
-
-=========================================
---- queries from students table 
-=========================================
-
--- 1.Show all students.
--- 2.Find a student by name.
--- 3.Count total students.
--- 4.Find students whose names start with R.
--- 5.Find students by email.
-
-
--- 1.Show all students.
-
-Select * from students
-
--- 2.Find a student by name.
-
-Select * from students 
-where name = 'Rohit Kumar';
-
-
--- 3.Count total students.
-
-Select Count(name) from students;
-
--- 4.Find students whose names start with R.
-
-SELECT * FROM students
-WHERE name LIKE 'R%';
-
-
--- 5.Find students by email.
-
-Select * from students 
-where email = 'rahul1@gmail.com';
-
-
-
-===========================================================
--now queries from library_cards table 
-===========================================================
-
-
-1. Show all library cards.
-2. Which student has which card?
-3. Card issued today?
-4. Count total cards.
-
-
-
--- 1. Show all library cards.
-
-select * from library_cards
-
-
-
--- 2. Which student has which card?
-
-Select s.student_id,s.name,card_number from students s join library_cards lc on s.student_id  = lc.student_id
-
-
--- 3. Card issued today?
-
-Select s.student_id,s.name,lc.card_number,lc.issue_date from students s join library_cards lc on s.student_id  = lc.student_id
-where issue_date = '2026-07-10'
-
--- 4. Count total cards.
-
-Select Count(card_number) as total_cards from library_cards
-
-
-===========================================================
--now queries from category table 
-===========================================================
-
--- 1. Show all categories.
--- 2. Count categories.
-
-Select * from categories
-
--- 2. Count categories.
-Select Count(Distinct category_name ) as total_categories from  categories
-
-
-
-===========================================================
---now queries from books table 
-===========================================================
-
--- 1. Show all books.
--- 2.Find books published after 2000.
--- 3.Books with more than 5 copies.
--- 4.Books in Fantasy.
--- 5.Books written by J.K. Rowling
-
--- 1. Show all books.
-
-Select * from books
-
--- 2.Find books published after 2000.
-
-
-Select title,publication_year from books 
-where publication_year > 2000;
-
-
--- 3.Books with more than 5 copies.
-
-Select title , publication_year, copies_available from books 
-where copies_available > 5;
-
--- 4.Books in Fantasy.
-
-
-
-
-Select books.title,categories.category_name from books join categories  on books.author_id = categories.category_id 
-where category_name = 'Fantasy'
-
-
--- 5.Books written by J.K. Rowling
-Select authors.author_name,books.title from books join authors  on books.author_id = authors.author_id
-where author_name = 'J.K. Rowling'
-
-
-===========================================================
---now queries from authors table 
-===========================================================
-
-1.List all authors.
-2.Find authors from India.
-3.Count authors by country.
-
--- 1.List all authors.
-
-Select * from authors
-
--- 2.Find authors from India.
-
-Select * from authors where country = 'India'
-
-
--- 3.Count authors by country
-
-Select country,Count(country) from authors Group by country
-
-
-
-
-===========================================================
---now queries from borrow_records
-===========================================================
-
-
--- 1.Borrowed books.
--- 2.Returned books.
--- 3.Overdue books.
--- 4.Today's borrowings.
--- 5.Total borrowed books.
-
--- 1.Borrowed books.
-Select * from borrow_records
-
-
-Select b.title , br.status from books b join borrow_records br on b.book_id = br.book_id
-
--- 2.Returned books.
-
-Select b.title , br.status from books b join borrow_records br on b.book_id = br.book_id
-where br.status = 'Returned'
-
-
--- 3.Overdue books.
-
-Select b.title , br.status from books b join borrow_records br on b.book_id = br.book_id
-where br.status = 'Borrowed'
-
--- 4.Today's borrowings.
-
-Select b.title , br.status,br.borrow_date from books b join borrow_records br on b.book_id = br.book_id
-where br.borrow_date = '2026-07-10'
-
-
--- 5.Total borrowed books.
-
-Select COUNT(status) as Borrowed_Books from borrow_records where status = 'Borrowed'
-
-
-
-
-===================================================
+    o.order_id,
+    c.first_name || ' ' || c.last_name AS customer_name,
+    p.product_name,
+    oi.quantity,
+    oi.unit_price,
+    ROUND(oi.quantity * oi.unit_price, 2) AS line_total,
+    o.order_status
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+ORDER BY o.order_id;
+
+-- 19. Best-selling products by quantity sold.
+SELECT p.product_name, SUM(oi.quantity) AS total_units_sold
+FROM order_items oi
+JOIN products p ON oi.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY total_units_sold DESC
+LIMIT 10;
+
+-- 20. Top 10 customers by total amount spent.
+SELECT c.customer_id, c.first_name, c.last_name,
+       ROUND(SUM(oi.quantity * oi.unit_price), 2) AS total_spent
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC
+LIMIT 10;
+
+
+-- =========================================================
+-- Queries on payments table
+-- =========================================================
+
+-- 21. Revenue split by payment method.
+SELECT payment_method, COUNT(*) AS total_payments, ROUND(SUM(amount), 2) AS total_amount
+FROM payments
+WHERE payment_status = 'Paid'
+GROUP BY payment_method
+ORDER BY total_amount DESC;
+
+-- 22. Orders with pending or failed payments.
+SELECT o.order_id, c.first_name, c.last_name, pay.payment_status, pay.amount
+FROM payments pay
+JOIN orders o ON pay.order_id = o.order_id
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE pay.payment_status IN ('Pending', 'Failed');
+
+
+-- =========================================================
+-- Queries on shipping table
+-- =========================================================
+
+-- 23. Orders currently in transit or preparing, with destination.
+SELECT o.order_id, s.city, s.state, s.shipping_status, s.shipping_date, s.delivery_date
+FROM shipping s
+JOIN orders o ON s.order_id = o.order_id
+WHERE s.shipping_status IN ('Preparing', 'In Transit')
+ORDER BY s.shipping_date;
+
+-- 24. Average delivery time (days) for delivered shipments.
+SELECT ROUND(AVG(delivery_date - shipping_date), 1) AS avg_delivery_days
+FROM shipping
+WHERE shipping_status = 'Delivered';
+
+-- 25. Orders shipped to each state.
+SELECT state, COUNT(*) AS total_shipments
+FROM shipping
+GROUP BY state
+ORDER BY total_shipments DESC;
+
+
+-- =========================================================
+-- Queries on reviews table
+-- =========================================================
+
+-- 26. Average rating per product.
+SELECT p.product_name, ROUND(AVG(r.rating), 2) AS avg_rating, COUNT(r.review_id) AS total_reviews
+FROM reviews r
+JOIN products p ON r.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY avg_rating DESC, total_reviews DESC;
+
+-- 27. Products with a rating below 3 (needs attention).
+SELECT p.product_name, r.rating, r.review_text, c.first_name, c.last_name
+FROM reviews r
+JOIN products p ON r.product_id = p.product_id
+JOIN customers c ON r.customer_id = c.customer_id
+WHERE r.rating < 3;
+
+-- 28. Most reviewed products.
+SELECT p.product_name, COUNT(r.review_id) AS total_reviews
+FROM reviews r
+JOIN products p ON r.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY total_reviews DESC
+LIMIT 10;

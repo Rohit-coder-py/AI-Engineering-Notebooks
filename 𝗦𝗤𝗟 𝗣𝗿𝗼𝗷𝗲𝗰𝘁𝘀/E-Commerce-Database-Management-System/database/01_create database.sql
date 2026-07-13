@@ -1,1 +1,0 @@
-Create database ecommerce_db;
