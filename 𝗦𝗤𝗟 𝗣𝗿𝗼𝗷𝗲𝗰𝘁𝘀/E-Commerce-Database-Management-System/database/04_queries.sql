@@ -1,9 +1,4 @@
--- =========================================================
--- E-Commerce Database Management System
--- 04_queries.sql
--- Business queries used to explore and report on the data
--- =========================================================
-
+===========================================================
 -- View data
 -- =========================================================
 
@@ -17,6 +12,95 @@ SELECT * FROM payments;
 SELECT * FROM shipping;
 SELECT * FROM reviews;
 
+-- ===========================================
+-- Creating a view thats joins all the table together
+-- ================================================
+CREATE VIEW view_all_tables AS
+SELECT
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    c.email,
+    c.phone,
+    c.city AS customer_city,
+    c.state AS customer_state,
+    c.country AS customer_country,
+
+    o.order_id,
+    o.order_date,
+    o.order_status,
+    o.total_amount,
+
+    oi.order_item_id,
+    oi.quantity,
+    oi.unit_price,
+
+    p.product_id,
+    p.product_name,
+    p.brand,
+    p.description AS product_description,
+    p.price,
+    p.status AS product_status,
+
+    cat.category_id,
+    cat.category_name,
+    cat.description AS category_description,
+
+    i.inventory_id,
+    i.stock_quantity,
+    i.reorder_level,
+    i.last_updated,
+
+    pay.payment_id,
+    pay.payment_date,
+    pay.payment_method,
+    pay.payment_status,
+    pay.amount AS payment_amount,
+
+    s.shipping_id,
+    s.address,
+    s.city AS shipping_city,
+    s.state AS shipping_state,
+    s.country AS shipping_country,
+    s.postal_code,
+    s.shipping_date,
+    s.delivery_date,
+    s.shipping_status,
+
+    r.review_id,
+    r.rating,
+    r.review_text,
+    r.review_date
+
+FROM customers c
+LEFT JOIN orders o
+ON c.customer_id = o.customer_id
+
+LEFT JOIN order_items oi
+ON o.order_id = oi.order_id
+
+LEFT JOIN products p
+ON oi.product_id = p.product_id
+
+LEFT JOIN categories cat
+ON p.category_id = cat.category_id
+
+LEFT JOIN inventory i
+ON p.product_id = i.product_id
+
+LEFT JOIN payments pay
+ON o.order_id = pay.order_id
+
+LEFT JOIN shipping s
+ON o.order_id = s.order_id
+
+LEFT JOIN reviews r
+ON c.customer_id = r.customer_id
+AND p.product_id = r.product_id;
+
+
+
+Select * from view_all_tables
 
 -- =========================================================
 -- Queries on customers table
