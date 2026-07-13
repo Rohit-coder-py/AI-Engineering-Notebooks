@@ -1,138 +1,253 @@
 # E-Commerce Database Management System
 
-A PostgreSQL database project modeling the core operations of an online store:
-customers, product catalog, inventory, orders, payments, shipping, and reviews.
-Built to practice relational schema design, constraints, joins, aggregate
-reporting, and views on realistic, related data.
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-Advanced-blue)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## Highlights
+**𝗜𝗻𝘀𝗽𝗶𝗿𝗲𝗱 𝗯𝘆 𝘁𝗵𝗲 𝗯𝗮𝗰𝗸𝗲𝗻𝗱 𝗱𝗮𝘁𝗮𝗯𝗮𝘀𝗲𝘀 𝘂𝘀𝗲𝗱 𝗯𝘆 Amazon, Flipkart, Walmart,
+eBay, and Shopify.**
 
-- **9 tables** covering the full order lifecycle, from catalog to delivery
-- **100 customers · 200 products · 300 orders · 700 order items · 500 reviews**
-  of interlinked sample data
-- **28 business queries** answering real questions (revenue, top customers,
-  low stock, delivery time, ratings, etc.)
-- **7 reporting views** for repeatable dashboards
-- Enforced data integrity via foreign keys and `CHECK` constraints throughout
+> **This is an educational clone created for learning SQL and relational
+> database design. It is not affiliated with or derived from any of the
+> companies mentioned above.**
 
-## Project Structure
+------------------------------------------------------------------------
 
-```
+# Table of Contents
+
+-   [Project Overview](#project-overview)
+-   [Features](#features)
+-   [Tech Stack](#tech-stack)
+-   [Project Structure](#project-structure)
+-   [Database Tables](#database-tables)
+-   [Relationships](#relationships)
+-   [SQL Concepts](#sql-concepts)
+-   [Reports](#reports)
+-   [Screenshots](#screenshots)
+-   [Database Design](#database-design)
+-   [How to Run](#how-to-run)
+-   [Future Improvements](#future-improvements)
+-   [Author](#author)
+
+------------------------------------------------------------------------
+
+# Project Overview
+
+This project simulates the backend database of a modern e-commerce
+platform using PostgreSQL.
+
+**𝗞𝗲𝘆 𝗢𝗯𝗷𝗲𝗰𝘁𝗶𝘃𝗲𝘀**
+
+➜ Design a normalized relational database\
+➜ Maintain data integrity using constraints\
+➜ Demonstrate real-world SQL queries\
+➜ Build reports using Views and JOINs\
+➜ Organize realistic business data
+
+------------------------------------------------------------------------
+
+# Features
+
+⭐ Normalized Database Design (3NF)
+
+⭐ Primary & Foreign Keys
+
+⭐ CHECK & UNIQUE Constraints
+
+⭐ Inventory Management
+
+⭐ Order Management
+
+⭐ Payment Tracking
+
+⭐ Product Reviews
+
+⭐ Revenue Reporting
+
+⭐ Complex JOIN Queries
+
+⭐ SQL Views
+
+⭐ Business Reports
+
+------------------------------------------------------------------------
+
+# Tech Stack
+
+-   PostgreSQL
+-   SQL
+-   pgAdmin
+
+------------------------------------------------------------------------
+
+# Project Structure
+
+``` text
 E-Commerce-Database-Management-System/
+│
+├── README.md
 ├── database/
-│   ├── 01_create_database.sql      # Creates the database
-│   ├── 02_create_tables.sql        # Full schema: 9 tables, constraints, FKs
-│   ├── 03_insert_sample_data.sql   # Sample data (100 customers ... 500 reviews)
-│   ├── 04_queries.sql              # 28 business queries, grouped by table
-│   └── 05_views.sql                # 7 reusable reporting views
+│   ├── 01_create_database.sql
+│   ├── 02_create_tables.sql
+│   ├── 03_insert_sample_data.sql
+│   ├── 04_queries.sql
+│   └── 05_views.sql
 ├── diagrams/
-│   ├── er_diagram.png              # Entity-relationship diagram
-│   └── schema.png                  # High-level schema overview
-├── screenshots/
-│   ├── tables.png
-│   ├── joins.png
-│   ├── views.png
-│   ├── revenue_report.png
-│   ├── top_customers.png
-│   └── inventory_report.png
+│   ├── er_diagram.png
+│   └── schema.png
 ├── docs/
-│   ├── database_design.md          # Design notes and table-by-table rationale
-│   └── project_report.pdf          # Written project report
-└── README.md
+│   ├── database_design.md
+│   └── project_report.pdf
+└── screenshots/
+    ├── inventory_report.png
+    ├── joins.png
+    ├── revenue_report.png
+    ├── tables.png
+    ├── top_customers.png
+    └── views.png
 ```
 
-## Schema at a Glance
+------------------------------------------------------------------------
 
-| Table          | Purpose                                            |
-|----------------|-----------------------------------------------------|
-| `customers`    | Customer profile and contact/location details       |
-| `categories`   | Product categories                                   |
-| `products`     | Catalog items, priced and linked to a category        |
-| `inventory`    | One-to-one stock record per product                    |
-| `orders`       | An order placed by a customer                           |
-| `order_items`  | Line items on an order (product + quantity)              |
-| `payments`     | One-to-one payment record per order                      |
-| `shipping`     | One-to-one shipping/delivery record per order              |
-| `reviews`      | Customer reviews of products                                |
+# Database Tables
 
-See [`diagrams/er_diagram.png`](diagrams/er_diagram.png) for the full entity
-relationship diagram, and [`docs/database_design.md`](docs/database_design.md)
-for the reasoning behind each design decision.
+  Table         Purpose
+  ------------- -----------------------------
+  Customers     Stores customer information
+  Categories    Product categories
+  Suppliers     Supplier information
+  Products      Product catalog
+  Inventory     Stock management
+  Orders        Customer orders
+  Order_Items   Products within orders
+  Payments      Payment records
+  Reviews       Customer reviews
 
-## Getting Started
+------------------------------------------------------------------------
 
-Requires PostgreSQL (tested on PostgreSQL 13+).
+# Relationships
 
-```bash
-# 1. Create the database
-psql -U <user> -f database/01_create_database.sql
+➜ One Customer → Many Orders
 
-# 2. Create the schema
-psql -U <user> -d ecommerce_db -f database/02_create_tables.sql
+➜ One Customer → Many Reviews
 
-# 3. Load sample data
-psql -U <user> -d ecommerce_db -f database/03_insert_sample_data.sql
+➜ One Category → Many Products
 
-# 4. Run the business queries
-psql -U <user> -d ecommerce_db -f database/04_queries.sql
+➜ One Supplier → Many Products
 
-# 5. Create the reporting views
-psql -U <user> -d ecommerce_db -f database/05_views.sql
+➜ One Product → One Inventory Record
+
+➜ One Product → Many Reviews
+
+➜ One Order → Many Order Items
+
+➜ One Product → Many Order Items
+
+------------------------------------------------------------------------
+
+# SQL Concepts
+
+-   CREATE DATABASE
+-   CREATE TABLE
+-   Constraints
+-   Primary Keys
+-   Foreign Keys
+-   INSERT
+-   INNER JOIN
+-   LEFT JOIN
+-   RIGHT JOIN
+-   Aggregate Functions
+-   GROUP BY
+-   HAVING
+-   ORDER BY
+-   Views
+
+------------------------------------------------------------------------
+
+# Reports
+
+-   Revenue Report
+-   Inventory Report
+-   Customer Order Report
+-   Top Customers
+-   Product Performance
+-   JOIN Demonstrations
+
+------------------------------------------------------------------------
+
+# Screenshots
+
+## Tables
+
+![Tables](screenshots/tables.png)
+
+## JOIN Queries
+
+![Joins](screenshots/joins.png)
+
+## Revenue Report
+
+![Revenue](screenshots/revenue_report.png)
+
+## Inventory Report
+
+![Inventory](screenshots/inventory_report.png)
+
+## Top Customers
+
+![Top Customers](screenshots/top_customers.png)
+
+## Views
+
+![Views](screenshots/views.png)
+
+------------------------------------------------------------------------
+
+# Database Design
+
+## ER Diagram
+
+![ER Diagram](diagrams/er_diagram.png)
+
+## Database Schema
+
+![Schema](diagrams/schema.png)
+
+------------------------------------------------------------------------
+
+# How to Run
+
+1.  Clone this repository.
+2.  Open PostgreSQL and pgAdmin.
+3.  Execute the SQL files in the following order:
+
+``` text
+01_create_database.sql
+02_create_tables.sql
+03_insert_sample_data.sql
+04_queries.sql
+05_views.sql
 ```
 
-Or from inside `psql`:
+4.  Explore the reports and views.
 
-```sql
-\i database/01_create_database.sql
-\c ecommerce_db
-\i database/02_create_tables.sql
-\i database/03_insert_sample_data.sql
-\i database/04_queries.sql
-\i database/05_views.sql
-```
+------------------------------------------------------------------------
 
-## Example Queries
+# Future Improvements
 
-Top 10 customers by lifetime spend:
+-   Stored Procedures
+-   Triggers
+-   Index Optimization
+-   Transactions
+-   User Roles & Permissions
 
-```sql
-SELECT c.customer_id, c.first_name, c.last_name,
-       ROUND(SUM(oi.quantity * oi.unit_price), 2) AS total_spent
-FROM customers c
-JOIN orders o ON c.customer_id = o.customer_id
-JOIN order_items oi ON o.order_id = oi.order_id
-GROUP BY c.customer_id, c.first_name, c.last_name
-ORDER BY total_spent DESC
-LIMIT 10;
-```
+------------------------------------------------------------------------
 
-Products that need restocking:
+# Author
 
-```sql
-SELECT p.product_name, i.stock_quantity, i.reorder_level
-FROM inventory i
-JOIN products p ON i.product_id = p.product_id
-WHERE i.stock_quantity <= i.reorder_level
-ORDER BY i.stock_quantity ASC;
-```
+**Rohit Jha**
 
-More in [`database/04_queries.sql`](database/04_queries.sql), and ready-made
-views for the same kind of reporting in [`database/05_views.sql`](database/05_views.sql).
+Aspiring AI Engineer \| Python \| SQL \| Machine Learning \| PostgreSQL
 
-## Design Notes
-
-- `orders`, `payments`, and `shipping` are deliberately split into three
-  tables even though each order has exactly one payment and one shipment —
-  this keeps each table focused on a single concern and mirrors how a real
-  system would evolve (e.g. multiple payment attempts per order later).
-- `inventory` is separated from `products` so that stock levels can be
-  updated frequently without touching catalog data.
-- All monetary values use `NUMERIC(10,2)` to avoid floating-point rounding
-  errors.
-- Every status column (`order_status`, `payment_status`, `shipping_status`,
-  `products.status`) is constrained with `CHECK (... IN (...))` so invalid
-  states can't be inserted.
-
-## License
-
-Sample/educational project — free to use and adapt.
+GitHub: **Rohit-coder-py**
