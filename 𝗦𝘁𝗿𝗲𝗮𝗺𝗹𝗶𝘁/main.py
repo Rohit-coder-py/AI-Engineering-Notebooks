@@ -8,7 +8,7 @@ st.subheader("Brewed with streamlit")
 st.text("Welcome to your first interative app")
 st.write("Chooose your fav. variety of chai")
 
-chai = st.selectbox("Your fav chai: ", ["Masala chai","Lemon Tea", "Adrak Chai", "Kesar Chai"])
+chai = st.selectbox("Your fav chai: ", ["Masala chai","Lemon Tea", "Adrak Chai", "Kesar Chai",'Milk Tea'])
 
 
 st.write("You selected",chai)
