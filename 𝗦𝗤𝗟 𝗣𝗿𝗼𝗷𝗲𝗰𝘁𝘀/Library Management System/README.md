@@ -46,7 +46,7 @@ database/
 
 ### Relationships
 
-![Relationships](screenshots/RekationShips.png)
+![Relationships](screenshots/RelationShips.png)
 
 ### Sample Queries
 
