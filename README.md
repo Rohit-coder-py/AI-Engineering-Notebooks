@@ -12,7 +12,7 @@ background-color:white;
 </h1>
 
 <p>
-<i>Documenting my journey toward becoming an AI Engineer.</i>
+<i>Documenting my journey toward becoming an AI Engineer</i>
 </p>
 
 </div>
