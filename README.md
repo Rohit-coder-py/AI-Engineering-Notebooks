@@ -140,7 +140,7 @@ Some of the projects currently available in this repository include:
 <hr>
 
 <h2>
-<font color="DarkOrange">Purpose of This Repository</font>
+<font color="DarkOrange">Purpose of This Repository </font>
 </h2>
 
 <p>
