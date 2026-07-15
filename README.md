@@ -119,7 +119,7 @@ Some of the projects currently available in this repository include:
 
 <ul>
 
-<li>Student Success Predictor</li>
+<li>Student Success Predictor </li>
 
 <li>Employee Salary Predictor</li>
 
