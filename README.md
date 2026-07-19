@@ -95,7 +95,7 @@ Inside this repository, you'll find learning resources covering:
 
 <li><b>SQL Notes & Practice Queries</b></li>
 
-<li><b>EDA (Exploratory Data Analysis)</b></li>
+<li><b>EDA (Exploratory Data Analysis) </b></li>
 
 <li><b>Model Building & Evaluation</b></li>
 
