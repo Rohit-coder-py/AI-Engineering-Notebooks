@@ -161,7 +161,7 @@ with st.sidebar:
 Flatten<br>
 &darr;<br>
 FC 512 &rarr; FC 128 &rarr; FC 2<br><br>
-Input: 96x96 RGB, ImageNet-normalized<br>
+Input: 224x224 RGB, ImageNet-normalized<br>
 Loss: CrossEntropyLoss<br>
 Optimizer: Adam (lr=0.001)
 </div>

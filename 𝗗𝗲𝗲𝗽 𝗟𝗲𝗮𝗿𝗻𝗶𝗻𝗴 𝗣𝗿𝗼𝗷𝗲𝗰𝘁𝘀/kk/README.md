@@ -72,7 +72,7 @@ Cats_vs_Dogs/
 ## Model
 
 `CatDogCNN`: 4 conv blocks (32 → 64 → 128 → 256 channels, each Conv2d + ReLU + MaxPool)
-→ AdaptiveAvgPool2d(4,4) → Flatten → FC(512) → FC(128) → FC(2). Input is 96×96 RGB, ImageNet-normalized.
+→ Flatten → FC(512) → FC(128) → FC(2). Input is 224×224 RGB, ImageNet-normalized.
 Loss: CrossEntropyLoss. Optimizer: Adam (lr=0.001).
 
 ## Setup

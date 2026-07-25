@@ -60,13 +60,6 @@ class CatDogCNN(nn.Module):
         )
 
         # ==========================
-        # Global Average Pool - shrinks the 14x14 feature map down to
-        # 4x4 before the FC layers (cuts fc1 from ~25.7M params down
-        # to a fraction of that, much faster to train)
-        # ==========================
-        self.gap = nn.AdaptiveAvgPool2d((4, 4))
-
-        # ==========================
         # Flatten Layer
         # ==========================
         self.flatten = nn.Flatten()
@@ -75,7 +68,7 @@ class CatDogCNN(nn.Module):
         # Fully Connected Layers
         # ==========================
         self.fc1 = nn.Linear(
-            in_features=4096,      # 256 x 4 x 4 (after AdaptiveAvgPool2d)
+            in_features=50176,      # 256 x 14 x 14
             out_features=512
         )
 
@@ -120,11 +113,6 @@ class CatDogCNN(nn.Module):
         x = self.pool(x)
 
         # ==========================
-        # Global Average Pool
-        # ==========================
-        x = self.gap(x)
-
-        # ==========================
         # Flatten
         # ==========================
         x = self.flatten(x)
@@ -149,7 +137,7 @@ class CatDogCNN(nn.Module):
 from torchvision import transforms
 
 inference_transform = transforms.Compose([
-    transforms.Resize((96, 96)),
+    transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(
         mean=[0.485, 0.456, 0.406],
