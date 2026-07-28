@@ -1,161 +1,96 @@
-# 📱 Smartphone Usage & Addiction Prediction
+# 🛡️ Fraud Sentinel — Credit Card Fraud Detection
 
-An end-to-end deep learning project that predicts whether a person's
-smartphone usage pattern qualifies as **addictive**, using a PyTorch
-Artificial Neural Network trained on behavioural and demographic data.
-
----
-
-## Business Problem
-
-Excessive smartphone use is linked to disrupted sleep, lower academic/work
-performance, and elevated stress. This project builds a screening model
-that flags addictive usage risk from simple, self-reportable inputs —
-screen time, social media hours, sleep, notification volume, stress level,
-and a few demographics — so the risk can be surfaced early, before it's a
-crisis.
-
-**Task type:** Binary classification (`addicted_label`: 1 = addictive
-pattern, 0 = not)
-
----
+A PyTorch neural network that screens credit-card transactions for fraud, wrapped
+in a dark, premium Streamlit app for interactive scoring, batch upload, and
+model-performance exploration.
 
 ## Dataset
 
-- **Source:** [Kaggle — Smartphone Usage And Addiction Analysis](https://www.kaggle.com/datasets/jayjoshi37/smartphone-usage-and-addiction-prediction)
-- **Size:** 7,500 rows, 16 columns
-- **Class balance:** 5,308 addicted (70.8%) vs 2,192 not addicted (29.2%)
+339,607 real credit-card transactions across 14 merchant categories and 13
+US states, with a **0.52% fraud rate** (1,782 fraud cases — a ~189:1
+class imbalance). Source: [Kaggle — Credit Card Fraud
+Dataset](https://www.kaggle.com/datasets/dhruvb2028/credit-card-fraud-dataset).
 
-**Features used:**
-
-| Feature | Type | Description |
-|---|---|---|
-| age | numeric | 18–35 |
-| daily_screen_time_hours | numeric | Total daily screen time |
-| social_media_hours | numeric | Daily social media use |
-| gaming_hours | numeric | Daily gaming use |
-| work_study_hours | numeric | Daily work/study screen use |
-| sleep_hours | numeric | Daily sleep |
-| notifications_per_day | numeric | Notification count |
-| app_opens_per_day | numeric | App-open count |
-| weekend_screen_time | numeric | Weekend screen time |
-| gender | categorical | Male / Female / Other |
-| stress_level | categorical | Low / Medium / High |
-| academic_work_impact | categorical | Self-reported Yes/No |
-
-**Important — data leakage found and removed:** the raw dataset includes an
-`addiction_level` column (Mild / Moderate / Severe) that maps **perfectly**
-onto the target (`Mild → 0`, `Moderate`/`Severe → 1`). Since it's derived
-directly from the label, it was dropped before modelling — along with
-`transaction_id` and `user_id`, which are pure identifiers.
-
----
-
-## EDA Highlights
-
-- `social_media_hours` and `daily_screen_time_hours` show the strongest
-  positive relationship with addiction risk.
-- `sleep_hours` is negatively correlated — more sleep, lower risk.
-- `stress_level = High` and `academic_work_impact = Yes` skew heavily
-  toward the addicted class.
-- `gender` is only a weak standalone predictor.
-
-See `images/` for the full set of EDA charts (target distribution, feature
-histograms, correlation heatmap, categorical breakdowns) and
-`notebooks/Main.ipynb` for the full walkthrough with narrative.
-
----
+Features used (11 total): `merchant, category, amt, city, state, lat, long,
+city_pop, job, merch_lat, merch_long`. Identifier/leakage columns
+(`trans_date_trans_time`, `dob`, `trans_num`) are dropped before modelling.
 
 ## Model
 
-A feed-forward ANN (PyTorch `nn.Module`) with:
-
-- 3 hidden layers (64 → 32 → 16 units), ReLU activations, dropout (0.2)
-- Single logit output, `BCEWithLogitsLoss` with a `pos_weight` term to
-  correct for class imbalance
-- Adam optimizer, lr = 5e-4, batch size 32, 60 epochs
-
-Three hyperparameter configurations (baseline / deeper / wide-lowlr) were
-trained and compared on validation F1; the `wide_lowlr` config won and was
-used for the final saved model.
-
-### Results (held-out test set, 1,125 rows)
-
-| Metric | Score |
-|---|---|
-| Accuracy | 93.9% |
-| Precision | 99.2% |
-| Recall | 92.1% |
-| F1 Score | 95.5% |
-| ROC-AUC | 0.989 |
-
-Confusion matrix and ROC curve are saved in `images/06_confusion_matrix.png`
-and `images/07_roc_curve.png`.
-
----
-
-## Project Structure
+A compact feed-forward network built in PyTorch:
 
 ```
-Smartphone-Addiction-Prediction/
-│
-├── data/
-│   └── Smartphone_Usage_And_Addiction_Analysis_7500_Rows.csv
+Input (11) → Linear(16) → ReLU → Linear(8) → ReLU → Linear(1) → sigmoid
+```
+
+Trained with `BCEWithLogitsLoss` and Adam (lr=1e-3) for 10 epochs on a
+70/15/15 train/validation/test split.
+
+## Results (held-out test set, 50,942 transactions)
+
+| Metric | Legitimate | Fraud |
+|---|---|---|
+| Precision | 99.65% | 73.33% |
+| Recall | 99.94% | 32.84% |
+| F1-score | 99.79% | 45.36% |
+
+**Accuracy: 99.58%** &nbsp;·&nbsp; **ROC-AUC: 0.907**
+
+Accuracy alone is misleading on this dataset — a model predicting "legitimate"
+for everything would already score ~99.5%. The model's ROC-AUC of 0.91 shows it
+has genuinely learned to rank risk well, but at the default 0.5 threshold it
+only catches about 1 in 3 fraud cases (no class weighting was used, on purpose,
+to keep the notebook's original training run intact — see the notebook's
+"Conclusion & Next Steps" section for how to improve this).
+
+## Project structure
+
+```
+Credit Card Fraud Detection/
+├── app/                     # Streamlit app
+│   ├── app.py                # main entry point / page router
+│   ├── components.py         # reusable HTML/CSS UI components
+│   ├── style.py               # theme CSS
+│   └── data_utils.py         # cached data/model loaders
+├── src/                     # reusable pipeline code
+│   ├── model.py               # PyTorch model architecture
+│   ├── preprocessing.py      # encoder/scaler wrapper
+│   ├── infer.py               # inference helper used by the app
+│   └── train.py               # standalone retraining script
 ├── notebooks/
-│   └── Main.ipynb            # Full narrative walkthrough, phases 1-19
-├── src/
-│   ├── preprocessing.py      # Cleaning, encoding, scaling
-│   ├── model.py               # PyTorch ANN architecture
-│   ├── train.py                # Full training pipeline (run this to retrain)
-│   └── infer.py                 # Load model + predict() used by the app
-├── models/
-│   ├── addiction_model.pth   # Trained weights
-│   ├── scaler.pkl             # Fitted StandardScaler
-│   ├── encoders.pkl           # One-hot column mapping
-│   ├── feature_order.pkl     # Exact feature column order
-│   └── metrics.json           # Final test-set metrics
-├── app/
-│   └── app.py                  # Streamlit inference UI
-├── images/                     # Saved EDA + evaluation plots
-├── requirements.txt
-├── README.md
-└── .gitignore
+│   └── Credit Card Fraud Detection.ipynb   # full EDA + training + evaluation
+├── data/
+│   ├── credit_card_frauds_cleaned.csv
+│   └── data.md                # link to the raw Kaggle dataset
+├── images/                  # saved EDA & evaluation plots
+├── models/                  # trained weights + preprocessing artifacts
+├── .streamlit/config.toml   # app theme
+└── requirements.txt
 ```
 
----
+## Running the app
 
-## Running It
-
-**Retrain from scratch:**
 ```bash
-cd Smartphone-Addiction-Prediction
 pip install -r requirements.txt
-python src/train.py
-```
-
-**Launch the app:**
-```bash
 streamlit run app/app.py
 ```
 
-**Deploy:** push this repo to GitHub and point Streamlit Community Cloud
-at `app/app.py` as the entry file.
+The app has five pages:
+- **Overview** — headline stats and a live transaction ticker
+- **Predict** — score a single transaction (with real-sample autofill) or a
+  batch CSV upload, with an adjustable decision threshold
+- **Analytics** — the notebook's EDA charts with commentary
+- **Model Performance** — confusion matrix, ROC curve, and an honest read of
+  what the metrics mean given the class imbalance
+- **About** — architecture, features, and tech stack
 
----
+## Retraining
 
-## Future Improvements
-
-- Try tree-based baselines (XGBoost/LightGBM) as a sanity-check comparison
-  against the ANN
-- Add SHAP-based feature importance / explainability to the app
-- Collect more granular time-of-day usage data instead of daily totals
-- k-fold cross-validation instead of a single train/val/test split, for a
-  more robust performance estimate
-
----
+```bash
+python src/train.py --data data/credit_card_frauds_cleaned.csv --models models
+```
 
 ## Disclaimer
 
-This model is a **screening tool built for a data science portfolio**, not
-a clinical or diagnostic instrument. Predictions should not be used to make
-real decisions about anyone's mental health or wellbeing.
+This is a data-science portfolio project, not a certified fraud-detection
+system. Don't use it to make real financial or legal decisions.

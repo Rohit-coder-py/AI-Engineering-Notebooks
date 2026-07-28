@@ -1,0 +1,61 @@
+merchant,category,amt,city,state,lat,long,city_pop,job,merch_lat,merch_long,is_fraud
+Miller-Hauck,grocery_pos,100.07,Orient,WA,48.8878,-118.2105,149,Special educational needs teacher,48.542012,-117.583489,0
+Jakubowski Group,food_dining,234.29,Saint Louis,MO,38.6171,-90.4504,927396,Occupational hygienist,38.399455,-90.897124,0
+Kuhic Inc,grocery_pos,311.53,Lonetree,WY,41.0552,-110.1603,49,Research scientist (physical sciences),41.268673,-110.092197,1
+"Cole, Hills and Jewess",home,110.32,Laramie,WY,41.4247,-105.4781,35371,"Pilot, airline",41.906539,-104.881987,0
+Kuhic LLC,shopping_net,3.8,Littleton,CO,39.5994,-105.0044,320420,Water engineer,38.81173,-105.466842,0
+McCullough Group,grocery_net,44.0,Kent,OR,45.0838,-120.6649,60,Museum education officer,44.915752000000005,-119.719075,0
+Reichel Inc,entertainment,33.51,Sutherland,NE,41.1558,-101.136,1789,Insurance broker,41.888042,-100.931276,0
+Weber and Sons,food_dining,8.56,San Diego,CA,33.0067,-117.069,1241364,"Pharmacist, hospital",32.482198,-118.007817,0
+Kihn Inc,shopping_pos,90.74,Superior,AZ,33.2887,-111.0985,2872,Petroleum engineer,32.80809,-112.059259,0
+Bernhard Inc,gas_transport,19.08,Kirk,CO,39.6171,-102.4776,207,Network engineer,39.086592,-102.045472,1
+"Yost, Schamberger and Windle",kids_pets,18.06,Sun City,CA,33.7467,-117.1721,54287,"Designer, exhibition/display",34.498558,-116.311879,1
+Kuhic Inc,grocery_pos,145.88,Westerville,NE,41.4193,-99.3844,73,Product designer,42.353344,-99.512912,0
+"Conroy, Balistreri and Gorczany",health_fitness,210.21,Norwalk,CA,33.9056,-118.0818,105549,Firefighter,32.911268,-117.828088,0
+Hills-Witting,shopping_net,909.98,Colton,WA,46.5901,-117.1692,761,Chief Marketing Officer,47.389921,-116.301184,1
+Dare-Marvin,entertainment,499.28,Huntington Beach,CA,33.6773,-118.0051,190249,"Therapist, horticultural",32.763943,-117.108737,1
+Hills-Olson,grocery_net,52.78,Riverton,WY,43.0351,-108.2024,19408,"Lecturer, higher education",42.270332,-107.526052,0
+"Gottlieb, Considine and Schultz",shopping_net,1066.01,Laguna Hills,CA,33.615,-117.7114,45303,Sales executive,33.16345,-117.153705,1
+Rempel Inc,shopping_net,1214.39,Fiddletown,CA,38.5234,-120.6763,832,Immigration officer,38.828029,-119.782074,1
+"Metz, Russel and Metz",kids_pets,6.07,Owensville,MO,38.3511,-91.4867,6703,Naval architect,38.58797,-91.694449,0
+Christiansen-Gusikowski,misc_pos,723.97,Bay City,OR,45.5197,-123.8761,1530,Colour technologist,45.002922,-124.500256,1
+Bartoletti and Sons,personal_care,107.11,Scotts Mills,OR,44.9897,-122.6187,1252,"Engineer, petroleum",45.421817,-121.822234,0
+"Langworth, Boehm and Gulgowski",shopping_net,184.28,Rock Springs,WY,41.606,-109.23,27971,Music therapist,41.145562,-109.86918500000002,0
+Kling Inc,gas_transport,7.24,Burlington,WA,48.4786,-122.3345,14871,Public house manager,49.397389,-123.083706,1
+"Greenholt, O'Hara and Balistreri",shopping_net,5.75,Utica,MO,39.7417,-93.6289,271,Land/geomatics surveyor,38.777544,-93.965245,0
+Haag-Blan,food_dining,53.0,Superior,AZ,33.2887,-111.0985,2872,Petroleum engineer,32.915851,-111.699232,0
+Herman Inc,misc_pos,1.34,Lamy,NM,35.4311,-105.9409,923,Public relations account executive,36.074318,-105.77218899999998,0
+Schumm PLC,health_fitness,9.65,Stayton,OR,44.8021,-122.7624,9587,"Engineer, biomedical",45.544287,-122.888181,0
+"Ruecker, Beer and Collie",shopping_net,1.85,Oakland,CA,37.7878,-122.1884,381459,Barista,37.779306,-121.732515,0
+Padberg-Welch,grocery_pos,44.11,Moab,UT,38.5677,-109.5271,9772,Location manager,38.157746,-108.918874,0
+Koepp-Witting,grocery_pos,302.84,Fiddletown,CA,38.5234,-120.6763,832,Immigration officer,39.382602,-120.280053,1
+Reilly and Sons,health_fitness,22.55,Manville,WY,42.73,-104.7024,241,Educational psychologist,42.641556,-104.961137,1
+Leannon-W,food_dining,65.37,Lonetree,WY,41.0552,-110.1603,49,Research scientist (physical sciences),41.038788,-110.574443,0
+"Raynor, Feest and Mille",gas_transport,73.97,Lakeport,CA,39.047,-122.9328,11256,Podiatrist,39.989702,-122.942817,0
+Kris-Padberg,shopping_pos,8.39,High Rolls Mountain Park,NM,32.9396,-105.8189,899,Naval architect,33.087140000000005,-105.991044,0
+Kuhic Inc,grocery_pos,307.53,Mesa,ID,44.6255,-116.4493,129,Cartographer,43.952534,-117.070686,1
+Lynch Lt,shopping_pos,768.28,Nelson,NE,40.201,-98.0684,732,Television/film/video producer,40.137422,-98.710192,1
+Lesch Lt,shopping_pos,965.83,Bay City,OR,45.5197,-123.8761,1530,Colour technologist,46.035785,-123.399278,1
+Swift PLC,kids_pets,24.21,Conway,WA,48.34,-122.3456,85,"Research officer, political party",48.038998,-122.783734,1
+Kassulke PLC,shopping_net,967.49,Arvada,CO,39.8422,-105.1097,122111,Hotel manager,39.26251,-105.656175,1
+Powlowski-Weimann,food_dining,28.53,Greenview,CA,41.5403,-122.9366,308,Call centre manager,40.904331,-122.317416,0
+Erdman-Kertzmann,gas_transport,71.32,Saint Louis,MO,38.6171,-90.4504,927396,Occupational hygienist,38.692911,-89.537655,0
+"Romaguera, Cruickshank and Greenholt",shopping_net,1070.99,Stayton,OR,44.8021,-122.7624,9587,"Engineer, biomedical",45.666729,-123.072503,1
+Hoppe-Parisian,kids_pets,41.64,Lagrange,WY,41.6423,-104.1974,635,Product/process development scientist,41.286895,-103.81965,0
+Marks Inc,gas_transport,9.21,Independence,MO,39.1412,-94.3515,123373,"Engineer, production",40.114686,-94.36955,1
+"Casper, Hand and Zul",grocery_pos,367.59,Brashear,MO,40.1959,-92.4333,805,Private music teacher,40.246862,-92.828531,1
+Hudson-Ratke,grocery_pos,283.21,Moab,UT,38.5677,-109.5271,9772,Location manager,37.870377000000005,-110.193522,1
+Kub-Heaney,health_fitness,4.9,Huntington Beach,CA,33.6773,-118.0051,190249,"Therapist, horticultural",33.447916,-117.089769,0
+"Labadie, Treutel and Bode",shopping_net,1055.28,Honokaa,HI,20.0827,-155.488,4878,Physiotherapist,20.263798,-155.011675,1
+Gerhold LLC,home,97.76,Centerview,MO,38.7897,-93.8702,2368,Electronics engineer,39.375777,-92.915069,0
+"Lakin, Ferry and Beatty",food_dining,127.17,Sutherland,NE,41.1558,-101.136,1789,Insurance broker,41.550923,-100.194191,1
+Cummings LLC,gas_transport,11.74,Fort Washakie,WY,43.0048,-108.8964,1645,Information systems manager,42.656763,-109.86824,1
+Kuhic LLC,shopping_net,963.01,Westfir,OR,43.7575,-122.481,597,Forensic psychologist,42.855154,-121.490318,1
+Flatley-Durgan,misc_net,718.05,Jordan Valley,OR,42.8801,-117.281,641,Economist,42.13899,-117.601954,1
+Terry-Huel,shopping_net,1136.04,Kaktovik,AK,66.6933,-153.994,239,Careers information officer,66.18018599999999,-154.53907,1
+"Tillman, Fritsch and Schmitt",misc_net,759.92,High Rolls Mountain Park,NM,32.9396,-105.8189,899,Naval architect,32.802203000000006,-105.179331,1
+Ruecker Group,misc_net,719.82,Meadville,MO,39.7795,-93.3014,964,Tourist information centre manager,39.951004,-92.359492,1
+Heidenreich PLC,grocery_pos,291.1,Jordan Valley,OR,42.8801,-117.281,641,Economist,42.247169,-117.409736,1
+Kiehn-Emmerich,grocery_pos,285.81,Hubbell,NE,40.0456,-97.4735,121,Set designer,40.990782,-97.605382,1
+Crona and Sons,kids_pets,14.13,Phoenix,AZ,33.5623,-112.0559,1312922,Contractor,34.537409999999994,-112.684354,0
+Lebsack and Sons,misc_net,4.7,North Loup,NE,41.4972,-98.7858,509,"Nurse, children's",41.685814,-99.667058,0
