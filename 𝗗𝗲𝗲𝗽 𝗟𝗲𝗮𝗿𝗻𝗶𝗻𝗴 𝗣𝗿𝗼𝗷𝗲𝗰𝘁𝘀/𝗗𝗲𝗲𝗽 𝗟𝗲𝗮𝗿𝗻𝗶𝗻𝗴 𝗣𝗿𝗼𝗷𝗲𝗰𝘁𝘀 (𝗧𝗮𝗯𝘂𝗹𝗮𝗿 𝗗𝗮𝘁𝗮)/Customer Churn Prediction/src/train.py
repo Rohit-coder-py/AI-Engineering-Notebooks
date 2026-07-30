@@ -1,21 +1,3 @@
-"""
-Full training pipeline - run this to retrain the model from scratch.
-
-    python src/train.py
-
-Reads data/cleaned_and_scaled_dataset.csv (same file the notebook exports),
-trains the exact MyModel architecture from the notebook, and saves everything
-the app needs into models/:
-
-    churn_model_weights.npz   - trained weights (framework-agnostic, loaded
-                                 into a torch model by src/infer.py)
-    scaler.pkl                 - fitted StandardScaler
-    feature_order.pkl          - exact column order the model expects
-    metrics.json                - test-set metrics
-
-Also drops evaluation plots into images/06_confusion_matrix.png and
-images/07_roc_curve.png.
-"""
 
 import json
 import os

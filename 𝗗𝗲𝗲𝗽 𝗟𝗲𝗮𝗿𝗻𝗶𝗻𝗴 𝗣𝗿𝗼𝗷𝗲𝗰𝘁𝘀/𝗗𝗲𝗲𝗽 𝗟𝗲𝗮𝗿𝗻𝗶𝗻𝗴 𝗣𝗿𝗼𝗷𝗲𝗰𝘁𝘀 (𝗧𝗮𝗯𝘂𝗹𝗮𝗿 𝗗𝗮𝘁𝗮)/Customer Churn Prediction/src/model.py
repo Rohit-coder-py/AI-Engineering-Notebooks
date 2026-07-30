@@ -1,8 +1,4 @@
-"""
-Same architecture as MyModel in notebooks/Customer Churn Prediction.ipynb.
-Kept identical on purpose so the weights trained in the notebook can be
-loaded here without any surprises.
-"""
+
 
 import torch
 import torch.nn as nn

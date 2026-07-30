@@ -1,9 +1,3 @@
-"""
-Turns a single raw customer record (the kind of values a person picks in the
-Streamlit form) into the exact 30-column encoded row the model expects -
-same encoding the notebook uses: LabelEncoder-style binary mapping for the
-yes/no columns, one-hot (drop_first) for the multi-category columns.
-"""
 
 import pandas as pd
 
@@ -32,23 +26,7 @@ MULTI_COLS = [
 
 
 def build_feature_row(raw: dict, feature_order: list) -> pd.DataFrame:
-    """
-    raw: dict of raw form values, e.g.
-        {
-            "gender": "Female", "SeniorCitizen": 0, "Partner": "Yes",
-            "Dependents": "No", "tenure": 12, "PhoneService": "Yes",
-            "MultipleLines": "No", "InternetService": "Fiber optic",
-            "OnlineSecurity": "No", "OnlineBackup": "Yes",
-            "DeviceProtection": "No", "TechSupport": "No",
-            "StreamingTV": "Yes", "StreamingMovies": "No",
-            "Contract": "Month-to-month", "PaperlessBilling": "Yes",
-            "PaymentMethod": "Electronic check",
-            "MonthlyCharges": 70, "TotalCharges": 840.5,
-        }
-    feature_order: exact column order the scaler/model were fit on
-                   (models/feature_order.pkl)
-    Returns a single-row DataFrame with columns == feature_order.
-    """
+
     row = {}
 
     # binary yes/no style columns

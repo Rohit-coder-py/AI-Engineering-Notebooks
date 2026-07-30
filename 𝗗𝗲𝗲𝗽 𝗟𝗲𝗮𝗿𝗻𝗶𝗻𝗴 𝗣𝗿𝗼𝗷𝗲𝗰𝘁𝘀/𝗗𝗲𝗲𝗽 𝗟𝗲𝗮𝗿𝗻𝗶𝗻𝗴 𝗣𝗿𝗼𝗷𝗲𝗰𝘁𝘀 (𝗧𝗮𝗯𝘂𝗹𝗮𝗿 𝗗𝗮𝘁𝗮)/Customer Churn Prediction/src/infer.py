@@ -1,7 +1,4 @@
-"""
-Loads the trained model + scaler + feature order once, and exposes a single
-predict(raw_dict) function used by app/app.py.
-"""
+
 
 import os
 
