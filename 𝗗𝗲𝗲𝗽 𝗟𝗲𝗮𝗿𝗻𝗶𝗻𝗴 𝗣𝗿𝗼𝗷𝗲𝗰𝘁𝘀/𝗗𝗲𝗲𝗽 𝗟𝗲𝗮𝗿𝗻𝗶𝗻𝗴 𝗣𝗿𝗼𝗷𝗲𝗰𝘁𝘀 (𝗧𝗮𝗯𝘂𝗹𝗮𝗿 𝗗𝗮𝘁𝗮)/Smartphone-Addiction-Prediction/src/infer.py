@@ -1,10 +1,4 @@
-"""
-infer.py
-========
-Loads the trained model + preprocessing artifacts and exposes a single
-`predict()` function that takes a raw user input dict and returns a
-probability + label. Used by both the CLI demo and the Streamlit app.
-"""
+
 
 import os
 import torch

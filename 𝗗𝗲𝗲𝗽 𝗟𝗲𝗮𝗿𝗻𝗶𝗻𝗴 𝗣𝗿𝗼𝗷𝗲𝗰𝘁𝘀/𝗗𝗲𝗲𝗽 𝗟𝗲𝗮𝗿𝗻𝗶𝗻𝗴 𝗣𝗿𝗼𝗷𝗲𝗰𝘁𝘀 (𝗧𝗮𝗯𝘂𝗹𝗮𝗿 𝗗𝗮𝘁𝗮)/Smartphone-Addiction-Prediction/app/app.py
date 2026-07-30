@@ -1,7 +1,3 @@
-"""
-app.py — Smartphone Addiction Risk Predictor
-Streamlit inference UI.
-"""
 
 import os
 import sys

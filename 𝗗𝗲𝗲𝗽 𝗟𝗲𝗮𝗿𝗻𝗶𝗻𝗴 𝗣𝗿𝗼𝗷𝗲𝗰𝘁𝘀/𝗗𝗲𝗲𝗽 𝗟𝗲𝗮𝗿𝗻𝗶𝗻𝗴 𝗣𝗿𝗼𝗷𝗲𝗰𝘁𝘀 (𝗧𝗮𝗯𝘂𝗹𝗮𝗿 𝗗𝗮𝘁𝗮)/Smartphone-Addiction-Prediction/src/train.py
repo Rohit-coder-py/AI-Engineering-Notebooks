@@ -1,13 +1,4 @@
-"""
-train.py
-========
-End-to-end training pipeline:
-EDA -> cleaning -> encoding -> scaling -> tensors -> ANN training
--> evaluation -> hyperparameter comparison -> save best model.
 
-Run from the project root:
-    python src/train.py
-"""
 
 import sys
 import os

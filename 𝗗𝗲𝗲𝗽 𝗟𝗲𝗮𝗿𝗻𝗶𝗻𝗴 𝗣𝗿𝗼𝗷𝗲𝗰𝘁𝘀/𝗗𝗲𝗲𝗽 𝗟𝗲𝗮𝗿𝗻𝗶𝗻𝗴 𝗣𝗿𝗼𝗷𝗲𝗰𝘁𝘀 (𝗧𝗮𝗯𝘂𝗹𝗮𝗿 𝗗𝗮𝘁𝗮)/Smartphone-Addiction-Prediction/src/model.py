@@ -1,8 +1,3 @@
-"""
-model.py
-========
-PyTorch ANN architecture for binary addiction-risk classification.
-"""
 
 import torch
 import torch.nn as nn
