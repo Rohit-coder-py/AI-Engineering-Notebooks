@@ -1,7 +1,4 @@
-"""
-Fraud Sentinel — Credit Card Fraud Detection
-A single-file Streamlit app. Run with:  streamlit run app.py
-"""
+
 
 import json
 import os
