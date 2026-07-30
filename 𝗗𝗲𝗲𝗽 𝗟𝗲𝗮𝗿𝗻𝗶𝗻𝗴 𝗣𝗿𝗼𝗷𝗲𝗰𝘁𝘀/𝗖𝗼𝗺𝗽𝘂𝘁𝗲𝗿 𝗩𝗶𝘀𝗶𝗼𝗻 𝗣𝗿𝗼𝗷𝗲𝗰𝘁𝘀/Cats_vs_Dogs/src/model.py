@@ -1,9 +1,3 @@
-"""
-CatDogCNN - same architecture designed in Cats_vs_Dogs.ipynb
-
-pulled out here so the notebook, train.py, and app.py can all
-import one shared definition instead of copy-pasting the class.
-"""
 
 import torch.nn as nn
 

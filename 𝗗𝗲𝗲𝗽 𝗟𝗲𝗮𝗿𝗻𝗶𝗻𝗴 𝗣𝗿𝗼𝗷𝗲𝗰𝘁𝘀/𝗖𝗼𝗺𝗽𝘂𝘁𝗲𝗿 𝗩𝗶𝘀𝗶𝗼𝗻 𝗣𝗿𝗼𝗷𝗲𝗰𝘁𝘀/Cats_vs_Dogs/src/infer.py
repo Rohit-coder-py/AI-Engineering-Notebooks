@@ -1,7 +1,3 @@
-"""
-Inference helpers - same predict_image() logic from the notebook,
-reused by app.py (and usable standalone from the command line).
-"""
 
 import argparse
 

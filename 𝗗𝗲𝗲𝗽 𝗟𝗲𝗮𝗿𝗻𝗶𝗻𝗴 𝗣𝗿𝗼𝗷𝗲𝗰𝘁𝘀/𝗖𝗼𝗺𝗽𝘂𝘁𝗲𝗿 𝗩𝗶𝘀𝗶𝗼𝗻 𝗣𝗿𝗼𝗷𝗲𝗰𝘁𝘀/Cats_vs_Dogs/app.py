@@ -1,9 +1,3 @@
-"""
-app.py - Streamlit deployment for the Cats vs Dogs CNN
-
-Upload an image, get a Cat / Dog prediction with confidence.
-Run with:  streamlit run app.py
-"""
 
 import os
 
