@@ -1,18 +1,4 @@
-"""
-Customer Churn Prediction — single-file Streamlit app.
 
-Run with:
-    streamlit run app.py
-
-Everything the app needs (model architecture, preprocessing, inference,
-and UI) lives in this one file so it can be deployed as-is (e.g. on
-Streamlit Community Cloud) with no `src/` package or path juggling.
-
-Expected folder layout next to this file:
-    models/churn_model_weights.npz
-    models/scaler.pkl
-    models/feature_order.pkl
-"""
 
 from __future__ import annotations
 
