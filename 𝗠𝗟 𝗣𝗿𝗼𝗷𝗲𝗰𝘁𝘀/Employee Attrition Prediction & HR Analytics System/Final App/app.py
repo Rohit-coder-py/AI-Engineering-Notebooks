@@ -1,10 +1,3 @@
-"""
-Employee Attrition Prediction & HR Analytics System
-=====================================================
-Author  : Harsh Jha
-Model   : Support Vector Machine (SVM) — C=0.1, kernel=linear, gamma=scale
-Dataset : IBM HR Analytics Employee Attrition dataset (encoded)
-"""
 
 import os
 import pickle

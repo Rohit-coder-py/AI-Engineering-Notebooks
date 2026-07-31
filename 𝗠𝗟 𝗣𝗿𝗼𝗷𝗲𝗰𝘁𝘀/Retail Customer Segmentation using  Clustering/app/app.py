@@ -1,10 +1,4 @@
-"""
-Retail Customer Segmentation — Streamlit App
----------------------------------------------
-Loads a pre-trained K-Means model + StandardScaler and predicts which
-customer segment a shopper belongs to, based on Age, Annual Income and
-Spending Score. Styled as a quiet, boutique-grade analytics tool.
-"""
+
 
 import pickle
 import random
