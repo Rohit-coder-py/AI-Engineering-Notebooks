@@ -85,7 +85,7 @@ CLUSTER_INFO = {
 }
 
 # ============================================================
-# STYLING — boutique / atelier aesthetic
+# STYLING — boutique / atelier aesthetics
 # ============================================================
 def inject_css() -> None:
     st.markdown(
