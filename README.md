@@ -1,5 +1,5 @@
 <div style="
-border:3px solid #E5E7EB;
+border:4px solid #E5E7EB;
 border-radius:30px;
 padding:30px;
 background-color:white;
