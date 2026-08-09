@@ -58,6 +58,8 @@ It contains my notes, experiments, projects, and practical implementations as I 
 <li><mark style="background-color:#D1C4E9;">Real-World Machine Learning Projects</mark></li>
 
 <li><mark style="background-color:#B2DFDB;">Model Deployment & Streamlit Apps</mark></li>
+<li><mark style="background-color:#B2DFDB;">Deep Learning Projects</mark></li>
+
 
 </ul>
 
