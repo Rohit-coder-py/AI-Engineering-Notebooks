@@ -55,7 +55,7 @@ if name:
     
     
 dob = st.date_input("Select your DOB:")
-st.write(f"Welcome, {name} ! Your dob is {dob}")
+st.write(f"Welcome, {name} ! Your dob is {dob}. Thanks ")
 
 
 # completed
