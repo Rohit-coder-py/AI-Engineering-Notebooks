@@ -1,14 +1,3 @@
-"""
-Shipment Delay Intelligence
-============================
-A production-quality Streamlit application for predicting whether a
-shipment will arrive on time or be delayed, built on top of a
-StackingClassifier trained in `notebook/shipping_delay_prediction_notebook.ipynb`.
-
-Run:
-    streamlit run app.py
-"""
-
 import time
 import numpy as np
 import pandas as pd
