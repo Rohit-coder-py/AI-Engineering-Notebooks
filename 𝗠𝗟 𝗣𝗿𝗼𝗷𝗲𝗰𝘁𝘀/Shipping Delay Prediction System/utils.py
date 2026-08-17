@@ -1,10 +1,3 @@
-"""
-utils.py
---------
-Loading, caching, and inference helpers for the Shipment Delay
-Intelligence application. All paths are relative to the project root
-so the app runs unmodified locally and on Streamlit Community Cloud.
-"""
 
 from pathlib import Path
 import numpy as np
