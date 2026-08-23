@@ -1,0 +1,29 @@
+shipment_id: Unique identifier for each shipment record.
+origin_hub: Code of the hub where the shipment starts.
+destination_hub: Code of the hub where the shipment ends.
+route_id: Identifier of the route/lane linking the origin hub to the destination hub.
+scheduled_departure: Planned date and time the shipment should leave the origin hub.
+distance_km: Planned travel distance for the route in kilometers, used to help determine suitable transport mode.
+product_weight_kg: Weight of the shipped goods in kilograms, used to reflect handling effort and delay likelihood.
+fragile: “Yes” or “No” flag indicating whether the goods are fragile and require extra handling care.
+transport_mode: Transport type used for the shipment (VAN, TRUCK, AIR, SEA) selected using logical eligibility rules.
+vehicle_id: Identifier of the assigned transport asset, formatted by mode (VAN-####, TRK-####, FLT-####, VSL-####).
+vehicle_reliability: Reliability score for the assigned asset where higher values indicate fewer disruptions.
+planned_transit_hours: Planned travel time for the shipment in hours based on route and chosen mode.
+scheduled_arrival: Planned date and time the shipment should arrive at the destination hub.
+origin_congestion_idx: Congestion score for the origin hub at dispatch time where higher values mean more congestion.
+dest_congestion_idx: Congestion score for the destination hub at receiving time where higher values mean more congestion.
+actual_departure: Actual date and time the shipment left the origin hub.
+actual_arrival: Actual date and time the shipment arrived at the destination hub.
+delay_minutes: Difference in minutes between actual arrival and scheduled arrival (negative means early, positive means late).
+origin_hub_name: Full name of the origin hub for reporting and readability.
+destination_hub_name: Full name of the destination hub for reporting and readability.
+origin_country: Country where the origin hub is located.
+destination_country: Country where the destination hub is located.
+origin_region: Regional label describing the origin hub’s area.
+destination_region: Regional label describing the destination hub’s area.
+origin_lat: Latitude coordinate of the origin hub location.
+origin_lon: Longitude coordinate of the origin hub location.
+destination_lat: Latitude coordinate of the destination hub location.
+destination_lon: Longitude coordinate of the destination hub location.
+route_name: Descriptive name of the route used for reporting.
