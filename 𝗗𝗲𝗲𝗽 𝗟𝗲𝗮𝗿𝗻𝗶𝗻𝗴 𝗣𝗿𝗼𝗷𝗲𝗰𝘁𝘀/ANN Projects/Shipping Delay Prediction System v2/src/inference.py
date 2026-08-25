@@ -4,7 +4,7 @@
 import torch
 
 from src.model import OptunaShipSenseModel
-from src.preprocessing import load_artifacts, preprocess_input
+from src.preprocessing import feature_order, best_hyperparameters
 
 
 model = OptunaShipSenseModel(

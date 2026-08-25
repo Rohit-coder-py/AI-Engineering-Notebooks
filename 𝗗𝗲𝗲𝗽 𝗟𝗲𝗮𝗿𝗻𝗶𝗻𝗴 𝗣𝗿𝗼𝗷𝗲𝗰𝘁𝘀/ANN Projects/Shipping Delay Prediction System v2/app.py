@@ -1,81 +1,25 @@
+# ---------------------------------------------------------
+# app.py - main
+
+
 import streamlit as st
 import pandas as pd
-import numpy as np
 import torch
-import torch.nn as nn
-import joblib
 
-# ---------------------------------------------------------
-# 1. LOAD ALL SAVED ARTIFACTS
-# These were saved in the notebook after training:
-#   - shipsense_model.pth   -> trained model weights
-#   - scaler.pkl            -> StandardScaler fitted on training data
-#   - encoder.pkl           -> OrdinalEncoder fitted on categorical columns
-#   - feature_order.pkl     -> exact column order the model expects
-#   - categorical_columns.pkl / numerical_columns.pkl
-#   - best_hyperparameters.pkl -> hidden layer sizes found by Optuna
-# ---------------------------------------------------------
+from src.preprocessing import scaler, encoder, feature_order, categorical_columns
+from src.inference import model
 
-scaler = joblib.load("models/scaler.pkl")
-encoder = joblib.load("models/encoder.pkl")
-feature_order = joblib.load("models/feature_order.pkl")
-categorical_columns = joblib.load("models/categorical_columns.pkl")
-numerical_columns = joblib.load("models/numerical_columns.pkl")
-best_params = joblib.load("models/best_hyperparameters.pkl")
+
+category_options = {}
+for col, cats in zip(categorical_columns, encoder.categories_):
+    category_options[col] = list(cats)
+    
+    
+print(category_options)
 
 
 # ---------------------------------------------------------
-# 2. REBUILD THE MODEL ARCHITECTURE
-# We have to define the exact same class used during training,
-# then load the saved weights into it. Only the weights (.pth)
-# are saved, not the architecture itself.
-# ---------------------------------------------------------
-class ShipSenseModel(nn.Module):
-    def __init__(self, input_features, hidden1, hidden2, hidden3, dropout):
-        super().__init__()
-        self.network = nn.Sequential(
-            nn.Linear(input_features, hidden1),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-
-            nn.Linear(hidden1, hidden2),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-
-            nn.Linear(hidden2, hidden3),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-
-            nn.Linear(hidden3, 1)
-        )
-
-    def forward(self, x):
-        return self.network(x)
-
-
-model = ShipSenseModel(
-    input_features=len(feature_order),
-    hidden1=best_params["hidden1"],
-    hidden2=best_params["hidden2"],
-    hidden3=best_params["hidden3"],
-    dropout=best_params["dropout"]
-)
-model.load_state_dict(torch.load("models/shipsense_model.pth", map_location="cpu"))
-model.eval()  # inference mode -> disables dropout
-
-
-# ---------------------------------------------------------
-# 3. GET DROPDOWN OPTIONS DIRECTLY FROM THE ENCODER
-# encoder.categories_ stores the exact categories it saw during
-# training, in the same order as `categorical_columns`.
-# ---------------------------------------------------------
-category_options = {
-    col: list(cats) for col, cats in zip(categorical_columns, encoder.categories_)
-}
-
-
-# ---------------------------------------------------------
-# 4. STREAMLIT UI
+# UI
 # ---------------------------------------------------------
 st.title("ShipSense — Late Delivery Risk Predictor")
 st.write("Enter shipment details below to predict the risk of a late delivery.")
@@ -122,11 +66,15 @@ with st.form("prediction_form"):
 
 
 # ---------------------------------------------------------
-# 5. PREDICTION LOGIC (runs only after form submit)
+# Runs only after the user clicks Predict. Nothing here is
+# wrapped in a function -- it's the same encode -> scale -> predict
+# sequence the notebook used, just done for one row instead of
+# a whole DataFrame.
 # ---------------------------------------------------------
 if submitted:
 
-    # Build one-row dataframe with the SAME columns/order the model was trained on
+    # Step 0: put the form values into one row, in the exact
+    # column order the model was trained on
     input_dict = {
         "Type": Type,
         "Days for shipment (scheduled)": Days_scheduled,
@@ -158,16 +106,15 @@ if submitted:
     }
 
     input_df = pd.DataFrame([input_dict])
-    input_df = input_df[feature_order]  # enforce exact training column order
+    input_df = input_df[feature_order]
 
-    # Step 1: encode categorical columns with the SAME fitted encoder
+    # Step 1: encode categorical columns with the already-fitted encoder
     input_df[categorical_columns] = encoder.transform(input_df[categorical_columns])
 
-    # Step 2: scale ALL columns with the SAME fitted scaler
-    # (scaler was fit on the full feature set after encoding, not just numeric cols)
+    # Step 2: scale the full row with the already-fitted scaler
     scaled_input = scaler.transform(input_df)
 
-    # Step 3: convert to tensor and run through the model
+    # Step 3: tensor + forward pass through the model
     input_tensor = torch.tensor(scaled_input, dtype=torch.float32)
 
     with torch.no_grad():
