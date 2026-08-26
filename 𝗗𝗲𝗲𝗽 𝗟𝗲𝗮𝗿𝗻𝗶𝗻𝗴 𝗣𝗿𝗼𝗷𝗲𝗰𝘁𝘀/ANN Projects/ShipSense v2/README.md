@@ -1,180 +1,228 @@
 <div align="center">
 
-# 🚚 ShipSense
+# ShipSense
+### Late Delivery Risk Predictor · PyTorch Neural Network
 
-### <span style="color:#1e3a5f">AI-Powered Shipping Delay Prediction System</span>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=2500&pause=900&color=2E8BC0&center=true&vCenter=true&width=650&lines=Predicting+late+deliveries+before+they+happen...;27+order+%2F+shipping+features+in+%E2%86%92+risk+out;Trained+on+180%2C000%2B+order+records;70%25+accuracy+on+held-out+test+data" alt="Typing SVG" />
 
-<b>Predict late deliveries before they happen — powered by a PyTorch deep learning model, served through an interactive Streamlit app.</b>
+[![Python](https://img.shields.io/badge/Python-3.10+-2E8BC0?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-Neural%20Network-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Optuna](https://img.shields.io/badge/Optuna-Hyperparameter%20Tuning-6B48FF?style=for-the-badge)](https://optuna.org/)
+[![Status](https://img.shields.io/badge/Status-Deploying_Soon-F59E0B?style=for-the-badge)]()
 
-<img alt="python" src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white">
-<img alt="pytorch" src="https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C?logo=pytorch&logoColor=white">
-<img alt="streamlit" src="https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white">
-<img alt="status" src="https://img.shields.io/badge/Status-Production%20Ready-brightgreen">
-<img alt="license" src="https://img.shields.io/badge/License-MIT-blue">
+</div>
 
+<br/>
+
+> [!IMPORTANT]
+> **Use case:** Enter an order's shipping mode, scheduled delivery window, customer segment, region, and order economics, and get an instant late-delivery-risk prediction — so a logistics/ops team could flag high-risk shipments before they go out, instead of finding out after the delivery window is already blown.
+>
+> **Live demo →** *deploying now — link will be added here shortly*
+
+<br/>
+
+<div align="center">
+<table>
+<tr>
+<td width="50%" align="center"><img src="graphs/01_target_distribution.png" width="100%"/><br/><sub>Late-delivery risk distribution</sub></td>
+<td width="50%" align="center"><img src="graphs/02_shipping_mode_vs_risk.png" width="100%"/><br/><sub>Risk by shipping mode</sub></td>
+</tr>
+</table>
 </div>
 
 ---
 
-## 🔗 Live Demo
+## Table of Contents
 
-> **👉 Add your deployed Streamlit Cloud / HuggingFace Spaces link here:**
-> ### <a href="#" target="_blank">https://shipsense-v2-pytorch.streamlit.app/</a>
-
----
-
-## 📌 Overview
-
-<blockquote>
-<b>ShipSense</b> is an end-to-end machine learning system that predicts the probability a shipment will
-<b><span style="color:#e5484d">arrive late</span></b>, using order, product, customer, and logistics attributes available
-at the moment an order is placed. It turns a trained deep learning model into a production-style,
-interactive web application — not just a notebook.
-</blockquote>
-
-<table>
-<tr><td>🎯 <b>Task</b></td><td>Binary classification — Late Delivery Risk (0 / 1)</td></tr>
-<tr><td>🧠 <b>Model</b></td><td>Feed-forward Neural Network (PyTorch), tuned with Optuna</td></tr>
-<tr><td>📊 <b>Dataset</b></td><td>180,000+ historical shipment records, 27 engineered features</td></tr>
-<tr><td>🖥️ <b>Interface</b></td><td>Multi-page Streamlit app — single & batch (CSV) prediction</td></tr>
-</table>
+- [Overview](#overview)
+- [Dataset](#dataset)
+- [Exploratory Data Analysis](#exploratory-data-analysis)
+- [Model](#model)
+- [Results](#results)
+- [Project Structure](#project-structure)
+- [Running It](#running-it)
+- [Tech Stack](#tech-stack)
+- [Future Improvements](#future-improvements)
+- [Disclaimer](#disclaimer)
 
 ---
 
-## ✨ Features
+## Overview
 
-- 🔮 **Single-shipment predictor** — fill a form, get an instant risk score with a live gauge chart
-- 📁 **Batch prediction** — upload a CSV of shipments and download scored results
-- 📊 **Insights & EDA tab** — dataset stats and the exploratory charts generated during training
-- 🧠 **Model Info tab** — architecture, tuned hyperparameters, and preprocessing pipeline, in-app
-- 🎨 **Polished, responsive UI** — custom styling, color-coded risk bands, no notebook clutter
+ShipSense is a feed-forward neural network that predicts whether an order is at risk of a **late delivery**, trained on order, product, customer, and shipping data from a large e-commerce/logistics dataset. Hyperparameters were tuned with Optuna over multiple trials before locking in the final architecture, and the app scores new shipments through the same encode → scale → predict pipeline used at training time.
+
+**Task type:** Binary classification — `Late_delivery_risk` (1 = at risk of late delivery, 0 = no risk)
 
 ---
 
-## 🖼️ Screens & Visuals
+## Dataset
 
+| | |
+|---|---|
+| **Rows** | ~180,000+ orders |
+| **Target** | `Late_delivery_risk` — 1 = late-delivery risk, 0 = no risk |
+| **Class balance** | ~54.8% risk vs ~45.2% no risk — fairly balanced, no resampling needed |
+
+**Features (27):** payment `Type`, `Days for shipment (scheduled)`, `Benefit per order`, `Sales per customer`, `Category Name`, `Customer City/Country/Segment/State`, `Department Name`, `Latitude`/`Longitude`, `Market`, `Order City/Country/Region/State`, `Order Item Discount`(+ `Rate`), `Order Item Product Price`, `Order Item Profit Ratio`, `Order Item Quantity`, `Sales`, `Order Item Total`, `Order Profit Per Order`, `Product Price`, `Shipping Mode`
+
+Categorical columns are ordinal-encoded and every column is standard-scaled before the network sees it — the Streamlit app rebuilds a single-row DataFrame from the form and runs it through the exact same encoder/scaler saved from training.
+
+---
+
+## Exploratory Data Analysis
+
+<div align="center">
 <table>
 <tr>
-<td width="50%"><img src="graphs/01_target_distribution.png" alt="Target distribution"></td>
-<td width="50%"><img src="graphs/02_shipping_mode_vs_risk.png" alt="Shipping mode vs risk"></td>
+<td align="center"><img src="graphs/03_scheduled_days_vs_risk.png" width="100%"/><br/><sub>Scheduled shipping days vs. risk</sub></td>
+<td align="center"><img src="graphs/05_customer_segment_vs_risk.png" width="100%"/><br/><sub>Risk by customer segment</sub></td>
 </tr>
 <tr>
-<td width="50%"><img src="graphs/04_correlation_heatmap.png" alt="Correlation heatmap"></td>
-<td width="50%"><img src="graphs/06_order_region_vs_risk.png" alt="Order region vs risk"></td>
+<td align="center" colspan="2"><img src="graphs/06_order_region_vs_risk.png" width="60%"/><br/><sub>Risk by order region</sub></td>
 </tr>
 </table>
+<img src="graphs/04_correlation_heatmap.png" width="60%"/>
+<br/><sub>Correlation heatmap</sub>
+</div>
 
-<sub>All charts are also viewable live inside the app's <b>📊 Insights & EDA</b> tab.</sub>
+<details>
+<summary><strong>Key EDA takeaways</strong></summary>
+<br/>
 
----
+- Classes are fairly balanced (54.8% risk vs 45.2% no risk), so accuracy is a reasonably trustworthy metric here — no oversampling/undersampling needed.
+- **Shipping Mode is the single biggest driver of risk.** `First Class` orders are late **95.3%** of the time, `Second Class` **76.6%**, while `Standard Class` is only late **38.1%** of the time — a tighter promised delivery window leaves far less slack to absorb delays.
+- Customer segment and order region add secondary signal on top of shipping mode.
 
-## 🧩 How It Works
+Full walkthrough with narrative: `notebooks/ShipSense - Deep Learning.ipynb`.
 
-```
-Raw shipment input (Streamlit form / CSV)
-            │
-            ▼
-   Ordinal-encode categorical columns   (fitted encoder.pkl)
-            │
-            ▼
-   Standard-scale full feature row      (fitted scaler.pkl)
-            │
-            ▼
-   PyTorch feed-forward network         (shipsense_model.pth)
-            │
-            ▼
-   Sigmoid → P(late delivery) → Risk band (🟢 Low / 🟠 Moderate / 🔴 High)
-```
+</details>
 
 ---
 
-## 📂 Project Structure
+## Model
+
+A feed-forward ANN (PyTorch `nn.Module`), architecture chosen via Optuna hyperparameter search:
 
 ```
-ShipSense/
-├── app.py                      # Streamlit app entry point
-├── requirements.txt            # Python dependencies
+Input (27 features)
+      │
+ Linear(→ 64)  →  ReLU  →  Dropout(0.0)
+      │
+ Linear(64 → 32)  →  ReLU  →  Dropout(0.0)
+      │
+ Linear(32 → 8)   →  ReLU  →  Dropout(0.0)
+      │
+ Linear(8 → 1)    →  raw logit
+```
+
+| | |
+|---|---|
+| **Loss** | `BCEWithLogitsLoss` |
+| **Optimizer** | Adam, lr ≈ 8.6e-4 (Optuna-tuned) |
+| **Batch size** | 256 |
+| **Tuning** | Optuna search over hidden-layer sizes, dropout, learning rate, and batch size (best validation F1: 0.679) |
+
+---
+
+## Results
+
+**Test set:** 27,078 orders
+
+| Metric | Score |
+|---|:---:|
+| Accuracy | 69.9% |
+| Precision | 82.3% |
+| Recall | 57.3% |
+| F1 Score | 67.6% |
+
+| | Precision | Recall | F1 | Support |
+|---|:---:|:---:|:---:|:---:|
+| Not Late | 0.62 | 0.85 | 0.72 | 12,232 |
+| Late | 0.82 | 0.57 | 0.68 | 14,846 |
+
+> [!NOTE]
+> The model is precision-heavy on the "Late" class — when it predicts a delivery will be late, it's right **82% of the time**, but it still misses a meaningful chunk of the actually-late orders (57% recall). For an ops team, that means the model is a reliable *high-confidence* late-delivery flag, but shouldn't be the only signal used to catch every at-risk shipment.
+
+---
+
+## Project Structure
+
+```
+Shipping Delay Prediction System v2/
+│
+├── app.py                # Streamlit inference UI
+├── data/                 # Training data
+├── graphs/                # Saved EDA charts
+├── models/
+│   ├── shipsense_model.pth        # Trained weights
+│   ├── scaler.pkl                  # Fitted StandardScaler
+│   ├── encoder.pkl                 # Fitted OrdinalEncoder
+│   ├── best_hyperparameters.pkl    # Optuna's winning config
+│   ├── categorical_columns.pkl     # Which columns are categorical
+│   ├── numerical_columns.pkl       # Which columns are numerical
+│   └── feature_order.pkl           # Exact feature column order
+├── notebooks/
+│   └── ShipSense - Deep Learning.ipynb   # Full walkthrough: EDA → Optuna tuning → training → evaluation
 ├── src/
-│   ├── model.py                # Neural network architecture (PyTorch)
-│   ├── preprocessing.py        # Artifact loading + encode/scale pipeline
-│   ├── inference.py            # Model loading + prediction
-│   └── utils.py                # Risk banding, EDA helpers
-├── models/                     # Trained model + fitted encoder/scaler (.pkl / .pth)
-├── data/                       # Training data + column metadata
-├── graphs/                     # EDA charts generated during training
-└── notebooks/                  # Original training / experimentation notebook
+│   ├── model.py            # PyTorch ANN architecture (OptunaShipSenseModel)
+│   ├── preprocessing.py    # Loads scaler/encoder/feature order for inference
+│   └── inference.py        # Loads the trained model for the app
+└── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+## Running It
 
-**1. Clone & enter the project**
+**Locally:**
 ```bash
-git clone <your-repo-url>
-cd ShipSense
-```
-
-**2. Create a virtual environment (recommended)**
-```bash
-python -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
-```
-
-**3. Install dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-**4. Run the app**
-```bash
+pip install streamlit pandas torch scikit-learn joblib
 streamlit run app.py
 ```
 
-The app opens at **http://localhost:8501** 🎉
+> [!NOTE]
+> This project doesn't yet ship a pinned `requirements.txt` — the command above covers everything `app.py` imports. Pin exact versions before deploying for reproducibility.
+
+**Deploy (Streamlit Community Cloud):**
+1. Push this folder to a GitHub repo
+2. Go to [share.streamlit.io](https://share.streamlit.io) → New app
+3. Point it at the repo/branch, set the main file to `app.py`
+4. Deploy, then drop the live link into this README
 
 ---
 
-## 🎯 Use Cases
+## Tech Stack
 
-| Use Case | Who Benefits |
-|---|---|
-| Flag high-risk orders at checkout for proactive customer messaging | E-commerce / D2C teams |
-| Re-route or upgrade shipping for at-risk orders before dispatch | Logistics & fulfillment |
-| Feed risk scores into support/SLA dashboards | Customer support |
-| Score historical or incoming order feeds in bulk via CSV | Data & analytics teams |
-| Benchmark carrier / shipping-mode reliability | Supply chain planning |
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)
+![Optuna](https://img.shields.io/badge/Optuna-6B48FF?style=flat-square)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
 
 ---
 
-## 🛠️ Tech Stack
+## Future Improvements
 
-<img alt="Python" src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white">
-<img alt="PyTorch" src="https://img.shields.io/badge/-PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white">
-<img alt="scikit-learn" src="https://img.shields.io/badge/-scikit--learn-F7931E?style=flat&logo=scikitlearn&logoColor=white">
-<img alt="Pandas" src="https://img.shields.io/badge/-Pandas-150458?style=flat&logo=pandas&logoColor=white">
-<img alt="Streamlit" src="https://img.shields.io/badge/-Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white">
-<img alt="Plotly" src="https://img.shields.io/badge/-Plotly-3F4F75?style=flat&logo=plotly&logoColor=white">
-<img alt="Optuna" src="https://img.shields.io/badge/-Optuna-1e88e5?style=flat">
+- [ ] Add a pinned `requirements.txt` and `.streamlit/config.toml` for reproducible deploys
+- [ ] Push recall up on the "Late" class — try a lower decision threshold or class-weighted loss
+- [ ] Add SHAP-based feature importance so a flagged shipment shows *why* it's at risk
+- [ ] Try a tree-based baseline (XGBoost/LightGBM) as a sanity-check comparison against the ANN
 
 ---
 
-## 🗺️ Roadmap
+## Disclaimer
 
-- [ ] Add SHAP-based per-prediction explainability
-- [ ] Model versioning / experiment tracking (MLflow)
-- [ ] REST API endpoint (FastAPI) alongside the Streamlit UI
-- [ ] Dockerfile for one-command deployment
-
----
-
-## 👤 Author
-
-**Rohit Jha**
-🔗 GitHub: [Rohit-coder-py](https://github.com/Rohit-coder-py) · 🔗 LinkedIn: [rohit-jha-ai](https://linkedin.com/in/rohit-jha-ai)
+> [!WARNING]
+> Portfolio project — not a production-grade logistics system. Predictions should be treated as a starting point for a human decision, not a guarantee of delivery outcome.
 
 ---
 
 <div align="center">
-<sub>⭐ If you find this project useful, consider starring the repo!</sub>
+
+### Connect
+
+[![GitHub](https://img.shields.io/badge/GitHub-Rohit--coder--py-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rohit-coder-py)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Rohit%20Jha-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rohit-jha-ai/)
+
 </div>
