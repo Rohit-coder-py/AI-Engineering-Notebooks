@@ -19,9 +19,7 @@
 ## 🔗 Live Demo
 
 > **👉 Add your deployed Streamlit Cloud / HuggingFace Spaces link here:**
-> ### <a href="#" target="_blank">https://your-shipsense-app-link.streamlit.app</a>
-
-<sub>Deploy for free on <a href="https://streamlit.io/cloud">Streamlit Community Cloud</a> and paste the URL above once it's live.</sub>
+> ### <a href="#" target="_blank">https://shipsense-v2-pytorch.streamlit.app/</a>
 
 ---
 
