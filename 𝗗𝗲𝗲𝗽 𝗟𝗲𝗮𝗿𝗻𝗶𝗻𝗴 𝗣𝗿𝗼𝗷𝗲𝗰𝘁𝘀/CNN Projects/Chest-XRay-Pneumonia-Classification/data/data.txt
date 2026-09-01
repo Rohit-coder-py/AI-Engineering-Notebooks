@@ -1,0 +1,6 @@
+Dataset size is : 1.2GB+
+
+So i cant add it here we can easily access the dataset by pasting this link in our browser : 
+
+
+Link: https://www.kaggle.com/datasets/paulti/chest-xray-images

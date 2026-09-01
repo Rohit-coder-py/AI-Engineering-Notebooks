@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Virtual environments
+.env
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# NOTE: model weights (models/*.pth) and the raw dataset are intentionally
+# NOT ignored here — the deployed app needs the trained weights to be
+# present in models/ to run. If your weights file is large, use Git LFS
+# instead of ignoring it outright.
