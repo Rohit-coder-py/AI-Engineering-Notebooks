@@ -6,9 +6,7 @@ AI-powered Indian food recognition built on **EfficientNet-B0** transfer learnin
 
 ## 🎥 Demo Video
 
-https://github.com/user-attachments/assets/PLACEHOLDER-replace-after-upload
-
-> GitHub only renders an inline video player for files uploaded through its own attachment system (drag-and-drop the file into a PR/README edit box on GitHub.com and it will generate that link automatically). Until then, watch it directly here: [`PREVIEW/demo.mp4`](PREVIEW/demo.mp4).
+https://github.com/user-attachments/assets/bfda6ec6-f2a6-4fb9-8210-23fd15b29670
 
 ---
 
@@ -121,6 +119,16 @@ Then launch the app:
 streamlit run app.py
 ```
 
+
+
+
+
+
+
+
+
+
+
 The app opens at `http://localhost:8501`. Upload a JPG, JPEG, PNG, or WEBP image of a dish to get a prediction.
 
 ## 🌐 Live Demo
@@ -129,16 +137,13 @@ The app opens at `http://localhost:8501`. Upload a JPG, JPEG, PNG, or WEBP image
 
 ## 📸 Screenshots
 
-**Homepage**
+<strong>**Homepage**
 
-![Homepage](PREVIEW/homepage.png)
+![Homepage](preview/homepage.png)
 
-**Prediction Preview**
+<strong><mark>**Prediction Preview**</strong></mark>
 
-![Prediction Preview](PREVIEW/prediction-preview.png)
+![Prediction Preview](preview/prediction_preview.png)
 
-## ⚠️ Limitations
-
-- The model recognizes **only the five trained categories** — there's no "unknown" class, so an unrelated image still gets forced into the closest known class.
-- Predictions below 60% confidence trigger an on-screen warning and should be treated as inconclusive.
+- The model recognizes **only the five tr- Predictions below 60% confidence trigger an on-screen warning and should be treated as inconclusive.
 - Images containing multiple dishes are not supported — the model produces a single label per image.
