@@ -1,0 +1,13 @@
+{
+    "model": "EfficientNet-B0",
+    "test_accuracy": 84.21,
+    "test_samples": 38,
+    "num_classes": 5,
+    "classes": [
+        "biryani",
+        "butter_chicken",
+        "gulab_jamun",
+        "naan",
+        "palak_paneer"
+    ]
+}
