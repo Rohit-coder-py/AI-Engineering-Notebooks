@@ -1,3 +1,12 @@
 __pycache__/
 *.pyc
 .venv/
+
+# large / excluded model checkpoint
+models/indian_food_model_baseline.pth
+
+
+
+# streamlit / os junk
+.ipynb_checkpoints/
+.DS_Store
