@@ -1,0 +1,141 @@
+                    ┌──────────────────────┐
+                    │ 1. BUSINESS PROBLEM  │
+                    │    UNDERSTANDING      │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 2. DATA COLLECTION   │
+                    │    / ACQUISITION     │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 3. DATA UNDERSTANDING│
+                    │ • Shape              │
+                    │ • Columns             │
+                    │ • Target              │
+                    │ • Missing values      │
+                    │ • Duplicates          │
+                    │ • Class distribution  │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 4. DATA QUALITY      │
+                    │    & CLEANING        │
+                    │ • Missing text        │
+                    │ • Duplicates          │
+                    │ • Invalid samples     │
+                    │ • Label issues        │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 5. EXPLORATORY       │
+                    │    DATA ANALYSIS     │
+                    │ • Class distribution  │
+                    │ • Text length         │
+                    │ • Word frequency      │
+                    │ • Class imbalance     │
+                    └──────────┬───────────┘
+                               ↓
+                 ┌─────────────────────────────┐
+                 │ 6. TRAIN / VALIDATION /     │
+                 │    TEST SPLIT               │
+                 │                             │
+                 │   ⚠️ BEFORE FITTING         │
+                 │   vectorizers / preprocess  │
+                 └─────────────┬───────────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 7. TEXT PREPROCESSING│
+                    │ • Lowercase          │
+                    │ • Remove noise       │
+                    │ • Tokenization       │
+                    │ • Stopwords          │
+                    │ • Lemmatization       │
+                    └──────────┬───────────┘
+                               ↓
+              ┌──────────────────────────────────┐
+              │ 8. FEATURE ENGINEERING           │
+              │                                  │
+              │  ┌─────────┐      ┌──────────┐  │
+              │  │   BoW   │      │  TF-IDF  │  │
+              │  └────┬────┘      └────┬─────┘  │
+              │       │                │        │
+              │       └────────┬───────┘        │
+              │                ↓                 │
+              │          N-grams                 │
+              │       (1,1), (1,2)               │
+              └────────────────┬─────────────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 9. BASELINE MODEL   │
+                    │ Simple model first   │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 10. MODEL TRAINING   │
+                    │                      │
+                    │ • Naive Bayes        │
+                    │ • Logistic Regression│
+                    │ • Linear SVM         │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 11. CROSS-VALIDATION │
+                    │    & VALIDATION      │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 12. HYPERPARAMETER   │
+                    │     TUNING            │
+                    │ • GridSearchCV        │
+                    │ • RandomizedSearchCV  │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 13. MODEL COMPARISON  │
+                    │ Accuracy             │
+                    │ Precision            │
+                    │ Recall               │
+                    │ F1-score             │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 14. ERROR ANALYSIS   │
+                    │ • Wrong predictions  │
+                    │ • Confused classes   │
+                    │ • Hard examples      │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 15. FINAL MODEL      │
+                    │ Retrain using        │
+                    │ train + validation   │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 16. FINAL TEST       │
+                    │    EVALUATION        │
+                    │ 🔒 ONE TIME ONLY     │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 17. MODEL PIPELINE   │
+                    │ Vectorizer + Model   │
+                    │ saved together       │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 18. INFERENCE        │
+                    │ New ticket → class   │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 19. DEPLOYMENT       │
+                    │ Streamlit / API      │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ 20. DOCUMENTATION    │
+                    │ GitHub + README      │
+                    │ Results + screenshots│
+                    └──────────────────────┘
