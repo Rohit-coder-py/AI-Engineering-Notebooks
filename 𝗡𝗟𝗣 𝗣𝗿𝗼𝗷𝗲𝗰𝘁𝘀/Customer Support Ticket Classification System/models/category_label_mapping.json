@@ -1,0 +1,13 @@
+{
+  "0": "ACCOUNT",
+  "1": "CANCEL",
+  "2": "CONTACT",
+  "3": "DELIVERY",
+  "4": "FEEDBACK",
+  "5": "INVOICE",
+  "6": "ORDER",
+  "7": "PAYMENT",
+  "8": "REFUND",
+  "9": "SHIPPING",
+  "10": "SUBSCRIPTION"
+}
