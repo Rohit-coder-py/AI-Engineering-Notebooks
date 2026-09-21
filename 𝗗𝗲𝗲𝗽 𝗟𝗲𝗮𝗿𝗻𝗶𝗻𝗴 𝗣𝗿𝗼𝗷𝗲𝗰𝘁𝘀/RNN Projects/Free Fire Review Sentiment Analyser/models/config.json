@@ -1,0 +1,8 @@
+{
+    "vocab_size": 688,
+    "embedding_dim": 64,
+    "hidden_size": 64,
+    "max_len": 40,
+    "padding_id": 0,
+    "unknown_id": 1
+}
