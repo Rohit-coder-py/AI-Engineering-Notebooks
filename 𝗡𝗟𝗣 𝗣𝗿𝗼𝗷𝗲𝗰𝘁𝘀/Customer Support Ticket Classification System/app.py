@@ -1,14 +1,4 @@
-"""
-Customer Support Ticket Classification System
-================================================
-A production-style Streamlit application that classifies incoming customer
-support tickets into a CATEGORY (e.g. ORDER, REFUND, ACCOUNT) and a specific
-INTENT (e.g. cancel_order, track_refund) using TF-IDF + LinearSVC pipelines
-trained offline (see notebook/Customer Support Ticket Classification.ipynb).
 
-Run with:
-    streamlit run app.py
-"""
 
 import json
 import re
