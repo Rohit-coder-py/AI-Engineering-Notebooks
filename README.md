@@ -39,7 +39,7 @@ This repo is my <b>public learning log</b> on the road to becoming an <b>AI Engi
 It is <ins>intentionally unfinished</ins>. As I explore new libraries, frameworks, and topics, this repository keeps growing with them. Think of it less like a finished product and more like a <b>changelog of my skill-building</b>.
 </p>
 
-> 🔭 **Currently exploring:** Generative AI & LLMs (Month 5 of a 6-month self-designed roadmap) — prompting, RAG, agents and deployment. **Just finished:** Deep Learning (Month 4) — ANNs, CNNs, RNNs/LSTMs and Transformers, with 10+ deployed-style projects.
+> 🔭 **Currently exploring:** Generative AI & LLMs — prompting, RAG, agents and deployment.
 
 <br>
 
@@ -98,80 +98,108 @@ It is <ins>intentionally unfinished</ins>. As I explore new libraries, framework
 
 <br>
 
+## 📚 What I've Covered Till Now
+
+<p><sub>Topics and notes in this repo (projects excluded) — click to expand.</sub></p>
+
+<details>
+<summary><b>🐍 Python</b></summary>
+
+- Variables, data types, conditions, loops and string operations
+- Lists, tuples, dictionaries and sets
+- Functions, scope and list comprehensions
+- File handling and error handling (`try / except / finally`)
+- Modules and imports (`math`, `random`, `os`)
+- Basic Streamlit apps (chapter-wise practice)
+
+</details>
+
+<details>
+<summary><b>📊 Data Science & Visualization</b></summary>
+
+- **NumPy** — arrays, operations, broadcasting, statistics
+- **Pandas** — Series & DataFrame, filtering, sorting, groupby, missing values
+- **Matplotlib** — line, bar, scatter and histogram plots
+- **Seaborn** — distribution, categorical, regression and matrix plots
+- **Plotly & Cufflinks** — interactive charts
+- **EDA** — workflow, correlations and outliers
+
+</details>
+
+<details>
+<summary><b>🧮 Mathematics for AI</b></summary>
+
+- **Linear Algebra** — straight lines, coordinate geometry, vectors, matrices, determinants, eigenvalues & eigenvectors
+- **Calculus** — functions, limits, differentiation and its applications, integration
+- **Statistics & Probability** — descriptive statistics, distributions, probability basics
+
+</details>
+
+<details>
+<summary><b>🤖 Machine Learning</b></summary>
+
+- Supervised vs unsupervised learning
+- Regression and classification algorithms (Linear / Logistic Regression, KNN, SVM, Trees, K-Means)
+- Train–test split, cross validation and model evaluation
+- Encoding and feature scaling
+- Hyperparameter tuning and training multiple models
+- Saving and loading models
+
+</details>
+
+<details>
+<summary><b>🧠 Deep Learning</b></summary>
+
+- Perceptron, ANN and forward propagation
+- Activation functions, loss functions and optimizers
+- Designing neural network architectures in PyTorch
+- CNNs, pooling and transfer learning (EfficientNet)
+- RNN, LSTM and GRU
+- Transformers and attention
+- Saving / loading models and professional training habits
+
+</details>
+
+<details>
+<summary><b>💬 NLP</b></summary>
+
+- NLP pipeline and text preprocessing
+- Text representation — Bag-of-Words and TF-IDF
+- Word2Vec embeddings
+- Text classification and POS tagging
+- NLP with Machine Learning and with Deep Learning
+
+</details>
+
+<details>
+<summary><b>🗃️ SQL & DSA</b></summary>
+
+- **SQL** — CRUD, clauses & operators, joins, relationships, string functions, views & procedures
+- **DSA** — time complexity, arrays, singly linked list
+
+</details>
+
+<br>
+
 ## 🏗️ Featured Projects
 
-> 🔴 **Live Demo** = deployed Streamlit app. 📂 **Code** = project folder in this repo.
-
-### 🧠 Deep Learning — Month 4
-
 <table>
 <tr>
 <th align="left">Project</th>
-<th align="left">Type / Domain</th>
+<th align="left">Stack / Domain</th>
 <th align="left">Code</th>
 <th align="left">Live Demo</th>
 </tr>
-<tr><td>🍛 Indian Food Image Classifier</td><td>CNN · EfficientNet-B0 transfer learning</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/CNN%20Projects/Indian%20Food%20Image%20Classifier%20Using%20Efficient%20Net">📂 Code</a></td><td><a href="LIVE_URL_INDIAN_FOOD">🔴 Live</a></td></tr>
-<tr><td>🐱🐶 Cat vs Dog Classifier</td><td>CNN · PyTorch</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/CNN%20Projects/Cat-vs-Dog-Image-Classifier">📂 Code</a></td><td><a href="LIVE_URL_CAT_DOG">🔴 Live</a></td></tr>
-<tr><td>🩻 Chest X-Ray Pneumonia Classifier</td><td>CNN · Healthcare imaging</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/CNN%20Projects/Chest-XRay-Pneumonia-Classification">📂 Code</a></td><td><a href="LIVE_URL_CHEST_XRAY">🔴 Live</a></td></tr>
-<tr><td>💳 Credit Card Fraud Detection</td><td>ANN · Finance</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/ANN%20Projects/Credit%20Card%20Fraud%20Detection">📂 Code</a></td><td><a href="LIVE_URL_FRAUD">🔴 Live</a></td></tr>
-<tr><td>📞 Customer Churn Prediction</td><td>ANN · Telecom</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/ANN%20Projects/Customer%20Churn%20Prediction">📂 Code</a></td><td><a href="LIVE_URL_CHURN">🔴 Live</a></td></tr>
-<tr><td>🏥 Medical Insurance Cost Predictor</td><td>ANN · Regression</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/ANN%20Projects/Medical%20Insurance%20Cost%20Predictor%20ANN">📂 Code</a></td><td><a href="LIVE_URL_INSURANCE">🔴 Live</a></td></tr>
-<tr><td>🚚 ShipSense v2 — Shipment Delay Intelligence</td><td>ANN · Logistics</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/ANN%20Projects/ShipSense%20v2">📂 Code</a></td><td><a href="LIVE_URL_SHIPSENSE">🔴 Live</a></td></tr>
-<tr><td>📱 Smartphone Addiction Prediction</td><td>ANN · 93.9% accuracy · 0.989 ROC-AUC</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/ANN%20Projects/Smartphone-Addiction-Prediction">📂 Code</a></td><td><a href="LIVE_URL_SMARTPHONE">🔴 Live</a></td></tr>
-<tr><td>✍️ Sentence Auto Completer Bot</td><td>RNN / LSTM · Next-word prediction</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/RNN%20Projects/Sentence%20Auto%20Completer%20Bot">📂 Code</a></td><td><a href="LIVE_URL_AUTOCOMPLETE">🔴 Live</a></td></tr>
-<tr><td>🔥 Free Fire Review Sentiment Analyser</td><td>RNN · Sentiment</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/RNN%20Projects/Free%20Fire%20Review%20Sentiment%20Analyser">📂 Code</a></td><td>—</td></tr>
-<tr><td>🌡️ Time Series Forecasting</td><td>RNN · Daily minimum temperatures</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%97%F0%9D%97%B2%F0%9D%97%B2%F0%9D%97%BD%20%F0%9D%97%9F%F0%9D%97%B2%F0%9D%97%AE%F0%9D%97%BF%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/RNN%20Projects/Time%20Series%20Forcasting%20Project">📂 Code</a></td><td>—</td></tr>
+<tr><td>🍛 Indian Food Image Classifier</td><td>CNN · EfficientNet-B0 transfer learning · 5 dishes</td><td><a href="https://github.com/Rohit-coder-py/Indian-Food-Image-Classifier">📂 Repo</a></td><td><a href="https://indian-food-image-classifier.streamlit.app">🔴 Live</a></td></tr>
+<tr><td>🩻 Chest X-Ray Pneumonia Predictor</td><td>CNN · Medical imaging</td><td><a href="https://github.com/Rohit-coder-py/Chest-X-Ray-Pneumonia-Predictor">📂 Repo</a></td><td><a href="https://chest-x-ray-pneumonial-predictor.streamlit.app">🔴 Live</a></td></tr>
+<tr><td>💳 Credit Card Fraud Detection</td><td>PyTorch ANN · Finance</td><td><a href="https://github.com/Rohit-coder-py/Credit-Card-Fraud-Detection">📂 Repo</a></td><td><a href="https://credit-card-fraud-detection.streamlit.app">🔴 Live</a></td></tr>
+<tr><td>🚚 ShipSense — Shipping Delay Prediction</td><td>PyTorch ANN · Logistics</td><td><a href="https://github.com/Rohit-coder-py/shipsense-shipping-delay-prediction-pytorch">📂 Repo</a></td><td><a href="https://shipsense-shipping-delay-prediction-pytorch.streamlit.app">🔴 Live</a></td></tr>
+<tr><td>✍️ Sentence Auto Completer Bot</td><td>RNN + LSTM from scratch · Next-word prediction</td><td><a href="https://github.com/Rohit-coder-py/Sentence-Auto-Completer-Bot">📂 Repo</a></td><td><a href="https://sentence-auto-completer-bot.streamlit.app">🔴 Live</a></td></tr>
+<tr><td>🎫 Customer Support Ticket Classification</td><td>NLP + ML · Category & intent prediction</td><td><a href="https://github.com/Rohit-coder-py/Customer-Support-Ticket-Classification-System">📂 Repo</a></td><td><a href="https://customer-support-ticket-classification-system.streamlit.app">🔴 Live</a></td></tr>
+<tr><td>☁️ AI Cloud Cost Predictor</td><td>Regression · Feature engineering · Streamlit dashboard</td><td><a href="https://github.com/Rohit-coder-py/AI-Cloud-Cost-Predictor">📂 Repo</a></td><td><a href="https://ai-cloud-cost-predictor.streamlit.app">🔴 Live</a></td></tr>
 </table>
 
-### 💬 NLP
-
-<table>
-<tr>
-<th align="left">Project</th>
-<th align="left">Type / Domain</th>
-<th align="left">Code</th>
-<th align="left">Live Demo</th>
-</tr>
-<tr><td>🎫 Customer Support Ticket Classification</td><td>NLP + ML · Category & intent prediction</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A1%F0%9D%97%9F%F0%9D%97%A3%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Customer%20Support%20Ticket%20Classification%20System">📂 Code</a></td><td><a href="LIVE_URL_TICKETS">🔴 Live</a></td></tr>
-<tr><td>🤖 ChatGPT Sentiment Analysis</td><td>NLP + ML · BoW / TF-IDF + Logistic Regression</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A1%F0%9D%97%9F%F0%9D%97%A3%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Chatgpt%20Sentiment%20Analysis">📂 Code</a></td><td><a href="LIVE_URL_CHATGPT_SENTIMENT">🔴 Live</a></td></tr>
-<tr><td>📧 Spam Email Classifier</td><td>NLP + ML · Classification</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A1%F0%9D%97%9F%F0%9D%97%A3%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Spam%20email%20classifier">📂 Code</a></td><td>—</td></tr>
-</table>
-
-### 🤖 Machine Learning — Month 3
-
-<table>
-<tr>
-<th align="left">Project</th>
-<th align="left">Domain</th>
-<th align="left">Code</th>
-<th align="left">Live Demo</th>
-</tr>
-<tr><td>☁️ AI Cloud Cost Prediction</td><td>Cloud / Regression</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/AI%20Cloud%20Cost%20Prediction">📂 Code</a></td><td><a href="LIVE_URL_CLOUD_COST">🔴 Live</a></td></tr>
-<tr><td>📉 Employee Attrition & HR Analytics</td><td>HR Analytics / SVM</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Employee%20Attrition%20Prediction%20%26%20HR%20Analytics%20System">📂 Code</a></td><td><a href="LIVE_URL_ATTRITION">🔴 Live</a></td></tr>
-<tr><td>🛍️ Retail Customer Segmentation</td><td>Retail / Clustering</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Retail%20Customer%20Segmentation%20using%20%20Clustering">📂 Code</a></td><td><a href="LIVE_URL_SEGMENTATION">🔴 Live</a></td></tr>
-<tr><td>📦 Shipping Delay Prediction System</td><td>Logistics / Classification</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Shipping%20Delay%20Prediction%20System">📂 Code</a></td><td><a href="LIVE_URL_SHIPPING">🔴 Live</a></td></tr>
-<tr><td>❤️ Heart Disease Predictor</td><td>Healthcare / KNN</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Heart%20Disease%20Predictor">📂 Code</a></td><td><a href="LIVE_URL_HEART">🔴 Live</a></td></tr>
-<tr><td>📄 AI Resume Screening & Candidate Ranking</td><td>HR / Classification</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/AI%20Resume%20Screening%20%26%20Candidate%20Ranking%20System">📂 Code</a></td><td>—</td></tr>
-<tr><td>🏦 Loan Approval Predictor</td><td>Finance / Classification</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Loan%20Approval%20Predictor">📂 Code</a></td><td>—</td></tr>
-<tr><td>💼 Employee Salary Predictor</td><td>HR / Regression</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Employee%20Salary%20Predictor">📂 Code</a></td><td>—</td></tr>
-<tr><td>🎓 Students Success Predictor</td><td>Education / Classification</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Students%20Success%20Predictor%20Model">📂 Code</a></td><td>—</td></tr>
-<tr><td>📝 Student Score Predictor</td><td>Education / Regression</td><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A0%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Student%20Score%20Predictor">📂 Code</a></td><td>—</td></tr>
-</table>
-
-### 🗃️ SQL Projects
-
-<table>
-<tr>
-<th align="left">Project</th>
-<th align="left">Highlights</th>
-</tr>
-<tr><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A6%F0%9D%97%A4%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/E-Commerce%20Database%20Management%20System">🛒 E-Commerce Database Management System</a></td><td>ER diagram, schema, queries, views, project report</td></tr>
-<tr><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A6%F0%9D%97%A4%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Library%20Management%20System">📚 Library Management System</a></td><td>Relationships, queries, views</td></tr>
-<tr><td><a href="https://github.com/Rohit-coder-py/AI-Engineering-Notebooks/tree/main/%F0%9D%97%A6%F0%9D%97%A4%F0%9D%97%9F%20%F0%9D%97%A3%F0%9D%97%BF%F0%9D%97%BC%F0%9D%97%B7%F0%9D%97%B2%F0%9D%97%B0%F0%9D%98%81%F0%9D%98%80/Students%20Management%20System">🎒 Students Management System</a></td><td>Schema design, sample data, views</td></tr>
-</table>
-
-<p><sub>Deeper, standalone versions of several of these projects (with full Streamlit deployments) live in their own dedicated repos on my <a href="https://github.com/Rohit-coder-py">GitHub profile</a>.</sub></p>
+<p><sub>Every project lives in its own repo with a full README and Streamlit deployment — browse them all on my <a href="https://github.com/Rohit-coder-py?tab=repositories">GitHub profile</a>.</sub></p>
 
 <br>
 
@@ -189,20 +217,6 @@ It is <ins>intentionally unfinished</ins>. As I explore new libraries, framework
 | 6 | Job Prep & Interviews | ⏳ Upcoming |
 
 </div>
-
-<details>
-<summary><b>📅 Month 5 plan — Generative AI & LLMs</b></summary>
-
-<br>
-
-| Week | Focus |
-|:---:|:---|
-| 1 | LLM basics, tokens & context window, API calls, system prompts, prompt engineering, few-shot prompting |
-| 2 | RAG — embeddings, vector DBs (ChromaDB), chunking, similarity search, full pipeline |
-| 3 | Agents & tool calling — ReAct, LangChain agents, memory, multi-tool agents |
-| 4 | Serving & deployment — FastAPI, Pydantic, Docker basics, Spaces, env vars for keys |
-
-</details>
 
 <br>
 
