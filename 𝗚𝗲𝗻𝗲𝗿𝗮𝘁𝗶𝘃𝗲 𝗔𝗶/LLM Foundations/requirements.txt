@@ -1,0 +1,28 @@
+# Google Gemini API
+google-genai
+
+# Groq API
+groq
+
+# xAI API (OpenAI-compatible)
+openai
+
+# Environment variables
+python-dotenv
+
+# LangChain integrations
+langchain
+langchain-google-genai
+langchain-groq
+langchain-openai
+
+# Embeddings and vector search
+langchain-community
+faiss-cpu
+
+# Data processing
+numpy
+pandas
+
+# HTTP requests
+requests
