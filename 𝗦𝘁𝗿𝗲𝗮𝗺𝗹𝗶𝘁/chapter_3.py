@@ -8,7 +8,7 @@ col_1 , col_2 = st.columns(2)
 with col_1:
     st.header("Masala Chai")
     vote1 = st.button("Vote for Masala Chai ")
-    st.image(r"C:\Users\shobh\OneDrive\Attachments\Pictures\Screenshots 1\Screenshot 2026-08-14 110746.png",width = 600)
+    st.image(r"C:\Users\rohit\OneDrive\Pictures\Screenshots\Screenshot 2026-10-10 190730.png",width = 600)
 with col_2:
     st.header("Milk Chai")
     vote2 = st.button("Vote for Milk Chai ")
