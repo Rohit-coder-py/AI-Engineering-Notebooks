@@ -40,15 +40,18 @@ from pydantic import BaseModel
 # TODO: Create Product model with id, name, price, in stock
 
 
-Class Product(BaseModel):
+class Product(BaseModel):
     product_id : int
     product_name:str
-    product_price:int
+    product_price:float
     in_stock:bool
     
-data = {"product_id" : 1 , "product_name" : "Adnex Hand Gripper","product_price" : 99 , in_stock:True}
+data = {"product_id" : 1 , "product_name" : "Adnex Hand Gripper","product_price" : 99 , "in_stock":True}
 
 
 product = Product(**data)
 
 print(product)
+
+
+#we can also provide defaukt value of a parameter
