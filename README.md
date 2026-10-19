@@ -214,7 +214,7 @@ It is <ins>intentionally unfinished</ins>. As I explore new libraries, framework
 | 3 | Core Machine Learning | ✅ Done |
 | 4 | Deep Learning (ANN · CNN · RNN · Transformers) | ✅ Done |
 | 5 | GenAI & LLMs (Prompting · RAG · Agents · Deployment) | 🔄 In Progress |
-| 6 | Job Prep & Interviews | ⏳ Upcoming |
+| 6 | Capstone Projecs| ⏳ Upcoming |
 
 </div>
 
