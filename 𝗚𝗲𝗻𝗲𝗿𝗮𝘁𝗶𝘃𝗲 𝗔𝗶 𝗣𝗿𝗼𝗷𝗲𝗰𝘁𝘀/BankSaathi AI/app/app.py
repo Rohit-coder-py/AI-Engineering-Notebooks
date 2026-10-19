@@ -1,18 +1,3 @@
-"""
-BankSaathi AI - Banking guidance that speaks your language.
-
-Run from the project folder (the one that contains the `app` folder):
-    streamlit run app/app.py
-
-Features
-    1. Chat            -> multilingual banking chatbot with memory     (like AI CHATBOT project)
-    2. Term Explainer  -> banking term as structured data (Pydantic)   (like EduSage AI v2)
-    3. Scam Checker    -> checks a suspicious SMS / message (Pydantic) (like EduSage AI v2)
-
-Everything here uses ideas from your notes:
-    ChatGroq, ChatPromptTemplate, SystemMessage / HumanMessage / AIMessage,
-    PydanticOutputParser, temperature, max_tokens, Streamlit session_state + sidebar.
-"""
 
 import os
 from typing import Optional, List
@@ -35,8 +20,7 @@ LOGO_PATH = os.path.join(APP_DIR, "..", "assests", "logo_small.jpg")
 
 MODEL_NAME = "openai/gpt-oss-20b"
 
-# Your notes said: "memory keeps growing infinitely -> token limit, cost, slow".
-# So we only send the LAST few messages to the model (simple list slicing).
+
 MAX_HISTORY_MESSAGES = 12
 
 EXAMPLE_QUESTIONS = [
@@ -305,14 +289,6 @@ with st.sidebar:
         "cannot access your bank account, and is not an official service of any bank."
     )
 
-# The key must exist before we call any model.
-if not os.getenv("GROQ_API_KEY"):
-    st.title("BankSaathi AI")
-    st.error(
-        "GROQ_API_KEY not found. Create a file named `.env` in the project folder "
-        "with this line:  GROQ_API_KEY=your_key_here   (then restart the app)."
-    )
-    st.stop()
 
 
 # ---------------------------------------------------------------------------
@@ -511,3 +487,4 @@ elif page.startswith("📖"):
     show_term_page()
 else:
     show_scam_page()
+
