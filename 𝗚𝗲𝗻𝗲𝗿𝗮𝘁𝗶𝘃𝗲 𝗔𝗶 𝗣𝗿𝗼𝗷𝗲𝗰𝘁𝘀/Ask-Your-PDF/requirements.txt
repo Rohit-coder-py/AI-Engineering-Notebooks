@@ -1,0 +1,18 @@
+# Web app
+streamlit
+
+# LangChain
+langchain
+langchain-core
+langchain-groq
+langchain-community
+langchain-huggingface
+langchain-text-splitters
+
+# Embeddings + vector search
+sentence-transformers
+faiss-cpu
+
+# PDF + environment variables
+pypdf
+python-dotenv
