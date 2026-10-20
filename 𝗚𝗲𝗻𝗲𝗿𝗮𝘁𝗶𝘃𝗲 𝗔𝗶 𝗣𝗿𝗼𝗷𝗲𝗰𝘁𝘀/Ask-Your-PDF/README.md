@@ -20,7 +20,7 @@
 
 ### 📄 Upload a PDF &nbsp;➜&nbsp; 💬 Ask anything &nbsp;➜&nbsp; 📌 Get answers with page numbers
 
-**[🚀 Live Demo](https://your-app-name.streamlit.app)** &nbsp;•&nbsp; **[✨ Features](#-features)** &nbsp;•&nbsp; **[🧠 How it works](#-how-it-works)** &nbsp;•&nbsp; **[⚙️ Installation](#%EF%B8%8F-getting-started)** &nbsp;•&nbsp; **[📚 Glossary](#-technical-terms-explained)**
+**[🚀 Live Demo](https://ask-your-pdf-genai.streamlit.app/)** &nbsp;•&nbsp; **[✨ Features](#-features)** &nbsp;•&nbsp; **[🧠 How it works](#-how-it-works)** &nbsp;•&nbsp; **[⚙️ Installation](#%EF%B8%8F-getting-started)** &nbsp;•&nbsp; **[📚 Glossary](#-technical-terms-explained)**
 
 </div>
 
@@ -32,9 +32,9 @@
 
 <!-- 👉 Replace the link below with your deployed app URL (for example your Streamlit Community Cloud link) -->
 
-### 🔗 [**https://your-app-name.streamlit.app**](https://your-app-name.streamlit.app)
+### 🔗 [**Live App :**](https://ask-your-pdf-genai.streamlit.app/)
 
-*(link coming soon)*
+
 
 </div>
 
@@ -312,19 +312,6 @@ Being honest about what the app can't do yet:
 
 ---
 
-## 🗺️ Roadmap
-
-- [x] Chat interface with memory
-- [x] Page-level source citations
-- [x] Adjustable chunking and retrieval settings
-- [ ] Support multiple PDFs at once
-- [ ] OCR for scanned documents
-- [ ] Streaming (token-by-token) answers
-- [ ] Rewrite follow-up questions for better retrieval
-- [ ] Save and reload the FAISS index
-- [ ] Support `.docx` and `.txt` files
-
----
 
 ## 🎓 What I Learned
 
