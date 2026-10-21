@@ -32,7 +32,7 @@
 
 <!-- 👉 Replace the link below with your deployed app URL (for example your Streamlit Community Cloud link) -->
 
-### 🔗 [**Live App :**](https://ask-your-pdf-genai.streamlit.app/)
+### 🔗 [**Live App**](https://ask-your-pdf-genai.streamlit.app/)
 
 
 
