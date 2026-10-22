@@ -214,7 +214,11 @@ It is <ins>intentionally unfinished</ins>. As I explore new libraries, framework
 | 3 | Core Machine Learning | ✅ Done |
 | 4 | Deep Learning (ANN · CNN · RNN · Transformers) | ✅ Done |
 | 5 | GenAI & LLMs (Prompting · RAG · Agents · Deployment) | 🔄 In Progress |
+<<<<<<< HEAD
 | 6 | Capstone Projecs| ⏳ Upcoming |
+=======
+| 6 | Capstone Projects | ⏳ Upcoming |
+>>>>>>> d921125 (Implementation of Text Splitter)
 
 </div>
 

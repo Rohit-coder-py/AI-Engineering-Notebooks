@@ -25,7 +25,7 @@ TXT_PATH = os.path.join(APP_PATH,"..","krishimitra_ai_notes","farming_knowledge_
 
 from langchain_community.document_loaders import TextLoader
 from langchain_core.prompts import ChatPromptTemplate
-
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 template = ChatPromptTemplate.from_messages([
@@ -34,9 +34,17 @@ template = ChatPromptTemplate.from_messages([
 ])
 
 
+
+
 data = TextLoader(TXT_PATH,encoding = "utf-8")
 
 document = data.load()
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=100,
+    chunk_overlap=2)
+
+chunks = splitter.split_documents(document)
 
 content = document[0].page_content
 
