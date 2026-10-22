@@ -69,7 +69,7 @@ from langchain_groq import ChatGroq
 model = ChatGroq(model="openai/gpt-oss-20b",api_key=api_key)
 
 
-retreiver = vectorstore.as_retriever()
+retreiver = vectorstore.as_retriever()        #similarity search
 
 
 docs = retreiver.invoke("What is AI? ")
