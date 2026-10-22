@@ -1,0 +1,48 @@
+KRISHIMITRA AI — AGRICULTURE NOTES
+
+1. Artificial Intelligence (AI)
+AI is a field of computer science focused on creating systems that can perform tasks such as understanding language, recognizing patterns, and answering questions.
+
+2. Generative AI
+Generative AI uses models to create content such as text, images, audio, or code in response to an input or prompt.
+
+3. Large Language Models (LLMs)
+An LLM is an AI model trained to process and generate human language. It can explain concepts, summarize information, and answer questions, but it can sometimes produce incorrect answers.
+
+4. Retrieval-Augmented Generation (RAG)
+RAG combines information retrieval with language generation. It retrieves relevant information from external sources and provides it to an LLM as context for answering a question.
+
+5. How KrishiMitra AI Can Use RAG
+KrishiMitra AI is an AI-powered agricultural assistant concept. It can retrieve relevant information from trusted agricultural guides, farming documents, research papers, and government resources, then use an LLM to generate context-aware answers to farmers' questions.
+
+6. Possible Knowledge Sources
+- PDF documents
+- TXT and Markdown files
+- DOCX documents
+- Agricultural website pages
+- Research papers
+- CSV and Excel tables
+- Scanned documents and images using OCR
+- YouTube transcripts when available
+- Manually entered text
+- Authorized agricultural APIs and databases
+
+7. Basic RAG Pipeline
+1. Load documents or collect information.
+2. Extract readable text and useful metadata.
+3. Split the text into smaller chunks.
+4. Convert chunks into numerical vectors using an embedding model.
+5. Store vectors and text in a vector store.
+6. Retrieve chunks relevant to a user's question.
+7. Add retrieved context and the question to a prompt.
+8. Ask the LLM to generate an answer based on the supplied context.
+9. Show source references when available.
+
+8. Important Limitations
+- RAG does not normally train the LLM on uploaded documents.
+- Retrieval and generation can still be incorrect.
+- Use reliable, up-to-date agricultural sources.
+- Weather and market prices change frequently; live APIs may be more suitable than a static document index.
+- Agricultural guidance should be checked against trusted local expert or official advice, especially when decisions affect crops, livestock, or finances.
+
+End of notes.
