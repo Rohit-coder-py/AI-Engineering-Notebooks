@@ -25,7 +25,7 @@ model = ChatMistralAI(
 #basic settings
 
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
-LOGO_PATH = os.path.join(APP_PATH, "..", "assets", "logo.png")
+LOGO_PATH = r"C:\Users\rohit\Downloads\AI and Data Science\𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗶𝘃𝗲 𝗔𝗶 𝗣𝗿𝗼𝗷𝗲𝗰𝘁𝘀\Flipkart Shopping Assistant\assets\logo.png"
 
 
 st.set_page_config(page_title="Flipkart Shopping Assistant", page_icon=LOGO_PATH, layout="centered")
@@ -76,7 +76,8 @@ RULES:
 Only 1 product at once remove noise from that provided text
 Dont leave any details behind include each and evry details in a structured format
 
-Provide structured version of the raw text 
+Provide structured version of the raw text
+And cover each and evry important info provided in that raw text dont miss any 
 
 Important : If the link doesnt belong to any shopping site or doesnt contain any kind of product deatils dont assume just return this link is not valid or whatever the reason is but dont assume anything by your own .
 And most important just provide deatils in structured format with not ny extra stuff like here it is and all just product data 
@@ -143,26 +144,48 @@ if raw_text:
 
     st.success("Vector database created successfully!")
     
-    
-    #5. Retreival
-    
-# 5. Retrieval
+    # 5. Retrieval
+
     retriever = vectorstore.as_retriever(
-        search_kwargs={"k": 3})
+        search_kwargs={"k": 3}
+    )
 
     question = st.text_input("Ask about this product:")
 
     if question:
         results = retriever.invoke(question)
 
-        st.subheader("Retrieved Information")
+        #Combine retrieved chunks into one context
+        context = "\n\n".join(doc.page_content for doc in results)
+        
+        prompt = ChatPromptTemplate.from_messages([
+            (
+                "system",
+                """You are a product shopping assistant.
+Answer the user's question using only the
+provided product context.
 
-        for i, doc in enumerate(results, start=1):
-            st.write(f"Chunk {i}")
-            st.write(doc.page_content)
+If the answer is not available in the context,
+say that the product details do not specify it.
+Do not invent product specifications.
 
-    
-    
+Product context:
+{context}"""
+            ),
+            ("human", "{question}")
+        ])
+
+        answer_chain = prompt | get_model()
+
+        # Generate the answer
+        res = answer_chain.invoke({"context": context,"question": question})
+
+        st.subheader("Answer : ")
+        st.write(res.content)
+
+
+        
+        
 
 else:
     st.warning("Please enter a valid product URL.")
