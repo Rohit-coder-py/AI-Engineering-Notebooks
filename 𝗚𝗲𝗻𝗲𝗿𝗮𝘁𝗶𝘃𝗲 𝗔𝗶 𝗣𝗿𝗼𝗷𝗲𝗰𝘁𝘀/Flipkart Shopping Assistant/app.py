@@ -88,13 +88,81 @@ Here is the raw text details :{raw_text}
 #invoke the prompt
 
 chain = prompt_refine | refine_model()
+#now  we will follow the rag pipeline now
+    
+#1. Document Loaders
+#2. Textsplitting
+#3.embeddings generation
+#4.vectordb
+#5.Retreival
+
+
+
+
+
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
+
+#defining embedding models here so we dont need to initialize it everytime we start
+
+@st.cache_resource
+def get_embedding_model():
+    return HuggingFaceEmbeddings(
+        model_name="Qwen/Qwen3-Embedding-0.6B"
+    )
+
+embedding = get_embedding_model()
 
 if raw_text:
-    response = chain.invoke({"raw_text": raw_text})
-    with st.expander("Product Details"):
-        st.write(response.content)
     
+    # 1. Refine the product details only once
+    response = chain.invoke({"raw_text": raw_text})
+    document = response.content
+    with st.expander("Product Details"):
+        st.write(document)
+
+    # 2. Text splitting
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=245,
+        chunk_overlap=4
+    )
+
+    token_chunks = splitter.split_text(document)
+
+    st.write("Total No. of Chunks:", len(token_chunks))
+
+    # 3. Generate embeddings
+    #already generated
+
+    # 4. Create vector database
+    vectorstore = Chroma.from_texts(
+        texts=token_chunks,
+        embedding=embedding,
+    )
+
+    st.success("Vector database created successfully!")
+    
+    
+    #5. Retreival
+    
+# 5. Retrieval
+    retriever = vectorstore.as_retriever(
+        search_kwargs={"k": 3})
+
+    question = st.text_input("Ask about this product:")
+
+    if question:
+        results = retriever.invoke(question)
+
+        st.subheader("Retrieved Information")
+
+        for i, doc in enumerate(results, start=1):
+            st.write(f"Chunk {i}")
+            st.write(doc.page_content)
+
+    
+    
+
 else:
-    st.warning("Could not extract product details. Maybe you had not entered product link yet")
-
-
+    st.warning("Please enter a valid product URL.")

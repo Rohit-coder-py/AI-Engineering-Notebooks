@@ -9,11 +9,6 @@ splitter = RecursiveCharacterTextSplitter(
     chunk_overlap=2)
 
 
-
-
-
-
-
 data = PyPDFLoader(r"C:\Users\rohit\Downloads\AI and Data Science\𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗶𝘃𝗲 𝗔𝗶 𝗣𝗿𝗼𝗷𝗲𝗰𝘁𝘀\Krishi Mitra AI\krishimitra_ai_notes\ai_notes.pdf")
 
 documents= data.load()
