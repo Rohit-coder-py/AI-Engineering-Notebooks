@@ -1,23 +1,15 @@
+
 """
-Pydantic Parsers — Practical Learning File
-==========================================
-
-Install:
-    pip install pydantic
-
 Pydantic parsers help convert incoming data into Python values/models while
 checking that the data matches the expected types and constraints.
 
-In Pydantic v2, the main methods are:
+In Pydantic, the main methods are:
     1. Model.model_validate()       -> validate Python objects, commonly dicts
     2. Model.model_validate_json() -> parse and validate JSON strings/bytes
     3. model.model_dump()           -> serialize model to a Python dict
     4. model.model_dump_json()      -> serialize model to a JSON string
     5. TypeAdapter                 -> validate types without defining a BaseModel
 
-Note:
-    These are Pydantic v2 APIs. Older tutorials may use parse_obj() or
-    parse_raw(); prefer the v2 methods for new code.
 """
 
 from datetime import datetime
