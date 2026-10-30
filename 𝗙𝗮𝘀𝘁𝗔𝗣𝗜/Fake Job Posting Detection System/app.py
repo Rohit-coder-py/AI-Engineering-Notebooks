@@ -1,4 +1,6 @@
+import io
 import re
+import pandas as pd
 import requests
 import streamlit as st
 
@@ -47,11 +49,18 @@ label, .stTextInput label, .stTextArea label, .stCheckbox label, .stToggle label
 ::placeholder{ color:#6f7a95 !important; }
 
 /* buttons */
-.stButton > button, .stFormSubmitButton > button{
+.stButton > button, .stFormSubmitButton > button, .stDownloadButton > button{
   border-radius:10px; border:1px solid var(--line); background:var(--panel2); color:var(--text); font-weight:600; }
-.stButton > button:hover{ border-color:var(--gold); color:var(--gold); }
+.stButton > button:hover, .stDownloadButton > button:hover{ border-color:var(--gold); color:var(--gold); }
 .stFormSubmitButton > button{ background:linear-gradient(90deg,var(--sapphire),var(--amethyst)); border:none; color:#fff; padding:.7rem 1rem; font-size:1.05rem; }
 .stFormSubmitButton > button:hover{ filter:brightness(1.12); color:#fff; }
+
+/* file uploader */
+[data-testid="stFileUploaderDropzone"]{ background:#0e1320 !important; border:1.5px dashed var(--line) !important; border-radius:12px !important; }
+[data-testid="stFileUploaderDropzone"]:hover{ border-color:var(--sapphire) !important; }
+[data-testid="stFileUploaderDropzone"] *{ color:var(--text) !important; }
+[data-testid="stFileUploaderDropzone"] button{ background:var(--panel2) !important; border:1px solid var(--line) !important; border-radius:10px !important; }
+h2.section{ font-family:'Cormorant Garamond',serif; font-weight:700; font-size:2.1rem; margin:.1rem 0 .2rem 0; color:var(--text); }
 
 /* toggles: emerald when ON */
 label:has(input[role="switch"]:checked) > div:first-of-type{ background-color:var(--emerald) !important; }
@@ -207,12 +216,35 @@ def call_api(base_url, p):
     return r.json()
 
 
+REQUIRED_COLS = [
+    "title", "company_profile", "description", "requirements", "benefits",
+    "telecommuting", "has_company_logo", "has_questions", "salary_range",
+]
+
+
+def template_csv():
+    """Tiny example CSV (built from the two demo samples) showing the expected columns."""
+    rows = [{c: int(v) if isinstance(v, bool) else v for c, v in SAMPLES[k].items()} for k in ("suspicious", "genuine")]
+    return pd.DataFrame(rows)[REQUIRED_COLS].to_csv(index=False).encode("utf-8")
+
+
+def call_bulk_api(base_url, filename, data):
+    """Send a CSV to the FastAPI /fileupload route and return the scored DataFrame."""
+    r = requests.post(
+        base_url.rstrip("/") + "/fileupload",
+        files={"file": (filename, data, "text/csv")},
+        timeout=900,
+    )
+    r.raise_for_status()
+    return pd.read_csv(io.BytesIO(r.content))
+
+
 # ------------------------------------------------------------------
 # Sidebar
 # ------------------------------------------------------------------
 with st.sidebar:
     st.markdown('<div class="tag">Backend</div>', unsafe_allow_html=True)
-    api_url = st.text_input("FastAPI URL", value=DEFAULT_API_URL, help="Where `uvicorn app:app` is running")
+    api_url = st.text_input("FastAPI URL", value=DEFAULT_API_URL, help="Where `uvicorn fastapi_app:app` is running")
 
     try:
         h = requests.get(api_url.rstrip("/") + "/health", timeout=3).json()
@@ -223,7 +255,7 @@ with st.sidebar:
         )
     except Exception:
         st.markdown('<span class="pill r">● API offline</span>', unsafe_allow_html=True)
-        st.caption("Start it with:  `uvicorn app:app --reload`")
+        st.caption("Start it with:  `uvicorn fastapi_app:app --reload`")
 
     st.markdown("---")
     st.markdown('<div class="tag">Quick demo</div>', unsafe_allow_html=True)
@@ -286,7 +318,7 @@ if submitted:
                 res = call_api(api_url, p)
             st.session_state["result"] = {"data": res, "flags": red_flags(p), "words": len(p["description"].split())}
         except requests.exceptions.ConnectionError:
-            st.session_state["result"] = {"error": f"Can't reach the API at {api_url}. Is `uvicorn app:app --reload` running?"}
+            st.session_state["result"] = {"error": f"Can't reach the API at {api_url}. Is `uvicorn fastapi_app:app --reload` running?"}
         except requests.exceptions.HTTPError as e:
             st.session_state["result"] = {"error": f"API returned an error: {e.response.text}"}
         except Exception as e:
@@ -340,3 +372,109 @@ with right:
             "and never pay money to get a job.</div>",
             unsafe_allow_html=True,
         )
+
+# ------------------------------------------------------------------
+# Bulk CSV upload
+# ------------------------------------------------------------------
+st.markdown("---")
+st.markdown('<div class="tag">Bulk check</div>', unsafe_allow_html=True)
+st.markdown('<h2 class="section">Upload a CSV of job postings</h2>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="sub">Score many postings at once and download the predictions as a CSV.</div>',
+    unsafe_allow_html=True,
+)
+
+up_left, up_right = st.columns([1.15, 1], gap="large")
+
+with up_left:
+    uploaded = st.file_uploader("Choose a CSV file", type=["csv"], key="bulk_file")
+    run_bulk = st.button("📂 Analyse file", disabled=uploaded is None, use_container_width=True)
+
+with up_right:
+    st.markdown(
+        """<div class="card"><h3>Expected columns</h3>
+        <p style="color:var(--muted);margin-bottom:.5rem">Your CSV must contain these columns (extra columns are kept in the output):</p>"""
+        + "".join(f'<span class="pill a">{c}</span>' for c in REQUIRED_COLS)
+        + """<p style="color:var(--muted);margin-top:.7rem;font-size:.9rem">The three signal columns
+        (<code>telecommuting</code>, <code>has_company_logo</code>, <code>has_questions</code>) use 1 / 0.
+        Large files are scored row by row, so they can take a while.</p></div>""",
+        unsafe_allow_html=True,
+    )
+    st.download_button(
+        "⬇️ Download sample CSV template",
+        data=template_csv(),
+        file_name="job_postings_template.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
+
+if run_bulk and uploaded is not None:
+    raw = uploaded.getvalue()
+    try:
+        preview = pd.read_csv(io.BytesIO(raw))
+        missing = [c for c in REQUIRED_COLS if c not in preview.columns]
+        if missing:
+            st.session_state["bulk"] = {"error": f"Missing columns: {', '.join(missing)}"}
+        elif preview.empty:
+            st.session_state["bulk"] = {"error": "The CSV has no rows."}
+        else:
+            with st.spinner(f"Scoring {len(preview):,} postings..."):
+                scored = call_bulk_api(api_url, uploaded.name, raw)
+            st.session_state["bulk"] = {"df": scored, "name": uploaded.name}
+    except requests.exceptions.ConnectionError:
+        st.session_state["bulk"] = {"error": f"Can't reach the API at {api_url}. Is `uvicorn fastapi_app:app --reload` running?"}
+    except requests.exceptions.HTTPError as e:
+        try:
+            detail = e.response.json().get("detail", e.response.text)
+        except Exception:
+            detail = e.response.text
+        st.session_state["bulk"] = {"error": f"API returned an error: {detail}"}
+    except Exception as e:
+        st.session_state["bulk"] = {"error": f"Could not process the file: {e}"}
+
+bulk = st.session_state.get("bulk")
+if bulk:
+    if "error" in bulk:
+        st.error(bulk["error"])
+    else:
+        out = bulk["df"]
+        total = len(out)
+        n_fraud = int((out["prediction"] == "Fraudulent Job Posting").sum())
+        n_genuine = total - n_fraud
+        rate = (n_fraud / total * 100) if total else 0.0
+
+        b1, b2, b3, b4 = st.columns(4)
+        b1.markdown(f'<div class="metric"><div class="k">Postings</div><div class="v" style="color:#5b8cff">{total:,}</div></div>', unsafe_allow_html=True)
+        b2.markdown(f'<div class="metric"><div class="k">Fraudulent</div><div class="v" style="color:#ff5b6e">{n_fraud:,}</div></div>', unsafe_allow_html=True)
+        b3.markdown(f'<div class="metric"><div class="k">Genuine</div><div class="v" style="color:#2fd4a0">{n_genuine:,}</div></div>', unsafe_allow_html=True)
+        b4.markdown(f'<div class="metric"><div class="k">Fraud rate</div><div class="v" style="color:#ffb454">{rate:.1f}%</div></div>', unsafe_allow_html=True)
+
+        st.markdown("")
+        view = st.radio("Show", ["All", "Fraudulent only", "Genuine only"], horizontal=True, key="bulk_view")
+        shown = out
+        if view == "Fraudulent only":
+            shown = out[out["prediction"] == "Fraudulent Job Posting"]
+        elif view == "Genuine only":
+            shown = out[out["prediction"] == "Genuine Job Posting"]
+        shown = shown.sort_values("fraud_percentage", ascending=False)
+
+        st.dataframe(
+            shown[["title", "prediction", "fraud_percentage"]],
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "title": "Job title",
+                "prediction": "Prediction",
+                "fraud_percentage": st.column_config.ProgressColumn("Fraud %", min_value=0, max_value=100, format="%.1f"),
+            },
+        )
+
+        base = bulk["name"].rsplit(".", 1)[0]
+        st.download_button(
+            "⬇️ Download full predictions (CSV)",
+            data=out.to_csv(index=False).encode("utf-8"),
+            file_name=f"{base}_predictions.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
+        st.caption("Predictions are model estimates. Verify any employer independently before applying.")
