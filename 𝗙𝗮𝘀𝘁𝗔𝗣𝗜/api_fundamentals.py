@@ -66,4 +66,31 @@ def get_model_prediction(model_name: str, user_id: int):
 #apply conditions on path
 
 
+# Query Parameters
 
+@app.get("/usersfilter")
+def get_customer(
+    user_name: Optional[str] = None,
+    user_loc: Optional[str] = None
+):
+    filtered_users = {}
+
+    for user_id, user_data in users.items():
+
+        # Filter by username
+        if user_name and user_name.lower() not in user_data["user_name"].lower():
+            continue
+
+        # Filter by location
+        if user_loc and user_loc.lower() != user_data["user_loc"].lower():
+            continue
+
+        filtered_users[user_id] = user_data
+
+    return {
+        "total_users": len(filtered_users),
+        "users": filtered_users
+    }
+
+# You can control the number of records returned using Query Parameters: limit and skip.
+        
