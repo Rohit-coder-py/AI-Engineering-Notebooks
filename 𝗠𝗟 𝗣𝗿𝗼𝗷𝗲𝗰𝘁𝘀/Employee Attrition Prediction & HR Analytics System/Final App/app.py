@@ -5,9 +5,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE CONFIG  (must be the first Streamlit call)
-# ─────────────────────────────────────────────────────────────────────────────
+
 st.set_page_config(
     page_title="Employee Attrition Prediction | HR Analytics",
     page_icon="",
@@ -15,9 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PATHS  — adjust only these two lines if you move the files
-# ─────────────────────────────────────────────────────────────────────────────
+
 BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR  = os.path.join(BASE_DIR, "..", "models")
 
