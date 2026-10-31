@@ -1,0 +1,1 @@
+This dataset is publically available on this link :https://www.kaggle.com/datasets/msambare/fer2013
