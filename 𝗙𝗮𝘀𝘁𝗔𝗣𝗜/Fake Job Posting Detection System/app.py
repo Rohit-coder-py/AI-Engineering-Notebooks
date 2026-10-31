@@ -6,7 +6,8 @@ import streamlit as st
 
 # Config
 
-DEFAULT_API_URL = "http://127.0.0.1:8000"
+# DEFAULT_API_URL = "http://127.0.0.1:8000"      thats old for local 
+DEFAULT_API_URL = "https://fake-job-posting-detection-system.onrender.com"
 
 st.set_page_config(
     page_title="Fake Job Posting Detector",

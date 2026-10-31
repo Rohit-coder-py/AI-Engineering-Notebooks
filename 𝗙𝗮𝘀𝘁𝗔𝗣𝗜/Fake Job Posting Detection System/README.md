@@ -1,3 +1,11 @@
+<b>This is only a learning project i am learning FASTAPI and tried to implement FASTAPI for practice 
+
+
+## 🌐 Live Deployment
+
+- **Live Application (Streamlit):** [Open Fake Job Posting Detector](https://fake-job-posting-detection-system-fastapi.streamlit.app/)
+- **Backend API (Render):** [FastAPI Backend](https://fake-job-posting-detection-system.onrender.com)
+
 # 🛡️ Fake Job Posting Detection System
 
 A machine-learning web app that flags potentially fraudulent job advertisements **before** you apply or share personal details. Paste a single job ad to get an instant fraud-risk score, or upload a CSV to score hundreds of postings at once.
