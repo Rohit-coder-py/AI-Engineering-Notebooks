@@ -31,8 +31,7 @@ MODEL_PATH = os.path.join(MODELS_PATH, "resnet18_final.pth")
 CLASS_PATH = os.path.join(MODELS_PATH, "class_names.json")
 
 
-API_URL = "http://127.0.0.1:8000/"
-
+API_URL = "http://127.0.0.1:8000"
 base_url = os.getcwd()
 
 LOGO_URL = os.path.join(base_url, "logo.png")
@@ -79,7 +78,36 @@ if uploaded_file is not None:
 
 #fstapi work
     
-    
+import requests   
 #Add button
 if uploaded_file is not None:
     predict_button = st.button("Predict Emotion",type="primary")
+    
+    #sendto fastapi
+    if predict_button:
+
+        with st.spinner("Analyzing facial expression..."):
+
+            response = requests.post(
+                f"{API_URL}/predict",
+                files={
+                    "file": (
+                        uploaded_file.name,
+                        uploaded_file.getvalue(),
+                        uploaded_file.type
+                    )
+                },
+                timeout=60
+            )
+
+        if response.status_code == 200:
+
+            result = response.json()
+
+            st.success("Prediction completed successfully!")
+
+            st.write(result)
+
+        else:
+
+            st.error(f"API Error: {response.text}")
