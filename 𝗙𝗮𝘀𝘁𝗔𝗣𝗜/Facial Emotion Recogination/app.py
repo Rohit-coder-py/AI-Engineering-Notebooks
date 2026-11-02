@@ -42,7 +42,7 @@ LOGO_URL = os.path.join(base_url, "logo.png")
 
 st.set_page_config(
     page_title="Facial Emotion Recognition",
-    page_icon="😊",
+    page_icon=LOGO_URL,
     layout="wide"
 )
 
@@ -57,3 +57,29 @@ st.write(
 )
 
 st.divider()
+
+#img upload
+
+uploaded_file = st.file_uploader("Upload a facial image" ,type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    image = Image.open(uploaded_file).convert("RGB")
+    
+    st.image(image,caption="Uploaded Facial Image",width=400)
+
+
+
+
+
+
+
+
+
+
+
+#fstapi work
+    
+    
+#Add button
+if uploaded_file is not None:
+    predict_button = st.button("Predict Emotion",type="primary")
