@@ -1,19 +1,24 @@
-*.zip
-
 # ==========================
 # Python
 # ==========================
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
 
 # Virtual Environments
 venv/
 env/
 .venv/
+ENV/
 
 # Jupyter
 .ipynb_checkpoints/
+**/.ipynb_checkpoints/
 
 # IDEs
 .vscode/
@@ -24,16 +29,103 @@ env/
 Thumbs.db
 desktop.ini
 
-# Environment Variables
+# ==========================
+# Secrets / Environment
+# ==========================
 .env
+.env.*
+!.env.example
+*.env
+.streamlit/secrets.toml
+secrets.toml
+*.key
+*.pem
 
-# Python Cache
+# ==========================
+# Python Cache / Tools
+# ==========================
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Temporary Files
 *.log
 *.tmp
 *.bak
+*.swp
 
+# ==========================
+# Trained Models & Weights
+# ==========================
+*.pth
+*.pt
+*.pkl
+*.pickle
+*.joblib
+*.npz
+*.npy
+*.h5
+*.hdf5
+*.keras
+*.onnx
+*.ckpt
+*.safetensors
+*.pb
+*.tflite
+*.bin
+checkpoints/
+saved_models/
+
+# ==========================
+# Datasets / Databases
+# ==========================
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.xlsx
+*.xls
+*.db
+*.sqlite
+*.sqlite3
 **/combined_data.csv
+
+# Vector DBs (Chroma / FAISS)
+*chroma_db/
+chroma/
+*.faiss
+*.index
+
+# ==========================
+# Large Media / Archives
+# ==========================
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.mp3
+*.wav
+
+# ==========================
+# ML Experiment Tracking / Caches
+# ==========================
+wandb/
+mlruns/
+runs/
+lightning_logs/
+tensorboard/
+.cache/
+huggingface/
+.gradio/
+
+# ==========================
+# Keep placeholders
+# ==========================
+!.gitkeep
