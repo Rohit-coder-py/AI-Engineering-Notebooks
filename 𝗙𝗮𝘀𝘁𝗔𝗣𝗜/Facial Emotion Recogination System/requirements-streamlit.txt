@@ -1,0 +1,4 @@
+# Streamlit frontend dependencies
+streamlit
+requests
+Pillow

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="218" viewBox="0 0 1000 218" role="img" aria-label="Test accuracy  -  3 models compared">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+  <rect width="1000" height="218" rx="22" fill="#0f172a"/>
+  <text x="500.0" y="48" text-anchor="middle" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="24" font-weight="800" fill="#c7d2fe">Test accuracy  -  3 models compared</text>
+  <text x="170" y="96" text-anchor="end" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="17" font-weight="600" fill="#e2e8f0">ResNet18</text>
+  <rect x="200" y="80" width="680" height="22" rx="11" fill="#1e293b"/>
+  <rect x="200" y="80" height="22" rx="11" fill="url(#g)" width="0">
+    <animate attributeName="width" dur="7.0s" repeatCount="indefinite" values="0;0;456.1;456.1;0" keyTimes="0;0.0571;0.2429;0.92;1"/></rect>
+  <text x="894" y="96" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="17" font-weight="700" fill="#f8fafc" opacity="0">67.07%
+    <animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.0571;0.2429;0.92;1"/></text>
+  <text x="170" y="142" text-anchor="end" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="17" font-weight="600" fill="#e2e8f0">MobileNetV2</text>
+  <rect x="200" y="126" width="680" height="22" rx="11" fill="#1e293b"/>
+  <rect x="200" y="126" height="22" rx="11" fill="url(#g)" width="0">
+    <animate attributeName="width" dur="7.0s" repeatCount="indefinite" values="0;0;432.6;432.6;0" keyTimes="0;0.1071;0.2929;0.92;1"/></rect>
+  <text x="894" y="142" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="17" font-weight="700" fill="#f8fafc" opacity="0">63.62%
+    <animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1071;0.2929;0.92;1"/></text>
+  <text x="170" y="188" text-anchor="end" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="17" font-weight="600" fill="#e2e8f0">CNN (scratch)</text>
+  <rect x="200" y="172" width="680" height="22" rx="11" fill="#1e293b"/>
+  <rect x="200" y="172" height="22" rx="11" fill="url(#g)" width="0">
+    <animate attributeName="width" dur="7.0s" repeatCount="indefinite" values="0;0;376.7;376.7;0" keyTimes="0;0.1571;0.3429;0.92;1"/></rect>
+  <text x="894" y="188" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="17" font-weight="700" fill="#f8fafc" opacity="0">55.39%
+    <animate attributeName="opacity" dur="7.0s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;0.1571;0.3429;0.92;1"/></text>
+</svg>

@@ -1,17 +1,3 @@
-"""
-Facial Emotion Recognition - Streamlit App (Neumorphism, Light Theme)
-
-Run with:  streamlit run app.py
-
-Pages:
-    1. Home     -> short intro
-    2. Predict  -> upload a face photo, get the emotion
-    3. About    -> full explanation of the project
-
-How to run (2 terminals):
-    1) uvicorn fastapi_app:app --port 8000     <- the model server
-    2) streamlit run app.py                    <- this app
-"""
 
 import io
 import os
@@ -25,16 +11,13 @@ from PIL import Image
 # 1. BASIC SETTINGS
 # =====================================================================
 
-# Folder where this file lives (so paths work from anywhere)
 APP_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
-# Address of the FastAPI server (change it here, or set the API_URL variable)
-API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
+API_URL = os.getenv("API_URL","https://facial-emotion-recogination-api.onrender.com").rstrip("/")
 
 LOGO_PATH = os.path.join(APP_FOLDER, "logo.png")
 SAMPLE_PATH = os.path.join(APP_FOLDER, "sample.jpg")
 
-# Emoji + short text for every emotion
 EMOTION_INFO = {
     "angry":    {"emoji": "😠", "text": "Frowning brows and tight lips."},
     "disgust":  {"emoji": "🤢", "text": "Wrinkled nose and raised upper lip."},
@@ -45,21 +28,11 @@ EMOTION_INFO = {
     "surprise": {"emoji": "😲", "text": "Raised brows and an open mouth."},
 }
 
-# Page setup (must be the first Streamlit command)
 st.set_page_config(
     page_title="Facial Emotion Recognition",
     page_icon="🙂",
     layout="wide",
 )
-
-
-# =====================================================================
-# 2. NEUMORPHISM STYLE (CSS)
-# =====================================================================
-# Neumorphism = soft shapes made with TWO shadows:
-#   a dark shadow (bottom-right) and a white shadow (top-left).
-#   "Raised" look  -> normal shadow
-#   "Pressed" look -> inset shadow
 
 CSS = """
 <style>
@@ -234,9 +207,7 @@ h1, h2, h3, h4, p, li, label, span { color: var(--text); }
 """
 
 
-# =====================================================================
-# 3. SMALL HELPER FUNCTIONS (they just build HTML)
-# =====================================================================
+
 
 def clean(html):
     """Remove leading spaces so Streamlit does not treat HTML as code."""
@@ -299,14 +270,6 @@ def table_html(headers, rows, best_row=None):
     return f'<table class="nm-table"><tr>{head}</tr>{body}</table>'
 
 
-# =====================================================================
-# 4. FASTAPI CONNECTION
-# =====================================================================
-# The model lives inside the FastAPI server (fastapi_app.py).
-# This Streamlit app only SENDS the image and SHOWS the answer.
-#
-#   Streamlit (this file)  --POST /predict-->  FastAPI  -->  ResNet18
-#   Streamlit (this file)  <--- JSON result --  FastAPI  <--  ResNet18
 
 def check_api():
     """Ask the API '/health'. Returns (True, info) or (False, error text)."""
@@ -351,9 +314,6 @@ def predict_with_api(image):
 
 
 
-# =====================================================================
-# 5. PAGE: HOME
-# =====================================================================
 
 def page_home():
     show_html("""
@@ -376,7 +336,7 @@ def page_home():
         ("128 x 128", "Model input size"),
     ])
 
-    # Show all 7 emotions
+    
     tiles = ""
     for name, info in EMOTION_INFO.items():
         tiles += (

@@ -1,0 +1,6 @@
+# FastAPI backend dependencies
+fastapi
+uvicorn[standard]
+python-multipart
+Pillow
+numpy

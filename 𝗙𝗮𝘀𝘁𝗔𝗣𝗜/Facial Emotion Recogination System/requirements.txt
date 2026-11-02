@@ -1,0 +1,10 @@
+# Combined dependencies for platforms that use the repository-root file.
+# PyTorch is intentionally excluded; Render installs the CPU-only wheels
+# separately through render.yaml.
+fastapi
+uvicorn[standard]
+python-multipart
+Pillow
+numpy
+streamlit
+requests

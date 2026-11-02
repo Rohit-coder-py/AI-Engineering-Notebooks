@@ -1,0 +1,72 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ==========================
+# Virtual Environments
+# ==========================
+venv/
+env/
+.venv/
+ENV/
+
+# ==========================
+# Jupyter Notebook
+# ==========================
+.ipynb_checkpoints/
+
+# ==========================
+# IDEs and Editors
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================
+# Operating System
+# ==========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================
+# Testing, Linting and Cache
+# ==========================
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.cache/
+
+# ==========================
+# Environment Variables and Secrets
+# ==========================
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# ==========================
+# Logs and Temporary Files
+# ==========================
+*.log
+*.tmp
+*.bak
+*.orig
+~$*
+
+# ==========================
+# Model Training Temporary Checkpoints
+# ==========================
+*.ckpt
+
+# ==========================
+# Streamlit
+# ==========================
+.streamlit/
+!.streamlit/config.toml

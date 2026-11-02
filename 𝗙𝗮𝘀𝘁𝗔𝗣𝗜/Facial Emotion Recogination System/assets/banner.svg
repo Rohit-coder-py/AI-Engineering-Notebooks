@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300" role="img" aria-label="Facial Emotion Recognition banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"><animate attributeName="stop-color" values="#0f172a;#1e1b4b;#0f172a" dur="8s" repeatCount="indefinite"/></stop>
+      <stop offset="1" stop-color="#312e81"><animate attributeName="stop-color" values="#312e81;#6d28d9;#312e81" dur="8s" repeatCount="indefinite"/></stop>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#67e8f9"/><stop offset="0.5" stop-color="#ffffff"/><stop offset="1" stop-color="#f0abfc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="300" rx="24" fill="url(#bg)"/>
+  <circle cx="150" cy="150" r="90" fill="#22d3ee" opacity="0.10"><animate attributeName="r" values="80;110;80" dur="6s" repeatCount="indefinite"/></circle>
+  <circle cx="860" cy="170" r="100" fill="#e879f9" opacity="0.10"><animate attributeName="r" values="100;75;100" dur="7s" repeatCount="indefinite"/></circle>
+  <text x="90" y="70" font-size="38" text-anchor="middle" opacity="0.9">😄
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="0s" repeatCount="indefinite"/></text>
+  <text x="200" y="262" font-size="38" text-anchor="middle" opacity="0.9">😢
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="0.6s" repeatCount="indefinite"/></text>
+  <text x="300" y="60" font-size="38" text-anchor="middle" opacity="0.9">😠
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="1.2s" repeatCount="indefinite"/></text>
+  <text x="700" y="55" font-size="38" text-anchor="middle" opacity="0.9">😨
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="0.3s" repeatCount="indefinite"/></text>
+  <text x="800" y="262" font-size="38" text-anchor="middle" opacity="0.9">😲
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="0.9s" repeatCount="indefinite"/></text>
+  <text x="905" y="90" font-size="38" text-anchor="middle" opacity="0.9">🤢
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="1.5s" repeatCount="indefinite"/></text>
+  <text x="62" y="215" font-size="38" text-anchor="middle" opacity="0.9">😐
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-14;0,0" dur="3.2s" begin="1.8s" repeatCount="indefinite"/></text>
+  <text x="500" y="120" text-anchor="middle" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="50" font-weight="800" fill="url(#title)">Facial Emotion Recognition</text>
+  <clipPath id="c0"><rect x="183.2" y="150" height="40" width="0">
+    <animate attributeName="width" dur="12.0s" repeatCount="indefinite"
+      values="0.0;0.0;633.6;633.6;0.0;0.0" keyTimes="0.0000;0.0000;0.1500;0.2917;0.3167;1.0000"/></rect></clipPath>
+  <text x="183.2" y="178" font-family="'Courier New', monospace" font-size="22" fill="#c7d2fe" clip-path="url(#c0)">Detect 7 human emotions from a single face photo</text>
+  <clipPath id="c1"><rect x="150.2" y="150" height="40" width="0">
+    <animate attributeName="width" dur="12.0s" repeatCount="indefinite"
+      values="0.0;0.0;699.6;699.6;0.0;0.0" keyTimes="0.0000;0.3333;0.4833;0.6250;0.6500;1.0000"/></rect></clipPath>
+  <text x="150.2" y="178" font-family="'Courier New', monospace" font-size="22" fill="#c7d2fe" clip-path="url(#c1)">ResNet18 + Transfer Learning  |  67.07% test accuracy</text>
+  <clipPath id="c2"><rect x="249.2" y="150" height="40" width="0">
+    <animate attributeName="width" dur="12.0s" repeatCount="indefinite"
+      values="0.0;0.0;501.6;501.6;0.0;0.0" keyTimes="0.0000;0.6667;0.8167;0.9583;0.9833;1.0000"/></rect></clipPath>
+  <text x="249.2" y="178" font-family="'Courier New', monospace" font-size="22" fill="#c7d2fe" clip-path="url(#c2)">FastAPI backend  +  Streamlit frontend</text>
+  <rect x="440" y="222" width="120" height="4" rx="2" fill="#a5b4fc"><animate attributeName="width" values="20;120;20" dur="3s" repeatCount="indefinite"/><animate attributeName="x" values="490;440;490" dur="3s" repeatCount="indefinite"/></rect>
+  <text x="500" y="262" text-anchor="middle" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="15" fill="#a5b4fc" letter-spacing="3">PYTORCH  ·  FASTAPI  ·  STREAMLIT</text>
+</svg>

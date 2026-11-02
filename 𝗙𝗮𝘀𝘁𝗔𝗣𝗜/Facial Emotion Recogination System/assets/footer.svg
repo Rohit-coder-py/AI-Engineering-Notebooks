@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="140" viewBox="0 0 1000 140" role="img" aria-label="footer">
+  <defs><clipPath id="cl"><rect width="1000" height="140"/></clipPath></defs>
+  <g clip-path="url(#cl)">
+  <rect width="1000" height="140" fill="#0f172a"/>
+  <path d="M0,70 Q125,48 250,70 T500,70 Q625,48 750,70 T1000,70 Q1125,48 1250,70 T1500,70 Q1625,48 1750,70 T2000,70 Q2125,48 2250,70 T2500,70 V140 H0 Z" fill="#6366f1" opacity="0.55">
+    <animateTransform attributeName="transform" type="translate" values="0,0;-500,0" dur="9s" repeatCount="indefinite"/></path>
+  <path d="M0,85 Q125,69 250,85 T500,85 Q625,69 750,85 T1000,85 Q1125,69 1250,85 T1500,85 Q1625,69 1750,85 T2000,85 Q2125,69 2250,85 T2500,85 V140 H0 Z" fill="#22d3ee" opacity="0.45">
+    <animateTransform attributeName="transform" type="translate" values="0,0;-500,0" dur="6s" repeatCount="indefinite"/></path>
+  <path d="M0,100 Q125,88 250,100 T500,100 Q625,88 750,100 T1000,100 Q1125,88 1250,100 T1500,100 Q1625,88 1750,100 T2000,100 Q2125,88 2250,100 T2500,100 V140 H0 Z" fill="#e879f9" opacity="0.35">
+    <animateTransform attributeName="transform" type="translate" values="0,0;-500,0" dur="12s" repeatCount="indefinite"/></path>
+  </g>
+  <text x="500" y="52" text-anchor="middle" font-family="'Segoe UI', Ubuntu, Arial, sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Made with PyTorch · FastAPI · Streamlit</text>
+</svg>
