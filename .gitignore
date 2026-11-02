@@ -106,7 +106,6 @@ chroma/
 *.7z
 *.tar
 *.gz
-*.mp4
 *.mov
 *.avi
 *.mkv
