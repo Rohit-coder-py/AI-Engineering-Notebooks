@@ -1,44 +1,51 @@
 import os
 
 from dotenv import load_dotenv
-
-
-
 from langchain_tavily import TavilySearch
-
+from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
 load_dotenv()
-
 
 search = TavilySearch(
-    max_results = 5)
+    max_results=5
+)
 
-res = search.invoke({"query" : "Provide me latest  breaking news "})
-
-
-from langchain_groq import ChatGroq
-
-load_dotenv()
+res = search.invoke({
+    "query": "Provide me latest breaking news"
+})
 
 llm = ChatGroq(
     model="openai/gpt-oss-20b",
     temperature=0.7
 )
 
-from langchain_core.prompts import ChatPromptTemplate
+template = ChatPromptTemplate([
+    ("system", """
+    You are a professional AI news summarizer.
 
-template = ChatPromptTemplate(
-    [
-        ("system", "You are a helpful AI bot. Your job is to summarize the provided news headlines and provide it to your . In the end , provide 5 key points from overall headlines"),
-        ("human", "{news_headlines}"),
-    ]
-)
+    Your task:
+    1. Summarize each news article separately.
+    2. Provide a suitable heading for each article.
+    3. Explain the news in simple language.
+    4. Include the source URL.
 
-prompt = template.invoke({
-    "news_headlines": res['results']})
+    At the end, provide exactly 5 key takeaways
+    covering the overall news.
 
-res = llm.invoke(prompt)
+    Do not make up facts or information.
+    """),
 
-print(res.content)
+    ("human", "{news_headlines}")
+])
 
+parser = StrOutputParser()
 
+chain = template | llm | parser
+
+response = chain.invoke({
+    "news_headlines": res["results"]
+})
+
+print(response)
