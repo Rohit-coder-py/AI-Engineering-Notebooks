@@ -51,3 +51,23 @@ response = parallel_chain.invoke({
 })
 
 print(response)
+
+
+# we can acess single results like that becuase overall all chains are the dict value
+
+print(response["simple"])
+
+print(response["technical"])
+
+print(response["example"])
+
+
+
+#to provide different prompt to different runables we can crtae a chain like this
+response = parallel_chain.invoke({
+    "simple_topic": "Machine Learning",
+    "technical_topic": "Deep Learning",
+    "example_topic": "Natural Language Processing"
+})
+
+print(response)
