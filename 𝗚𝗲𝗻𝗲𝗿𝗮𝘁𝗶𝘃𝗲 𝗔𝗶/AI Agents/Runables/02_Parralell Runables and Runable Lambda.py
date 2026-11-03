@@ -64,6 +64,20 @@ print(response["example"])
 
 
 #to provide different prompt to different runables we can crtae a chain like this
+
+from langchain_core.runnables import RunnableParallel, RunnableLambda
+
+parallel_chain = RunnableParallel(
+    simple=RunnableLambda(
+        lambda x: simple_chain.invoke({"topic": x["simple_topic"]})
+    ),
+    technical=RunnableLambda(
+        lambda x: technical_chain.invoke({"topic": x["technical_topic"]})
+    ),
+    example=RunnableLambda(
+        lambda x: example_chain.invoke({"topic": x["example_topic"]})
+    ))
+
 response = parallel_chain.invoke({
     "simple_topic": "Machine Learning",
     "technical_topic": "Deep Learning",
