@@ -274,7 +274,7 @@ def table_html(headers, rows, best_row=None):
 def check_api():
     """Ask the API '/health'. Returns (True, info) or (False, error text)."""
     try:
-        response = requests.get(f"{API_URL}/health", timeout=3)
+        response = requests.get(f"{API_URL}/health", timeout=120)
         if response.status_code == 200:
             return True, response.json()
         return False, f"API answered with status {response.status_code}"

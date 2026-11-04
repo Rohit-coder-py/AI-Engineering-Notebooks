@@ -66,3 +66,8 @@ final_response = llm_with_tools.invoke(messages)
 
 print("\nFinal Answer:")
 print(final_response.content)
+
+
+ress = multiply.invoke({"a": 10, "b": 90})
+
+print(ress)
