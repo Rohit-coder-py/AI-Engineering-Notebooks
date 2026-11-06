@@ -17,7 +17,7 @@ prompt = template.invoke({
 from langchain_core.prompts import ChatPromptTemplate
 
 template = ChatPromptTemplate.from_template(
-    "Tell me about {topic} in simple language."
+    "Tell me about {topic} in simple language"
 )
 
 prompt = template.invoke({
