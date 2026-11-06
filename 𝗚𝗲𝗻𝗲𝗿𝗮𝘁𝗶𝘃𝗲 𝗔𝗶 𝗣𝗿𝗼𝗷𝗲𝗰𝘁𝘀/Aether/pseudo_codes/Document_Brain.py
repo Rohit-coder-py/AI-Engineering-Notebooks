@@ -275,12 +275,8 @@ if file_upload:
         text = page.extract_text()
 
         if text:
-            documents.append(
-                Document(
-                    page_content=text,
-                    metadata={"page": page_number + 1}
-                )
-            )
+            documents.append(Document(
+                page_content=text,metadata={"page": page_number + 1}))
 
     #2. Chunking the pdf
 
@@ -345,3 +341,6 @@ if file_upload:
 
 
 #this part is completes
+        
+        
+#remaining in this file : Source citation with page numbers 
