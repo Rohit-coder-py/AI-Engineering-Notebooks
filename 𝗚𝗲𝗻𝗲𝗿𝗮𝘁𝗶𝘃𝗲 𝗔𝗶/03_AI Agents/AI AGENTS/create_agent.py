@@ -21,6 +21,8 @@ from langchain.agents import create_agent
 from langchain.agents.middleware import wrap_tool_call
 from rich import print
 from tavily import TavilyClient
+
+
 @tool
 def get_weather(city: str) -> str:
     """Get current weather of a city"""
@@ -77,7 +79,7 @@ def get_news(city: str) -> str:
 # 🧠 LLM Setup
 # =========================
 
-llm = ChatGroq(model="openai/gpt-oss-20b")
+llm = ChatGroq(model="openai/gpt-oss-120b")
 
 @wrap_tool_call
 def human_approval(request, handler):

@@ -15,10 +15,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 load_dotenv()
 
-
-#-------------------------------------------------
-# Neobrutalism Style
-#-------------------------------------------------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
@@ -221,10 +217,8 @@ code, pre {
 """, unsafe_allow_html=True)
 
 
-
-#-------------------------------------------------
+# =====================================
 # Basic Settings
-#-------------------------------------------------
 model_name = "openai/gpt-oss-20b"
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -257,7 +251,7 @@ llm = ChatGroq(
 
 
 #file_upload
-st.write("Document Reader")
+st.write("Document Brain")
 
 file_upload = st.file_uploader("Upload your file :",max_upload_size=100)
 
