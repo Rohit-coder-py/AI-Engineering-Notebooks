@@ -1,5 +1,5 @@
 import os
-
+import streamlit as st
 import json
 from dotenv import load_dotenv
 import requests
@@ -11,11 +11,68 @@ from langchain.agents.middleware import wrap_tool_call
 from rich import print
 from tavily import TavilyClient
 from pypdf import PdfReader
+from langchain_core.documents import Document
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.messages import ToolMessage, HumanMessage
+import threading
+from streamlit.runtime.scriptrunner import add_script_run_ctx, get_script_run_ctx
 
 
 load_dotenv()
 
+# Streamlit context of the main thread (needed because tools run in worker threads)
+main_ctx = get_script_run_ctx()
+
+#basic settings
+
+model_name = "openai/gpt-oss-20b"
+
+EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+
+api_key = os.getenv("GROQ_API_KEY")
+
+llm = ChatGroq(
+    model=model_name,
+    temperature=0.7,
+    api_key=api_key
+)
+
+
+system_prompt = """
+You are a helpful AI Document Analyst.
+
+Your job is to analyze the uploaded PDF and answer
+the user's questions using the provided document.
+
+Rules:
+- Answer only from the uploaded document.
+- If the answer is not available in the document,
+  clearly inform the user.
+"""
+# ---------------------------------------------------------
+
 st.write("Multi Agent System")
+
+# SINGLE INPUT BOX (type text OR upload PDF)
+
+user_input = st.chat_input(
+    "Type your question or upload a PDF",
+    accept_file=True,
+    file_type=["pdf"]
+)
+
+question = None
+file_upload = st.session_state.get("file_upload")
+
+if user_input:
+    question = user_input.text
+
+    if user_input.files:
+        file_upload = user_input.files[0]
+        st.session_state["file_upload"] = file_upload
 
 # 1. RESEARCHER TOOL
 
@@ -122,15 +179,42 @@ def document_analyst_agent(question: str) -> str:
 
 
 
+# ============================================================
+# TOOL CALL MIDDLEWARE
+# ============================================================
+
+@wrap_tool_call
+def handle_tool_errors(request, handler):
+
+    add_script_run_ctx(threading.current_thread(), main_ctx)
+
+    tool_name = request.tool_call["name"]
+
+    if tool_name == "document_analyst_agent":
+        st.write("Using Document Analyst Agent...")
+
+    elif tool_name == "researcher_agent":
+        st.write("Using Researcher Agent...")
+
+    try:
+        return handler(request)
+
+    except Exception as e:
+
+        return ToolMessage(
+            content=f"Error executing tool: {str(e)}",
+            tool_call_id=request.tool_call["id"]
+        )
+    
+
 #3. Planner Agent
 
 #creating it using create_agent()
 
-
-@tool
 planner_agent = create_agent(
     model=llm,
     tools=[document_analyst_agent, researcher_agent],
+    middleware=[handle_tool_errors],
     system_prompt="""
     You are a Planner Agent.
 
@@ -190,5 +274,51 @@ writer_prompt = ChatPromptTemplate.from_messages(
 
 writer_agent = writer_prompt | llm
 
+    
+#MAIN EXECUTION FUNCTION (writer+planner)
+
+def run_multi_agent(question):
+
+    
+    st.write("Using Planner Agent...")
+
+    planner_response = planner_agent.invoke(
+        {
+            "messages": [
+                HumanMessage(content=question)
+            ]
+        }
+    )
+
+    planner_output = planner_response["messages"][-1].content
+
+    # 2. Writer Agent
+    st.write("Using Writer Agent...")
+
+    writer_response = writer_agent.invoke(
+        {
+            "question": question,
+            "planner_output": planner_output
+        }
+    )
+
+    return writer_response.content
 
 
+if question:
+
+    st.chat_message("user").write(question)
+
+    with st.chat_message("assistant"):
+
+        with st.status("Processing your request...", expanded=True) as status:
+
+            response = run_multi_agent(question)
+
+            status.update(
+                label="Task completed!",
+                state="complete",
+                expanded=False
+            )
+
+        st.write(response)
