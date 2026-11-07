@@ -18,7 +18,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.messages import ToolMessage, HumanMessage
 
 load_dotenv()
-st.header("Aether APP Dashboard")
+
 
 
 ## basic settings
@@ -29,8 +29,7 @@ api_key_mistral= os.getenv("MISTRAL_API_KEY")
 #paths
 
 APP_DIR = os.getcwd()
-LOGO_PATH = r"C:\Users\rohit\Downloads\AI and Data Science\𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗶𝘃𝗲 𝗔𝗶 𝗣𝗿𝗼𝗷𝗲𝗰𝘁𝘀\Aether\assets\logo.png"
-
+LOGO_PATH = os.path.join(APP_DIR, "assets", "logo.png")
 #model names
 
 # Basic Settings
@@ -71,9 +70,8 @@ Rules:
 
 
 
-st.header("Welcome Back ! ")
-
-
+st.set_page_config(page_title="AETHER - YOUR AI WORKPLACE", page_icon=LOGO_PATH, layout="centered")
+st.header("Aether APP Dashboard")
 st.sidebar.title("ATHER Dashboard")
 st.sidebar.subheader("Choose your working mode here")
 
@@ -497,7 +495,7 @@ if page == "AI Document Analyser Agent":
     #file_upload
     st.write("Document Brain")
 
-    file_upload = st.file_uploader("Upload your file :",max_upload_size=100)
+    file_upload = st.file_uploader("Upload your file :",max_upload_size=100,type=["pdf"])
 
 
     if file_upload:
@@ -520,7 +518,7 @@ if page == "AI Document Analyser Agent":
 
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
-            chunk_overlap = 12)
+            chunk_overlap = 200)
 
         total_chunks = splitter.split_documents(documents)
 
