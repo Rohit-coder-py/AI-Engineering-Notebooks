@@ -37,7 +37,7 @@ model_name = "openai/gpt-oss-20b"
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
 
-#initlize the llm_grok
+#initlize the llm grok
 
 
 llm_grok = ChatGroq(
@@ -78,6 +78,10 @@ st.sidebar.subheader("Choose your working mode here")
 page = st.sidebar.radio("Navigate",["Home","AI Document Analyser Agent"])
 
 if page == "Home":
+    selected_model = st.selectbox("Choose AI Model",["Groq", "Mistral"])
+
+    llm = llm_grok if selected_model == "Groq" else llm_mistral
+
     #now lets decide all tools
 
     user_input = st.chat_input("Ask something or upload a file...")
@@ -144,7 +148,7 @@ if page == "Home":
     #creating it using create_agent()
 
     planner_agent = create_agent(
-        model=llm_grok,
+        model=llm,
         tools=[researcher_agent],
         middleware=[handle_tool_errors],
         system_prompt="""
@@ -204,7 +208,7 @@ if page == "Home":
                 Generate the final response.
                 """)])
 
-    writer_agent = writer_prompt | llm_grok
+    writer_agent = writer_prompt | llm
 
 
 
@@ -239,7 +243,6 @@ if page == "Home":
 
     if user_input:
          st.chat_message("user").write(user_input)
-         
          with st.chat_message("assistant"):
 
             with st.status("Processing your request...", expanded=True) as status:
