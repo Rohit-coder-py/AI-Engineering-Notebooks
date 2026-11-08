@@ -1,44 +1,44 @@
+# # import streamlit as st
+# # 
+# # count = 0
+# # 
+# # if st.button("Click Me"):
+# #     count += 1
+# # 
+# # st.write(count)
+# 
+# 
 # import streamlit as st
 # 
-# count = 0
+# if "count" not in st.session_state:
+#     st.session_state.count = 0
 # 
 # if st.button("Click Me"):
-#     count += 1
+#     st.session_state.count += 1
 # 
-# st.write(count)
-
-
-import streamlit as st
-
-if "count" not in st.session_state:
-    st.session_state.count = 0
-
-if st.button("Click Me"):
-    st.session_state.count += 1
-
-st.write(st.session_state.count)
-
-
-
-###
-
-# Initialize a variable
-st.session_state.name = "Rohit"
-
-# Access a variable
-print(st.session_state.name)
-
-# Update a variable
-st.session_state.name = "Harsh"
-
-# Dictionary-style access
-st.session_state["name"]
-
-# Check whether a variable exists
-if "name" not in st.session_state:
-    st.session_state.name = "Rohit"
-    
-    
+# st.write(st.session_state.count)
+# 
+# 
+# 
+# ###
+# 
+# # Initialize a variable
+# st.session_state.name = "Rohit"
+# 
+# # Access a variable
+# print(st.session_state.name)
+# 
+# # Update a variable
+# st.session_state.name = "Harsh"
+# 
+# # Dictionary-style access
+# st.session_state["name"]
+# 
+# # Check whether a variable exists
+# if "name" not in st.session_state:
+#     st.session_state.name = "Rohit"
+#     
+#     
     
 # #===================Chat
 
