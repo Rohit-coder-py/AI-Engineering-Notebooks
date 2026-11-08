@@ -37,7 +37,7 @@ model_name = "openai/gpt-oss-20b"
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
 
-#initlize the llm grok
+#initlize the llm
 
 
 llm_grok = ChatGroq(
@@ -78,13 +78,62 @@ st.sidebar.subheader("Choose your working mode here")
 page = st.sidebar.radio("Navigate",["Home","AI Document Analyser Agent"])
 
 if page == "Home":
-    selected_model = st.selectbox("Choose AI Model",["Groq", "Mistral"])
 
-    llm = llm_grok if selected_model == "Groq" else llm_mistral
+    # Custom Chat Input Bar
+    st.markdown("""
+    <style>
+    .st-key-chat_bar {
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(860px, calc(100vw - 2rem));
+        z-index: 999;
+        background: white;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+    }
 
-    #now lets decide all tools
+    .st-key-chat_bar button {
+        border-radius: 10px;
+    }
 
-    user_input = st.chat_input("Ask something or upload a file...")
+    .st-key-chat_bar [data-testid="stSelectbox"] {
+        min-width: 110px;
+    }
+
+    section.main .block-container {
+        padding-bottom: 100px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    with st.container(key="chat_bar"):
+        with st.form("chat_form"):
+            col1, col2, col3 = st.columns([1.2, 4, 0.6])
+
+            with col1:
+                selected_model = st.selectbox(
+                    "Model",
+                    ["openai/gpt-oss-20b", "mistral-small-latest"],
+                    label_visibility="collapsed"
+                )
+
+            with col2:
+                user_input = st.text_input(
+                    "Prompt",
+                    placeholder="Ask something...",
+                    label_visibility="collapsed"
+                )
+
+            with col3:
+                submitted = st.form_submit_button("➤")
+
+    # Select LLM
+    llm = llm_grok if selected_model == "Groq" else llm_mistral    #now lets decide all tools
+
 
     #1 researcher tools
 
@@ -241,11 +290,14 @@ if page == "Home":
 
 
 
-    if user_input:
-         st.chat_message("user").write(user_input)
-         with st.chat_message("assistant"):
+    if submitted and user_input:
 
-            with st.status("Processing your request...", expanded=True) as status:
+        st.chat_message("user").write(user_input)
+
+        with st.chat_message("assistant"):
+
+            with st.status("Processing your request...",
+                           expanded=True) as status:
 
                 response = run_multi_agent(user_input)
 
@@ -256,7 +308,7 @@ if page == "Home":
                 )
 
             st.write(response)
-         
+             
 #==========================================
 
 if page == "AI Document Analyser Agent":
