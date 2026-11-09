@@ -442,3 +442,9 @@ if submitted and user_input:
             )
 
         st.write(response)
+        
+with st.sidebar:        
+    if st.button("Clear Chat"):
+        st.rerun()
+        
+
