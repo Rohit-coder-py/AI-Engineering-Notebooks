@@ -42,25 +42,97 @@ llm = ChatGroq(
     api_key = api_key_groq,
     temperature = 0.7)
 
-#system prompt for document analyst agent
 
-system_prompt = """
-You are a helpful AI Document Analyst.
-
-Your job is to analyze the uploaded PDF and answer
-the user's questions using the provided document.
-
-Rules:
-- Answer only from the uploaded document.
-- If the answer is not available in the document,
-  clearly inform the user.
-"""
 #======================================================================
 
 
 
 st.set_page_config(page_title="AETHER - YOUR AI WORKPLACE", page_icon=LOGO_PATH, layout="centered")
 st.header("Aether APP Dashboard")
+
+
+@st.cache_resource
+def get_embeddings(name):
+    return HuggingFaceEmbeddings(model_name=name)
+
+embedding_model = get_embeddings(EMBEDDING_MODEL_NAME)
+
+for key, default in {
+    "vector_db": None,
+    "pdf_signature": None,
+    "pdf_name": None,
+    "pdf_pages": 0,
+    "pdf_chunks": 0,}.items():
+    if key not in st.session_state:
+        st.session_state[key] = default
+
+
+with st.sidebar:
+    st.header("📄 Document")
+    pdf_file = st.file_uploader("Upload a PDF", type=["pdf"])
+
+    if pdf_file is None:
+        st.session_state.vector_db = None
+        st.session_state.pdf_signature = None
+        st.session_state.pdf_name = None
+        st.session_state.pdf_pages = 0
+        st.session_state.pdf_chunks = 0
+
+    else:
+        signature = f"{pdf_file.name}-{pdf_file.size}KB"
+        st.write(signature)
+
+        
+        if signature != st.session_state.pdf_signature:
+            try:
+                with st.spinner("Reading and processing your PDF..."):
+                    reader = PdfReader(pdf_file)
+
+                    documents = []
+                    for page_number, page in enumerate(reader.pages):
+                        text = page.extract_text()
+                        if text and text.strip():
+                            documents.append(
+                                Document(
+                                    page_content=text,
+                                    metadata={
+                                        "page": page_number + 1,
+                                        "source": pdf_file.name}))
+
+                    if not documents:
+                        st.error("No extractable text found. This may be a scanned PDF.")
+                    else:
+                        splitter = RecursiveCharacterTextSplitter(
+                            chunk_size=1000,
+                            chunk_overlap=150
+                        )
+                        chunks = splitter.split_documents(documents)
+
+                        st.session_state.vector_db = FAISS.from_documents(
+                            documents=chunks,
+                            embedding=embedding_model
+                        )
+                        st.session_state.pdf_signature = signature
+                        st.session_state.pdf_name = pdf_file.name
+                        st.session_state.pdf_pages = len(reader.pages)
+                        st.session_state.pdf_chunks = len(chunks)
+
+            except Exception as error:
+                st.error(f"Error while processing the PDF: {error}")
+
+        if st.session_state.vector_db is not None:
+            st.success("PDF ready!")
+
+
+if st.session_state.vector_db is not None:
+    st.subheader(f"📄 {st.session_state.pdf_name}")
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Pages", st.session_state.pdf_pages)
+    c2.metric("Chunks", st.session_state.pdf_chunks)
+    c3.metric("Stored vectors", st.session_state.vector_db.index.ntotal)
+else:
+    st.info("Upload a PDF from the sidebar to enable the Document Analyst.")
+
 
 # Custom Chat Input Bar
 st.markdown("""
@@ -155,8 +227,6 @@ def researcher_agent(topic: str) -> str:
 
 #2 . Document Analyst
 
-#2 . Document Analyst
-
 RETRIEVAL_K = 4
 
 doc_system_prompt = """
@@ -238,13 +308,32 @@ def handle_tool_errors(request, handler):
 
 #3. Planner Agent
 
-#creating it using create_agent()
+def build_planner_agent(pdf_loaded: bool):
 
-planner_agent = create_agent(
-    model=llm,
-    tools=[researcher_agent],
-    middleware=[handle_tool_errors],
-    system_prompt="""
+  
+    tools = [researcher_agent]
+    tools_description = "1. researcher_agent: Performs web research on a topic."
+    rules = "- Use researcher_agent for external research."
+
+    
+    if pdf_loaded:
+        tools.insert(0, document_analyst_tool)
+        tools_description = (
+            "1. document_analyst_tool: Answers questions from the uploaded PDF.\n"
+            "    2. researcher_agent: Performs web research on a topic."
+        )
+        rules = (
+            "- Use document_analyst_tool for anything about the uploaded PDF.\n"
+            "    - Use researcher_agent for external research.\n"
+            "    - Use both tools if the user needs information from\n"
+            "      the PDF and external research."
+        )
+
+    return create_agent(
+        model=llm,
+        tools=tools,  
+        middleware=[handle_tool_errors],
+        system_prompt=f"""
     You are a Planner Agent.
 
     Your job is to analyze the user's request and decide
@@ -252,17 +341,15 @@ planner_agent = create_agent(
 
     Available tools:
 
-    2. researcher_agent: Performs web research on a topic.
+    {tools_description}
 
     Rules:
     - Understand the user's request first.
-  
-    - Use researcher_agent for external research.
-    - Use both tools if the user requires information from
-      the PDF and external research.
+    {rules}
     - Do not call unnecessary tools.
     - If no tool is required, answer accordingly.
     - After executing the required tools, collect their results.
+    - Keep page numbers and source details from the tool results.
     - Pass the collected information in your final response.
     """)
 
@@ -310,6 +397,9 @@ writer_agent = writer_prompt | llm
 #MAIN EXECUTION FUNCTION (writer+planner)
 
 def run_multi_agent(user_input):
+
+    
+    planner_agent = build_planner_agent(st.session_state.vector_db is not None)
 
     st.write("Using Planner Agent...")
 
