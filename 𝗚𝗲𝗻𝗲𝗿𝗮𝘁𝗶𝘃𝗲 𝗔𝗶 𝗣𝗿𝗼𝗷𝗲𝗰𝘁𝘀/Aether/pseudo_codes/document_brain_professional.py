@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 
 import json
-import hashlib
 import streamlit as st
 from pypdf import PdfReader
 
@@ -15,212 +14,6 @@ from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 load_dotenv()
-
-
-#-------------------------------------------------
-# Neobrutalism Style
-#-------------------------------------------------
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
-
-:root {
-    --nb-bg: #FFFBEB;
-    --nb-ink: #000000;
-    --nb-yellow: #FFD93D;
-    --nb-pink: #FF6B9D;
-    --nb-blue: #4D96FF;
-    --nb-green: #6BCB77;
-    --nb-white: #FFFFFF;
-    --nb-border: 3px solid #000000;
-    --nb-shadow: 6px 6px 0px #000000;
-    --nb-shadow-sm: 4px 4px 0px #000000;
-}
-
-/* ---------- App background ---------- */
-.stApp {
-    background-color: var(--nb-bg);
-    background-image:
-        linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-    font-family: 'Space Grotesk', sans-serif;
-    color: var(--nb-ink);
-}
-
-header[data-testid="stHeader"] {
-    background: var(--nb-yellow);
-    border-bottom: var(--nb-border);
-}
-
-.stMainBlockContainer {
-    max-width: 860px;
-    padding-top: 3rem;
-}
-
-/* ---------- Text ---------- */
-html, body, p, span, label, li, div {
-    font-family: 'Space Grotesk', sans-serif;
-}
-p, label, li, span {
-    color: var(--nb-ink);
-}
-
-/* Each st.write block becomes a brutalist card */
-div[data-testid="stElementContainer"]:has(> div[data-testid="stMarkdown"]) {
-    background: var(--nb-white);
-    border: var(--nb-border);
-    box-shadow: var(--nb-shadow-sm);
-    padding: 0.6rem 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
-}
-
-/* first block = title banner */
-div[data-testid="stMainBlockContainer"] div[data-testid="stVerticalBlock"] > div[data-testid="stElementContainer"]:first-child:has(> div[data-testid="stMarkdown"]) {
-    background: var(--nb-pink);
-    box-shadow: var(--nb-shadow);
-    transform: rotate(-1deg);
-    padding: 1rem 1.4rem;
-    margin-bottom: 1.2rem;
-}
-div[data-testid="stMainBlockContainer"] div[data-testid="stVerticalBlock"] > div[data-testid="stElementContainer"]:first-child:has(> div[data-testid="stMarkdown"]) p {
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    margin: 0;
-}
-
-/* ---------- File uploader ---------- */
-div[data-testid="stFileUploader"] label p {
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-}
-section[data-testid="stFileUploaderDropzone"] {
-    background: var(--nb-yellow);
-    border: var(--nb-border);
-    border-style: dashed;
-    border-radius: 0;
-    box-shadow: var(--nb-shadow);
-    padding: 1.2rem;
-}
-section[data-testid="stFileUploaderDropzone"] * {
-    color: var(--nb-ink) !important;
-    font-weight: 500;
-}
-section[data-testid="stFileUploaderDropzone"] button {
-    background: var(--nb-blue);
-    color: var(--nb-ink);
-    border: var(--nb-border);
-    border-radius: 0;
-    box-shadow: var(--nb-shadow-sm);
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: transform 0.1s, box-shadow 0.1s;
-}
-section[data-testid="stFileUploaderDropzone"] button:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000000;
-    background: var(--nb-green);
-    color: var(--nb-ink);
-}
-section[data-testid="stFileUploaderDropzone"] button:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px #000000;
-}
-
-/* uploaded file chip */
-div[data-testid="stFileUploaderFile"] {
-    background: var(--nb-white);
-    border: var(--nb-border);
-    box-shadow: var(--nb-shadow-sm);
-    margin-top: 0.8rem;
-    padding: 0.3rem 0.6rem;
-}
-
-/* ---------- Spinner / alerts ---------- */
-div[data-testid="stAlert"] {
-    background: var(--nb-white);
-    border: var(--nb-border);
-    border-radius: 0;
-    box-shadow: var(--nb-shadow-sm);
-}
-
-/* ---------- Chat messages ---------- */
-div[data-testid="stChatMessage"] {
-    border: var(--nb-border);
-    border-radius: 0;
-    box-shadow: var(--nb-shadow);
-    padding: 1rem 1.2rem;
-    margin: 1rem 0;
-    background: var(--nb-white);
-}
-div[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
-    background: var(--nb-blue);
-}
-div[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]) {
-    background: var(--nb-green);
-}
-div[data-testid="stChatMessage"] p {
-    font-weight: 500;
-    font-size: 1.02rem;
-}
-div[data-testid="stChatMessageAvatarUser"],
-div[data-testid="stChatMessageAvatarAssistant"] {
-    background: var(--nb-yellow);
-    border: var(--nb-border);
-    border-radius: 0;
-    color: var(--nb-ink);
-}
-
-/* ---------- Chat input ---------- */
-div[data-testid="stBottom"],
-div[data-testid="stBottom"] > div {
-    background: var(--nb-bg);
-}
-div[data-testid="stChatInput"] {
-    background: var(--nb-white);
-    border: var(--nb-border);
-    border-radius: 0;
-    box-shadow: var(--nb-shadow);
-}
-div[data-testid="stChatInput"] textarea {
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    color: var(--nb-ink);
-}
-div[data-testid="stChatInput"] button {
-    background: var(--nb-pink);
-    border: var(--nb-border);
-    border-radius: 0;
-    color: var(--nb-ink);
-    box-shadow: 3px 3px 0px #000000;
-}
-div[data-testid="stChatInput"] button:hover {
-    background: var(--nb-yellow);
-}
-
-/* ---------- Code ---------- */
-code, pre {
-    font-family: 'Space Mono', monospace;
-    background: var(--nb-yellow) !important;
-    color: var(--nb-ink) !important;
-    border: 2px solid #000000;
-    border-radius: 0 !important;
-}
-
-/* ---------- Scrollbar ---------- */
-::-webkit-scrollbar { width: 14px; height: 14px; }
-::-webkit-scrollbar-track { background: var(--nb-bg); border-left: var(--nb-border); }
-::-webkit-scrollbar-thumb { background: var(--nb-pink); border: var(--nb-border); }
-
-/* ---------- Selection ---------- */
-::selection { background: var(--nb-yellow); color: var(--nb-ink); }
-</style>
-""", unsafe_allow_html=True)
-
 
 #-------------------------------------------------
 # Basic Settings
@@ -311,9 +104,6 @@ prompt = ChatPromptTemplate.from_messages(
 if "vector_db" not in st.session_state:
     st.session_state.vector_db = None
 
-if "processed_file_hash" not in st.session_state:
-    st.session_state.processed_file_hash = None
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -343,88 +133,73 @@ file_upload = st.file_uploader(
 
 if file_upload:
 
-    # Read the uploaded file bytes once.
-    file_bytes = file_upload.getvalue()
+    try:
+        with st.spinner("Reading and processing your document..."):
 
-    # A file hash identifies the actual file content.
-    # It prevents rebuilding FAISS on every Streamlit rerun.
-    current_file_hash = hashlib.sha256(file_bytes).hexdigest()
+            # 1. Read the PDF.
+            reader = PdfReader(file_upload)
 
-    # Process only when the uploaded file is new or changed.
-    if current_file_hash != st.session_state.processed_file_hash:
+            st.write(f"Total No. of pages :", len(reader.pages))
 
-        try:
-            with st.spinner("Reading and processing your document..."):
+            documents = []
 
-                # 1. Read the PDF.
-                reader = PdfReader(file_upload)
+            for page_number, page in enumerate(reader.pages):
 
-                st.write(f"Total No. of pages :", len(reader.pages))
+                text = page.extract_text()
 
-                documents = []
+                if text and text.strip():
 
-                for page_number, page in enumerate(reader.pages):
-
-                    text = page.extract_text()
-
-                    if text and text.strip():
-
-                        documents.append(
-                            Document(
-                                page_content=text,
-                                metadata={
-                                    "page": page_number + 1,
-                                    "source": file_upload.name
-                                }
-                            )
+                    documents.append(
+                        Document(
+                            page_content=text,
+                            metadata={
+                                "page": page_number + 1,
+                                "source": file_upload.name
+                            }
                         )
-
-                if not documents:
-                    st.error(
-                        "No extractable text was found in this PDF. "
-                        "It may be a scanned PDF and require OCR."
                     )
-                    st.stop()
 
-                # 2. Split the extracted text into chunks.
-                splitter = RecursiveCharacterTextSplitter(
-                    chunk_size=CHUNK_SIZE,
-                    chunk_overlap=CHUNK_OVERLAP
+            if not documents:
+                st.error(
+                    "No extractable text was found in this PDF. "
+                    "It may be a scanned PDF and require OCR."
                 )
+                st.stop()
 
-                total_chunks = splitter.split_documents(documents)
+            # 2. Split the extracted text into chunks.
+            splitter = RecursiveCharacterTextSplitter(
+                chunk_size=CHUNK_SIZE,
+                chunk_overlap=CHUNK_OVERLAP
+            )
 
-                if not total_chunks:
-                    st.error("No text chunks were created from this PDF.")
-                    st.stop()
+            total_chunks = splitter.split_documents(documents)
 
-                st.write("======================\n")
-                st.write("Total No. Of chunks :", len(total_chunks))
+            if not total_chunks:
+                st.error("No text chunks were created from this PDF.")
+                st.stop()
 
-                # 3. Create the FAISS vector database.
-                vector_db = FAISS.from_documents(
-                    documents=total_chunks,
-                    embedding=embedding_model
-                )
+            st.write("======================\n")
+            st.write("Total No. Of chunks :", len(total_chunks))
 
-                # Store the completed vector database in session state.
-                st.session_state.vector_db = vector_db
-                st.session_state.processed_file_hash = current_file_hash
-                st.session_state.document_pages = len(reader.pages)
-                st.session_state.document_chunks = len(total_chunks)
+            # 3. Create the FAISS vector database.
+            vector_db = FAISS.from_documents(
+                documents=total_chunks,
+                embedding=embedding_model
+            )
 
-                # A new document should start a new chat.
-                st.session_state.messages = []
+            # Store the completed vector database in session state.
+            st.session_state.vector_db = vector_db
+            st.session_state.document_pages = len(reader.pages)
+            st.session_state.document_chunks = len(total_chunks)
 
-                st.success("Document processed successfully!")
+            # A new document should start a new chat.
+            st.session_state.messages = []
 
-        except Exception as error:
-            st.error(f"An error occurred while processing the PDF: {error}")
-            st.stop()
+            st.success("Document processed successfully!")
 
-    else:
-        # The same file is already processed.
-        st.info("This document is already processed and ready for questions.")
+    except Exception as error:
+        st.error(f"An error occurred while processing the PDF: {error}")
+        st.stop()
 
     # Display document information from session state.
     if st.session_state.vector_db is not None:
