@@ -16,6 +16,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 load_dotenv()
 
 
+
 #-------------------------------------------------
 # Neobrutalism Style
 #-------------------------------------------------
@@ -225,11 +226,23 @@ code, pre {
 #-------------------------------------------------
 # Basic Settings
 #-------------------------------------------------
+
+
+
 model_name = "openai/gpt-oss-20b"
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+api_key = os.getenv("GROQ_API_KEY")
 
+@st.cache_resource
+def load_llm():
 
+    return ChatGroq(
+        model=model_name,
+        temperature=0.2,
+        api_key=api_key
+    )
 
+llm = load_llm()
 system_prompt = """
 You are a helpful ai chatbot that helps the user to read analyse their Uplaoded PDF,NOTES and other documents
 
@@ -246,16 +259,19 @@ If the asked question is nor from uploaded pdf you can warn user for this
 
 api_key = os.getenv("GROQ_API_KEY")
 
-llm = ChatGroq(
-    model = model_name,
-    temperature = 0.7,
-    api_key = api_key)
 
 
 
 # ---------------------------------------
+@st.cache_resource
+def get_embeddings():
+
+    return HuggingFaceEmbeddings(
+        model_name=EMBEDDING_MODEL_NAME
+    )
 
 
+embedding_model = get_embeddings()
 #file_upload
 st.write("Document Reader")
 
@@ -298,8 +314,7 @@ if file_upload:
 
     #load the embeddings model
 
-    embedding_model = HuggingFaceEmbeddings(
-        model_name=EMBEDDING_MODEL_NAME)
+#     get_embeddings()
 
     #now create the vector_database
 
