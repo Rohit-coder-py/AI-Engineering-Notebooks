@@ -1,7 +1,7 @@
 """
-Design Gallery - 15 UI design styles in one Streamlit app
+Design Gallery - 37 UI design styles in one Streamlit app
 
-Run with:  streamlit run design.py
+Run with:  streamlit run designs.py
 
 How it works (very simple):
     1. DESIGNS  -> a dictionary. Each design = a few colour/shadow settings.
@@ -25,7 +25,7 @@ st.set_page_config(page_title="Design Gallery", page_icon="🎨", layout="wide")
 
 
 # =====================================================================
-# 2. THE 15 DESIGNS
+# 2. THE 37 DESIGNS
 # =====================================================================
 # Every design has:
 #   icon / tagline / search  -> information shown on the page
@@ -347,6 +347,436 @@ DESIGNS = {
         },
         "extra": ".stApp .hero { border-top: 5px double #222; border-bottom: 5px double #222; }",
     },
+    # ------------------------------------------------------------ 16
+    "Dark Mode Pro": {
+        "icon": "🖤",
+        "tagline": "Modern developer dark UI - like Vercel, Linear and GitHub dark.",
+        "search": ["dark mode UI design", "Vercel dark theme", "Linear app design", "modern dark dashboard"],
+        "tip": "background: #0a0a0a;\ncolor: #ededed;\nborder: 1px solid #262626;\nbox-shadow: 0 1px 2px rgba(0,0,0,0.3);",
+        "vars": {
+            "page_bg": "#0a0a0a", "side_bg": "#0f0f0f", "card_bg": "#141414",
+            "card_border": "1px solid #262626",
+            "card_shadow": "0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25)",
+            "radius": "12px", "text": "#ededed", "muted": "#888888",
+            "accent": "#ffffff", "accent2": "#3b82f6",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#ffffff", "btn_text": "#0a0a0a", "btn_radius": "8px",
+            "btn_hover": "0 4px 12px rgba(255,255,255,0.15)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#0f0f0f", "input_border": "1px solid #262626",
+            "sel_outline": "2px solid #3b82f6",
+        },
+    },
+    # ------------------------------------------------------------ 17
+    "Stripe SaaS": {
+        "icon": "💳",
+        "tagline": "Crisp light SaaS dashboard look used by Stripe, Vercel and Notion.",
+        "search": ["Stripe website design", "SaaS dashboard UI", "modern fintech design", "clean web app UI"],
+        "tip": "background: #ffffff;\nborder: 1px solid #e3e8ee;\nbox-shadow: 0 2px 5px rgba(0,0,0,0.04);\ncolor: #0a2540;",
+        "vars": {
+            "page_bg": "#ffffff", "side_bg": "#f6f9fc", "card_bg": "#ffffff",
+            "card_border": "1px solid #e3e8ee",
+            "card_shadow": "0 2px 5px rgba(0,0,0,0.04), 0 12px 24px rgba(0,0,0,0.03)",
+            "radius": "10px", "text": "#0a2540", "muted": "#425466",
+            "accent": "#635bff", "accent2": "#00d4ff",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#635bff", "btn_text": "#ffffff", "btn_radius": "20px",
+            "btn_hover": "0 4px 12px rgba(99,91,255,0.4)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#f6f9fc", "input_border": "1px solid #e3e8ee",
+        },
+    },
+    # ------------------------------------------------------------ 18
+    "Apple Liquid Glass": {
+        "icon": "💧",
+        "tagline": "Apple's iOS 26 liquid glass - translucent layers with rich blur.",
+        "search": ["iOS 26 liquid glass", "Apple glass UI", "liquid glass design system", "translucent glass design"],
+        "tip": "background: rgba(255,255,255,0.25);\nbackdrop-filter: blur(20px) saturate(180%);\nborder: 1px solid rgba(255,255,255,0.5);",
+        "vars": {
+            "page_bg": "linear-gradient(135deg, #ff9a9e 0%, #fad0c4 25%, #a18cd1 50%, #fbc2eb 75%, #84fab0 100%)",
+            "side_bg": "rgba(255,255,255,0.2)", "card_bg": "rgba(255,255,255,0.25)",
+            "card_border": "1px solid rgba(255,255,255,0.5)",
+            "card_shadow": "0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6)",
+            "blur": "blur(20px) saturate(180%)",
+            "radius": "28px", "text": "#1a1a2e", "muted": "rgba(26,26,46,0.7)",
+            "accent": "#1a1a2e", "accent2": "#ff6b9d",
+            "font": "'Inter', -apple-system, sans-serif",
+            "btn_bg": "rgba(255,255,255,0.4)", "btn_text": "#1a1a2e",
+            "btn_border": "1px solid rgba(255,255,255,0.5)",
+            "btn_hover": "0 8px 24px rgba(0,0,0,0.15)", "btn_move": "translateY(-2px)",
+            "btn_radius": "20px", "inset_bg": "rgba(255,255,255,0.3)",
+            "input_border": "1px solid rgba(255,255,255,0.5)",
+        },
+    },
+    # ------------------------------------------------------------ 19
+    "Y2K Chrome": {
+        "icon": "💿",
+        "tagline": "Shiny chrome metallic look from the year 2000 - slick and futuristic.",
+        "search": ["Y2K design", "chrome metallic CSS", "futuristic 2000s UI", "metallic button CSS"],
+        "tip": "background: linear-gradient(180deg, #e6e6e6, #ffffff 30%, #b8b8b8 60%, #f0f0f0);\n"
+               "box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 #ffffff;",
+        "vars": {
+            "page_bg": "linear-gradient(180deg, #1e3a8a, #3b82f6 50%, #06b6d4)",
+            "side_bg": "rgba(255,255,255,0.15)", "card_bg": "linear-gradient(180deg, #f5f5f5, #d4d4d4)",
+            "card_border": "1px solid #a3a3a3",
+            "card_shadow": "0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 #ffffff, inset 0 -1px 0 #737373",
+            "radius": "14px", "text": "#1e293b", "muted": "#64748b",
+            "accent": "#0ea5e9", "accent2": "#2563eb",
+            "font": "'Trebuchet MS', sans-serif",
+            "btn_bg": "linear-gradient(180deg, #f0f0f0, #c0c0c0 50%, #a0a0a0)",
+            "btn_text": "#1e293b", "btn_border": "1px solid #737373",
+            "btn_shadow": "0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 #ffffff",
+            "btn_hover": "0 1px 2px rgba(0,0,0,0.4), inset 0 1px 0 #ffffff",
+            "btn_move": "translateY(1px)", "btn_radius": "10px",
+            "inset_bg": "#d4d4d4", "inset": "inset 0 2px 4px rgba(0,0,0,0.3)",
+            "input_border": "1px solid #737373",
+        },
+    },
+    # ------------------------------------------------------------ 20
+    "Art Deco": {
+        "icon": "🏛️",
+        "tagline": "1920s Gatsby luxury - black, gold and bold geometric shapes.",
+        "search": ["art deco design", "1920s Gatsby aesthetic", "luxury geometric UI", "gold black luxury design"],
+        "tip": "background: #0d0d0d;\nborder: 2px solid #c9a961;\nbox-shadow: 0 0 0 1px #0d0d0d, 0 0 0 3px #c9a961;\n"
+               "font-family: 'Cinzel', serif;",
+        "vars": {
+            "page_bg": "#0d0d0d", "side_bg": "#1a1a1a", "card_bg": "#1a1a1a",
+            "card_border": "2px solid #c9a961",
+            "card_shadow": "0 0 0 1px #0d0d0d, 0 0 0 3px #c9a961, 0 8px 24px rgba(201,169,97,0.3)",
+            "radius": "0px", "text": "#f5e6c8", "muted": "#8a7a4a",
+            "accent": "#c9a961", "accent2": "#f5e6c8",
+            "font": "'Cormorant Garamond', serif", "head_font": "'Cinzel', serif",
+            "btn_bg": "transparent", "btn_text": "#c9a961", "btn_border": "1px solid #c9a961",
+            "btn_hover": "inset 0 0 0 1px #c9a961, 0 0 16px rgba(201,169,97,0.5)",
+            "btn_radius": "0px", "inset_bg": "#0d0d0d", "input_border": "1px solid #c9a961",
+        },
+        "extra": ".stApp .hero h1 { letter-spacing: 6px; text-transform: uppercase; }",
+    },
+    # ------------------------------------------------------------ 21
+    "Earthy Bohemian": {
+        "icon": "🪵",
+        "tagline": "Warm terracotta, sage and cream - natural, organic, handcrafted feel.",
+        "search": ["bohemian web design", "earthy UI palette", "terracotta website design", "organic warm UI"],
+        "tip": "background: #f4ead5;\ncolor: #4a3527;\nborder: 1px solid #d4c4a8;\nbox-shadow: 0 4px 0 #c97b63;",
+        "vars": {
+            "page_bg": "#f4ead5", "side_bg": "#ede0c8", "card_bg": "#fbf5e9",
+            "card_border": "1px solid #d4c4a8", "card_shadow": "0 4px 0 #c97b63",
+            "radius": "16px", "text": "#4a3527", "muted": "#8a7a5c",
+            "accent": "#c97b63", "accent2": "#6b8e23",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#c97b63", "btn_text": "#fbf5e9", "btn_radius": "12px",
+            "btn_shadow": "0 3px 0 #8a4f3a",
+            "btn_hover": "0 1px 0 #8a4f3a", "btn_move": "translateY(2px)",
+            "inset_bg": "#ede0c8", "inset": "inset 0 2px 4px rgba(74,53,39,0.2)",
+            "input_border": "1px solid #d4c4a8",
+        },
+    },
+    # ------------------------------------------------------------ 22
+    "Scandi Nordic": {
+        "icon": "🛋️",
+        "tagline": "Calm Nordic minimalism - warm whites, soft greys and lots of breathing room.",
+        "search": ["Scandinavian web design", "Nordic minimal UI", "hygge design style", "warm minimalist UI"],
+        "tip": "background: #f8f8f6;\ncolor: #2b2b2b;\nborder: 1px solid #e8e6e0;\nbox-shadow: 0 1px 2px rgba(0,0,0,0.03);",
+        "vars": {
+            "page_bg": "#f8f8f6", "side_bg": "#f0eeea", "card_bg": "#ffffff",
+            "card_border": "1px solid #e8e6e0", "card_shadow": "0 1px 2px rgba(0,0,0,0.03)",
+            "radius": "10px", "text": "#2b2b2b", "muted": "#8a8580",
+            "accent": "#6b8a9c", "accent2": "#c9a87c",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#2b2b2b", "btn_text": "#f8f8f6", "btn_radius": "8px",
+            "btn_hover": "0 2px 8px rgba(43,43,43,0.25)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#f0eeea", "input_border": "1px solid #e8e6e0",
+        },
+    },
+    # ------------------------------------------------------------ 23
+    "Solarized Dark": {
+        "icon": "🌞",
+        "tagline": "Ethan Schoonover's famous Solarized palette - easy-on-eyes developer dark.",
+        "search": ["Solarized theme", "Solarized color palette", "developer dark theme", "Solarized Ethan Schoonover"],
+        "tip": "background: #002b36;\ncolor: #93a1a1;\naccent: #268bd2;   /* Solarized blue */",
+        "vars": {
+            "page_bg": "#002b36", "side_bg": "#073642", "card_bg": "#073642",
+            "card_border": "1px solid #586e75",
+            "card_shadow": "0 4px 12px rgba(0,0,0,0.3)",
+            "radius": "8px", "text": "#93a1a1", "muted": "#586e75",
+            "accent": "#268bd2", "accent2": "#2aa198",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#268bd2", "btn_text": "#002b36", "btn_radius": "6px",
+            "btn_hover": "0 2px 8px rgba(38,139,210,0.4)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#002b36", "input_border": "1px solid #586e75",
+        },
+    },
+    # ------------------------------------------------------------ 24
+    "Dracula": {
+        "icon": "🧛",
+        "tagline": "The famous Dracula theme - dark purple canvas with vibrant candy accents.",
+        "search": ["Dracula theme", "Dracula color palette", "Dracula UI", "popular dark theme"],
+        "tip": "background: #282a36;\ncolor: #f8f8f2;\naccent: #bd93f9;   /* Dracula purple */\n"
+               "pink: #ff79c6;  cyan: #8be9fd;",
+        "vars": {
+            "page_bg": "#282a36", "side_bg": "#21222c", "card_bg": "#343746",
+            "card_border": "1px solid #44475a",
+            "card_shadow": "0 4px 14px rgba(0,0,0,0.4)",
+            "radius": "10px", "text": "#f8f8f2", "muted": "#6272a4",
+            "accent": "#bd93f9", "accent2": "#ff79c6",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#bd93f9", "btn_text": "#282a36", "btn_radius": "8px",
+            "btn_hover": "0 4px 12px rgba(189,147,249,0.5)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#21222c", "input_border": "1px solid #44475a",
+        },
+    },
+    # ------------------------------------------------------------ 25
+    "Nord": {
+        "icon": "❄️",
+        "tagline": "Arctic, north-bluish color palette - inspired by icebergs and polar nights.",
+        "search": ["Nord theme", "Nord color palette", "arctic color scheme", "Nord theme design"],
+        "tip": "background: #2e3440;\ncolor: #d8dee9;\naccent: #88c0d0;   /* Nord frost */",
+        "vars": {
+            "page_bg": "#2e3440", "side_bg": "#3b4252", "card_bg": "#3b4252",
+            "card_border": "1px solid #4c566a",
+            "card_shadow": "0 4px 12px rgba(0,0,0,0.3)",
+            "radius": "10px", "text": "#d8dee9", "muted": "#81a1c1",
+            "accent": "#88c0d0", "accent2": "#bf616a",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#88c0d0", "btn_text": "#2e3440", "btn_radius": "8px",
+            "btn_hover": "0 4px 12px rgba(136,192,208,0.4)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#2e3440", "input_border": "1px solid #4c566a",
+        },
+    },
+    # ------------------------------------------------------------ 26
+    "Tokyo Night": {
+        "icon": "🏙️",
+        "tagline": "A clean, dark Tokyo-night theme - blue-purple hues like a city skyline at night.",
+        "search": ["Tokyo Night theme", "Tokyo Night color scheme", "vscode Tokyo Night", "dark blue theme"],
+        "tip": "background: #1a1b26;\ncolor: #c0caf5;\naccent: #7aa2f7;   /* Tokyo Night blue */",
+        "vars": {
+            "page_bg": "#1a1b26", "side_bg": "#16161e", "card_bg": "#24283b",
+            "card_border": "1px solid #414868",
+            "card_shadow": "0 4px 14px rgba(0,0,0,0.4)",
+            "radius": "10px", "text": "#c0caf5", "muted": "#565f89",
+            "accent": "#7aa2f7", "accent2": "#bb9af7",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#7aa2f7", "btn_text": "#1a1b26", "btn_radius": "8px",
+            "btn_hover": "0 4px 12px rgba(122,162,247,0.5)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#16161e", "input_border": "1px solid #414868",
+        },
+    },
+    # ------------------------------------------------------------ 27
+    "Gruvbox": {
+        "icon": "🟠",
+        "tagline": "Retro groove palette - warm earthy tones, beloved by terminal dwellers.",
+        "search": ["Gruvbox theme", "Gruvbox color palette", "retro groove colorscheme", "warm dark theme"],
+        "tip": "background: #282828;\ncolor: #ebdbb2;\naccent: #fe8019;   /* Gruvbox orange */",
+        "vars": {
+            "page_bg": "#282828", "side_bg": "#1d2021", "card_bg": "#3c3836",
+            "card_border": "1px solid #504945",
+            "card_shadow": "0 4px 12px rgba(0,0,0,0.4)",
+            "radius": "8px", "text": "#ebdbb2", "muted": "#928374",
+            "accent": "#fe8019", "accent2": "#b8bb26",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#fe8019", "btn_text": "#282828", "btn_radius": "6px",
+            "btn_hover": "0 4px 10px rgba(254,128,25,0.45)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#1d2021", "input_border": "1px solid #504945",
+        },
+    },
+    # ------------------------------------------------------------ 28
+    "Forest Canopy": {
+        "icon": "🌲",
+        "tagline": "Deep forest greens with golden light filtering through - calm and organic.",
+        "search": ["forest green UI", "nature inspired web design", "woodland color palette", "organic green theme"],
+        "tip": "background: #1a2e25;\ncolor: #d4e4d4;\naccent: #7cb342;   /* leaf green */",
+        "vars": {
+            "page_bg": "#1a2e25", "side_bg": "#243a30", "card_bg": "#243a30",
+            "card_border": "1px solid #3d5a48",
+            "card_shadow": "0 4px 14px rgba(0,0,0,0.4)",
+            "radius": "14px", "text": "#d4e4d4", "muted": "#7a9080",
+            "accent": "#7cb342", "accent2": "#c9b037",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#7cb342", "btn_text": "#1a2e25", "btn_radius": "10px",
+            "btn_hover": "0 4px 12px rgba(124,179,66,0.4)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#1a2e25", "input_border": "1px solid #3d5a48",
+        },
+    },
+    # ------------------------------------------------------------ 29
+    "Ocean Deep": {
+        "icon": "🌊",
+        "tagline": "Abyssal blues with luminous cyan accents - serene and boundless.",
+        "search": ["ocean blue UI", "deep sea color palette", "aquatic web design", "marine blue theme"],
+        "tip": "background: #001f3f;\ncolor: #e0f7fa;\naccent: #00d4ff;   /* luminous cyan */",
+        "vars": {
+            "page_bg": "#001f3f", "side_bg": "#012a4d", "card_bg": "#0a2540",
+            "card_border": "1px solid #1e3a5f",
+            "card_shadow": "0 4px 16px rgba(0,0,0,0.5), 0 0 24px rgba(0,212,255,0.08)",
+            "radius": "16px", "text": "#e0f7fa", "muted": "#6b9bb0",
+            "accent": "#00d4ff", "accent2": "#00a8a8",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#00d4ff", "btn_text": "#001f3f", "btn_radius": "12px",
+            "btn_hover": "0 4px 16px rgba(0,212,255,0.5)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#012a4d", "input_border": "1px solid #1e3a5f",
+        },
+    },
+    # ------------------------------------------------------------ 30
+    "Royal Gold": {
+        "icon": "👑",
+        "tagline": "Pure black and shimmering gold - bold, opulent, luxurious.",
+        "search": ["luxury black gold design", "royal gold UI", "premium dark theme", "elegant gold black website"],
+        "tip": "background: #000000;\ncolor: #f5f5f5;\nborder: 1px solid #d4af37;   /* royal gold */",
+        "vars": {
+            "page_bg": "#000000", "side_bg": "#0a0a0a", "card_bg": "#0a0a0a",
+            "card_border": "1px solid #d4af37",
+            "card_shadow": "0 8px 24px rgba(212,175,55,0.2)",
+            "radius": "4px", "text": "#f5f5f5", "muted": "#999999",
+            "accent": "#d4af37", "accent2": "#ffffff",
+            "font": "'Cormorant Garamond', serif", "head_font": "'Cinzel', serif",
+            "btn_bg": "transparent", "btn_text": "#d4af37", "btn_border": "1px solid #d4af37",
+            "btn_hover": "0 0 20px rgba(212,175,55,0.5)", "btn_radius": "4px",
+            "inset_bg": "#050505", "input_border": "1px solid #d4af37",
+        },
+        "extra": ".stApp .hero h1 { letter-spacing: 4px; text-transform: uppercase; }",
+    },
+    # ------------------------------------------------------------ 31
+    "Frutiger Aero": {
+        "icon": "🐠",
+        "tagline": "Early-2000s glossy bubbles - bright sky blues, vibrant greens, glossy whites.",
+        "search": ["Frutiger Aero", "glossy web design 2000s", "Windows Vista Aero", "bubble gloss UI"],
+        "tip": "background: linear-gradient(180deg, #4fc3f7, #81d4fa);\n"
+               "box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 12px rgba(0,0,0,0.2);   /* gloss */",
+        "vars": {
+            "page_bg": "linear-gradient(180deg, #4fc3f7 0%, #81d4fa 40%, #c8e6c9 100%)",
+            "side_bg": "rgba(255,255,255,0.4)", "card_bg": "rgba(255,255,255,0.85)",
+            "card_border": "1px solid rgba(255,255,255,0.9)",
+            "card_shadow": "inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 18px rgba(0,0,0,0.15)",
+            "blur": "blur(6px)",
+            "radius": "20px", "text": "#01426a", "muted": "#4a7896",
+            "accent": "#00a8e8", "accent2": "#7cb342",
+            "font": "'Trebuchet MS', sans-serif",
+            "btn_bg": "linear-gradient(180deg, #5cc8ff, #00a8e8 50%, #0086c4)",
+            "btn_text": "#ffffff", "btn_border": "1px solid #00689e",
+            "btn_shadow": "inset 0 1px 0 rgba(255,255,255,0.6), 0 3px 6px rgba(0,0,0,0.25)",
+            "btn_hover": "inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 4px rgba(0,0,0,0.25)",
+            "btn_move": "translateY(1px)", "btn_radius": "14px",
+            "inset_bg": "rgba(255,255,255,0.6)", "inset": "inset 0 2px 4px rgba(0,0,0,0.15)",
+            "input_border": "1px solid #4a7896",
+        },
+    },
+    # ------------------------------------------------------------ 32
+    "Memphis 80s": {
+        "icon": "🔶",
+        "tagline": "Playful 80s Memphis style - bold colors, geometric shapes, energetic chaos.",
+        "search": ["Memphis design 80s", "Memphis group aesthetic", "playful geometric UI", "80s pattern design"],
+        "tip": "background: #fef3c7;\nborder: 3px solid #1a1a1a;\nbox-shadow: 6px 6px 0 #ec4899;   /* bright pink offset */",
+        "vars": {
+            "page_bg": "#fef3c7", "side_bg": "#fde68a", "card_bg": "#ffffff",
+            "card_border": "3px solid #1a1a1a", "card_shadow": "6px 6px 0 #ec4899",
+            "radius": "8px", "text": "#1a1a1a", "muted": "#6b7280",
+            "accent": "#ec4899", "accent2": "#06b6d4",
+            "font": "'Bebas Neue', sans-serif", "head_font": "'Bebas Neue', sans-serif",
+            "btn_bg": "#06b6d4", "btn_text": "#ffffff", "btn_border": "3px solid #1a1a1a",
+            "btn_shadow": "4px 4px 0 #1a1a1a", "btn_hover": "0 0 0 #1a1a1a",
+            "btn_move": "translate(4px, 4px)", "btn_radius": "6px",
+            "inset_bg": "#ffffff", "input_border": "3px solid #1a1a1a",
+        },
+        "extra": ".stApp .hero h1 { letter-spacing: 2px; text-transform: uppercase; }",
+    },
+    # ------------------------------------------------------------ 33
+    "Bauhaus": {
+        "icon": "🔴",
+        "tagline": "1919 Bauhaus modernism - primary colors, bold geometric shapes, sharp edges.",
+        "search": ["Bauhaus design", "Bauhaus web design", "primary color UI", "geometric modernist design"],
+        "tip": "background: #f5f1e8;\ncolor: #1a1a1a;\naccent: #d62828;   /* Bauhaus red */\n"
+               "blue: #003049;  yellow: #fcbf49;",
+        "vars": {
+            "page_bg": "#f5f1e8", "side_bg": "#ffffff", "card_bg": "#ffffff",
+            "card_border": "3px solid #1a1a1a", "card_shadow": "6px 6px 0 #d62828",
+            "radius": "0px", "text": "#1a1a1a", "muted": "#6b6b6b",
+            "accent": "#d62828", "accent2": "#003049",
+            "font": "'Archivo Black', sans-serif", "head_font": "'Archivo Black', sans-serif",
+            "btn_bg": "#d62828", "btn_text": "#ffffff", "btn_border": "3px solid #1a1a1a",
+            "btn_shadow": "4px 4px 0 #1a1a1a", "btn_hover": "0 0 0 #1a1a1a",
+            "btn_move": "translate(4px, 4px)", "btn_radius": "0px",
+            "inset_bg": "#ffffff", "input_border": "3px solid #1a1a1a",
+        },
+        "extra": ".stApp .hero { border-top: 8px solid #d62828; border-bottom: 8px solid #003049; }"
+                 ".stApp .hero h1 { text-transform: uppercase; letter-spacing: 2px; }",
+    },
+    # ------------------------------------------------------------ 34
+    "Notion Clean": {
+        "icon": "📝",
+        "tagline": "Notion's friendly minimalism - soft whites, subtle greys, almost no shadow.",
+        "search": ["Notion UI design", "Notion style website", "minimal note-taking UI", "clean productivity app"],
+        "tip": "background: #ffffff;\ncolor: #37352f;\nborder: 1px solid #e9e9e7;\nbox-shadow: none;",
+        "vars": {
+            "page_bg": "#ffffff", "side_bg": "#f7f7f5", "card_bg": "#ffffff",
+            "card_border": "1px solid #e9e9e7", "card_shadow": "rgba(15,15,15,0.05) 0px 0px 0px 1px, rgba(15,15,15,0.1) 0px 3px 6px, rgba(15,15,15,0.2) 0px 9px 24px",
+            "radius": "6px", "text": "#37352f", "muted": "#9b9a97",
+            "accent": "#2383e2", "accent2": "#9065b0",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "#2383e2", "btn_text": "#ffffff", "btn_radius": "6px",
+            "btn_hover": "0 1px 2px rgba(15,15,15,0.15)", "btn_move": "translateY(-1px)",
+            "inset_bg": "#f7f7f5", "input_border": "1px solid #e9e9e7",
+        },
+    },
+    # ------------------------------------------------------------ 35
+    "Sunset Warm": {
+        "icon": "🌅",
+        "tagline": "Warm sunset gradient - golden orange, soft pink, dreamy twilight.",
+        "search": ["sunset gradient UI", "warm orange website", "sunset color palette", "twilight gradient design"],
+        "tip": "background: linear-gradient(135deg, #ff6b6b, #ffa500, #ffd700);\n"
+               "border: 1px solid rgba(255,255,255,0.3);\nbox-shadow: 0 8px 32px rgba(255,107,107,0.3);",
+        "vars": {
+            "page_bg": "linear-gradient(135deg, #ff6b6b 0%, #ffa500 40%, #ffd700 70%, #ff8e9e 100%)",
+            "side_bg": "rgba(255,255,255,0.18)", "card_bg": "rgba(255,255,255,0.25)",
+            "card_border": "1px solid rgba(255,255,255,0.4)",
+            "card_shadow": "0 8px 32px rgba(255,107,107,0.3)", "blur": "blur(12px)",
+            "radius": "20px", "text": "#3d1f1f", "muted": "rgba(61,31,31,0.7)",
+            "accent": "#3d1f1f", "accent2": "#ff6b9d",
+            "font": "'Inter', sans-serif",
+            "btn_bg": "rgba(255,255,255,0.5)", "btn_text": "#3d1f1f",
+            "btn_border": "1px solid rgba(255,255,255,0.6)",
+            "btn_hover": "0 6px 20px rgba(0,0,0,0.15)", "btn_move": "translateY(-2px)",
+            "btn_radius": "16px", "inset_bg": "rgba(255,255,255,0.35)",
+            "input_border": "1px solid rgba(255,255,255,0.5)",
+        },
+    },
+    # ------------------------------------------------------------ 36
+    "Carbon Fiber": {
+        "icon": "🏁",
+        "tagline": "Dark carbon-weave texture with racing red accents - fast and technical.",
+        "search": ["carbon fiber UI", "dark textured design", "racing theme UI", "tech automotive design"],
+        "tip": "background:\n  repeating-linear-gradient(45deg, #0a0a0a 0px, #0a0a0a 2px, #141414 2px, #141414 4px),\n  #0a0a0a;",
+        "vars": {
+            "page_bg": "repeating-linear-gradient(45deg, #0a0a0a 0px, #0a0a0a 2px, #141414 2px, #141414 4px), #0a0a0a",
+            "side_bg": "#0f0f0f", "card_bg": "repeating-linear-gradient(45deg, #141414 0px, #141414 2px, #1a1a1a 2px, #1a1a1a 4px), #141414",
+            "card_border": "1px solid #2a2a2a",
+            "card_shadow": "0 4px 14px rgba(0,0,0,0.6)",
+            "radius": "6px", "text": "#e0e0e0", "muted": "#707070",
+            "accent": "#ef4444", "accent2": "#fbbf24",
+            "font": "'Share Tech Mono', 'Courier New', monospace",
+            "btn_bg": "#ef4444", "btn_text": "#ffffff", "btn_border": "1px solid #b91c1c",
+            "btn_hover": "0 4px 12px rgba(239,68,68,0.5)", "btn_move": "translateY(-1px)",
+            "btn_radius": "4px", "inset_bg": "#0a0a0a", "input_border": "1px solid #2a2a2a",
+        },
+        "extra": ".stApp .hero h1 { text-transform: uppercase; letter-spacing: 3px; }",
+    },
+    # ------------------------------------------------------------ 37
+    "Film Noir": {
+        "icon": "🎬",
+        "tagline": "1940s cinematic noir - high-contrast black, white and silver, dramatic shadows.",
+        "search": ["film noir design", "black and white UI", "noir aesthetic website", "high contrast dramatic design"],
+        "tip": "background: #1a1a1a;\ncolor: #e0e0e0;\nbox-shadow: 0 10px 30px rgba(0,0,0,0.8);   /* dramatic shadow */\n"
+               "font-family: 'Playfair Display', serif;",
+        "vars": {
+            "page_bg": "#1a1a1a", "side_bg": "#0d0d0d", "card_bg": "#1f1f1f",
+            "card_border": "1px solid #383838",
+            "card_shadow": "0 10px 30px rgba(0,0,0,0.8)",
+            "radius": "0px", "text": "#e0e0e0", "muted": "#707070",
+            "accent": "#ffffff", "accent2": "#888888",
+            "font": "'Playfair Display', Georgia, serif", "head_font": "'Playfair Display', Georgia, serif",
+            "btn_bg": "transparent", "btn_text": "#ffffff", "btn_border": "1px solid #ffffff",
+            "btn_hover": "inset 0 0 0 1px #ffffff, 0 0 20px rgba(255,255,255,0.3)",
+            "btn_radius": "0px", "inset_bg": "#0d0d0d", "input_border": "1px solid #383838",
+        },
+        "extra": ".stApp .hero { border-top: 1px solid #ffffff; border-bottom: 1px solid #ffffff; }"
+                 ".stApp .hero h1 { letter-spacing: 4px; text-transform: uppercase; }",
+    },
 }
 
 
@@ -359,7 +789,9 @@ DESIGNS = {
 FONTS = (
     "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800"
     "&family=Space+Grotesk:wght@500;700&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;700"
-    "&family=Nunito:wght@600;800&family=Share+Tech+Mono&family=Playfair+Display:wght@700;900&display=swap');"
+    "&family=Nunito:wght@600;800&family=Share+Tech+Mono&family=Playfair+Display:wght@700;900"
+    "&family=Cormorant+Garamond:wght@500;700&family=Cinzel:wght@600;800"
+    "&family=Bebas+Neue&family=Archivo+Black&display=swap');"
 )
 
 BASE_CSS = """
@@ -566,7 +998,7 @@ def card(title, body):
 
 
 # =====================================================================
-# 6. MAIN - sidebar with 15 designs
+# 6. MAIN - sidebar with all designs
 # =====================================================================
 
 def main():
@@ -582,7 +1014,7 @@ def main():
             format_func=lambda n: f"{DESIGNS[n]['icon']}  {n}",
             label_visibility="collapsed",
         )
-        st.caption("15 styles · one Streamlit file")
+        st.caption(f"{len(DESIGNS)} styles · one Streamlit file")
 
     design = DESIGNS[choice]
     st.markdown(build_css(design), unsafe_allow_html=True)
