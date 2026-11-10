@@ -1,0 +1,224 @@
+{
+  "generated_at": "2026-11-10 00:26 UTC",
+  "chat_model": "openai/gpt-oss-20b",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "llm_evaluation_run": true,
+  "index": {
+    "pages": 6,
+    "chunks": 11,
+    "vectors": 11
+  },
+  "retrieval": {
+    "n_items": 14,
+    "hit@1": 0.643,
+    "hit@2": 0.857,
+    "hit@4": 1.0,
+    "mrr": 0.786
+  },
+  "answer_quality": {
+    "n_scored": 15,
+    "n_errors": 0,
+    "accuracy_overall": 0.933,
+    "accuracy_fact_lookup": 1.0,
+    "accuracy_config_lookup": 1.0,
+    "accuracy_policy": 0.5,
+    "accuracy_composition": 1.0,
+    "accuracy_must_refuse": 1.0
+  },
+  "answer_details": [
+    {
+      "id": "q1_chunk_size",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q2_embedding_model",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q3_default_model",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q4_search_provider",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": false,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q5_retrieval_k",
+      "type": "config_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q6_scanned_pdf",
+      "type": "policy",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q7_writer_role",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q8_temperature",
+      "type": "config_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q9_chat_history",
+      "type": "policy",
+      "verdict": {},
+      "correct": false
+    },
+    {
+      "id": "q10_parser",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": false,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q11_all_agents",
+      "type": "composition",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q12_embedding_dimension",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q13_mrr_meaning",
+      "type": "fact_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "q14_api_keys",
+      "type": "config_lookup",
+      "verdict": {
+        "grounded": true,
+        "page_cited": true,
+        "out_of_context": false,
+        "refused": false
+      },
+      "correct": true
+    },
+    {
+      "id": "r1_out_of_scope",
+      "type": "must_refuse",
+      "verdict": {
+        "grounded": false,
+        "page_cited": false,
+        "out_of_context": false,
+        "refused": true
+      },
+      "correct": true
+    }
+  ],
+  "routing": {
+    "n_cases": 3,
+    "routing_accuracy": 1.0
+  },
+  "routing_details": [
+    {
+      "id": "route_doc_only",
+      "expected": [
+        "document_analyst_tool"
+      ],
+      "used": [
+        "document_analyst_tool"
+      ],
+      "correct": true
+    },
+    {
+      "id": "route_doc_and_web",
+      "expected": [
+        "document_analyst_tool",
+        "researcher_agent"
+      ],
+      "used": [
+        "document_analyst_tool",
+        "researcher_agent"
+      ],
+      "correct": true
+    },
+    {
+      "id": "route_chat_only",
+      "expected": [],
+      "used": [],
+      "correct": true
+    }
+  ]
+}

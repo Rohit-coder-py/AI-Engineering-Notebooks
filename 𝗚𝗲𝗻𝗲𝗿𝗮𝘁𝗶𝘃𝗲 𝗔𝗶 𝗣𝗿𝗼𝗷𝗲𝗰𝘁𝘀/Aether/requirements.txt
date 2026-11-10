@@ -1,0 +1,19 @@
+# Aether — runtime dependencies
+# Python 3.10+ required
+
+streamlit>=1.62,<2
+python-dotenv>=1.2
+
+# --- LLM / agents ---
+langchain>=1.4,<2
+langchain-core>=1.7,<2
+langchain-groq>=1.1,<2
+langchain-community>=0.4,<1        # FAISS vectorstore wrapper
+langchain-tavily>=0.2,<1           # TavilyClient (used by the researcher)
+
+# --- RAG stack ---
+pypdf>=6.2,<7
+faiss-cpu>=1.11,<2
+sentence-transformers>=6.1,<7      # all-MiniLM-L6-v2 embeddings
+langchain-huggingface>=1.2,<2
+langchain-text-splitters>=1.1,<2
