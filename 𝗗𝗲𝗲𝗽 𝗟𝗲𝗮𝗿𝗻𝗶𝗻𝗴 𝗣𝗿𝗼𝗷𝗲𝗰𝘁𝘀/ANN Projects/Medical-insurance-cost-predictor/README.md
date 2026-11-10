@@ -17,7 +17,7 @@
 > [!IMPORTANT]
 > **Use case:** Enter a person's demographics, income, lifestyle, and clinical/health history — age, BMI, smoking status, chronic conditions, hospitalizations, blood pressure, plan type — and get an instant estimate of their **annual medical cost**, the way an underwriting or actuarial team might use a first-pass model to sanity-check a quote.
 >
-> **Live demo → <mark>https://medical-insurance-cost-predictor-pytorch.streamlit.app/</mark>
+> **Live demo →** <mark>https://medical-insurance-cost-predictor-pytorch.streamlit.app/</mark>
 <br/>
 
 <div align="center">
@@ -207,21 +207,6 @@ The app ships with an already-trained model in `models/`, so it works right away
 
 ---
 
-## Future Improvements
-
-- [ ] Try tree-based baselines (XGBoost/LightGBM, Random Forest) — regression trees often handle this kind of weak, non-linear, many-feature relationship better than a plain ANN
-- [ ] Add engineered interaction features (e.g. `chronic_count × age`, `bmi × smoker`) to give the network more to work with
-- [ ] Log-transform the right-skewed target before training, which usually helps MSE-based regression on cost/price data
-- [ ] Add a prediction-interval or confidence band to the app output instead of a single point estimate, given the current R²
-
----
-
-## Disclaimer
-
-> [!WARNING]
-> Portfolio project — not a certified actuarial or underwriting tool. Predictions are a rough estimate for demonstration purposes and should never be used to set real insurance pricing or make coverage decisions.
-
----
 
 <div align="center">
 
