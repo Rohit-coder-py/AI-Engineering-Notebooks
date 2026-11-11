@@ -1,3 +1,0 @@
-pytest>=9.2,<10
-# Optional code-quality tools used by the CI workflow
-ruff>=0.14,<1
