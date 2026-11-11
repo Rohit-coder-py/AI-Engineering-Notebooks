@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 import streamlit as st
 import json
+import uuid
+from datetime import datetime
 from langchain.tools import tool
 from langchain.agents import create_agent
 from langchain.agents.middleware import wrap_tool_call
@@ -48,7 +50,52 @@ llm = ChatGroq(
 
 
 st.set_page_config(page_title="AETHER - YOUR AI WORKPLACE", page_icon=LOGO_PATH, layout="centered")
-st.header("Aether APP Dashboard")
+
+# Chat history is stored in Streamlit session state (no database).
+for key, default in {
+    "chats": {},
+    "current_chat_id": None,
+    "active_page": "chat",
+}.items():
+    if key not in st.session_state:
+        st.session_state[key] = default
+
+
+def create_new_chat():
+    chat_id = str(uuid.uuid4())
+    st.session_state.chats[chat_id] = {
+        "title": "New Chat",
+        "messages": [],
+        "created_at": datetime.now(),
+        "updated_at": datetime.now(),
+    }
+    st.session_state.current_chat_id = chat_id
+    st.session_state.active_page = "chat"
+
+
+def get_current_chat():
+    chat_id = st.session_state.current_chat_id
+    if chat_id is None or chat_id not in st.session_state.chats:
+        create_new_chat()
+        chat_id = st.session_state.current_chat_id
+    return st.session_state.chats[chat_id]
+
+
+# Start with an empty conversation when the app session first opens.
+if st.session_state.current_chat_id is None and not st.session_state.chats:
+    create_new_chat()
+
+with st.sidebar:
+    st.title("AETHER")
+    if st.button("＋ New Chat", use_container_width=True):
+        create_new_chat()
+        st.rerun()
+
+    if st.button("◷ Recent Chats", use_container_width=True):
+        st.session_state.active_page = "history"
+        st.rerun()
+
+    st.divider()
 
 
 @st.cache_resource
@@ -124,14 +171,57 @@ with st.sidebar:
             st.success("PDF ready!")
 
 
+if st.session_state.active_page == "history":
+    st.title("Recent Chats")
+    st.caption("Open a previous conversation or start a new one.")
+
+    if not st.session_state.chats:
+        st.info("No conversations yet. Start a new chat to see it here.")
+    else:
+        sorted_chats = sorted(
+            st.session_state.chats.items(),
+            key=lambda item: item[1]["updated_at"],
+            reverse=True,
+        )
+        for chat_id, chat in sorted_chats:
+            preview = ""
+            if chat["messages"]:
+                preview = str(chat["messages"][-1]["content"]).replace("\\n", " ")
+                preview = preview[:110] + ("..." if len(preview) > 110 else "")
+            else:
+                preview = "No messages yet"
+
+            with st.container(border=True):
+                col1, col2 = st.columns([5, 1])
+                with col1:
+                    st.subheader(chat["title"])
+                    st.caption(f'{chat["updated_at"].strftime("%b %d, %Y · %I:%M %p")}  |  {preview}')
+                with col2:
+                    if st.button("Open", key=f"open_{chat_id}", use_container_width=True):
+                        st.session_state.current_chat_id = chat_id
+                        st.session_state.active_page = "chat"
+                        st.rerun()
+
+    st.stop()
+
+
+current_chat = get_current_chat()
+
+st.title(current_chat["title"])
 if st.session_state.vector_db is not None:
-    st.subheader(f"📄 {st.session_state.pdf_name}")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Pages", st.session_state.pdf_pages)
-    c2.metric("Chunks", st.session_state.pdf_chunks)
-    c3.metric("Stored vectors", st.session_state.vector_db.index.ntotal)
+    with st.expander(f"📄 Document ready: {st.session_state.pdf_name}", expanded=False):
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Pages", st.session_state.pdf_pages)
+        c2.metric("Chunks", st.session_state.pdf_chunks)
+        c3.metric("Stored vectors", st.session_state.vector_db.index.ntotal)
 else:
-    st.info("Upload a PDF from the sidebar to enable the Document Analyst.")
+    st.caption("Upload a PDF from the sidebar to enable the Document Analyst.")
+
+
+# Render the selected conversation.
+for message in current_chat["messages"]:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 
 # Custom Chat Input Bar
@@ -424,27 +514,43 @@ def run_multi_agent(user_input):
 
 
 
-if submitted and user_input:
+if submitted and user_input.strip():
+    current_chat = get_current_chat()
 
-    st.chat_message("user").write(user_input)
+    # Use the first user message as the conversation title.
+    if not current_chat["messages"]:
+        clean_title = user_input.strip().replace("\\n", " ")
+        current_chat["title"] = clean_title[:45] + ("..." if len(clean_title) > 45 else "")
+
+    current_chat["messages"].append({
+        "role": "user",
+        "content": user_input.strip(),
+    })
+    current_chat["updated_at"] = datetime.now()
 
     with st.chat_message("assistant"):
+        with st.status("Processing your request...", expanded=True) as status:
+            try:
+                response = run_multi_agent(user_input.strip())
+                status.update(
+                    label="Task completed!",
+                    state="complete",
+                    expanded=False,
+                )
+            except Exception as error:
+                response = f"Sorry, something went wrong: {error}"
+                status.update(
+                    label="Request failed",
+                    state="error",
+                    expanded=False,
+                )
 
-        with st.status("Processing your request...",
-                       expanded=True) as status:
+        st.markdown(response)
 
-            response = run_multi_agent(user_input)
-
-            status.update(
-                label="Task completed!",
-                state="complete",
-                expanded=False
-            )
-
-        st.write(response)
-        
-with st.sidebar:        
-    if st.button("Clear Chat"):
-        st.rerun()
-        
+    current_chat["messages"].append({
+        "role": "assistant",
+        "content": response,
+    })
+    current_chat["updated_at"] = datetime.now()
+    st.rerun()
 
