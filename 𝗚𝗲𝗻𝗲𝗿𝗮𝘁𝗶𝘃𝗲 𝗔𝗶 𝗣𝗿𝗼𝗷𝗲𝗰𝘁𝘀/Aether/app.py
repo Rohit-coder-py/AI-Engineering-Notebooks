@@ -42,7 +42,7 @@ EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 llm = ChatGroq(
     model = model_name,
     api_key = api_key_groq,
-    temperature = 0.7)
+    temperature = 0.2)
 
 
 #======================================================================
@@ -51,18 +51,21 @@ llm = ChatGroq(
 
 st.set_page_config(page_title="AETHER - YOUR AI WORKPLACE", page_icon=LOGO_PATH, layout="centered")
 
-# Chat history is stored in Streamlit session state (no database).
-for key, default in {
-    "chats": {},
+
+
+for key, default in {"chats": {},
     "current_chat_id": None,
     "active_page": "chat",
 }.items():
     if key not in st.session_state:
-        st.session_state[key] = default
+        st.session_state[key] = default      #if this variable doesn't already exist in session state . initialize it
 
 
 def create_new_chat():
-    chat_id = str(uuid.uuid4())
+    chat_id = str(uuid.uuid4())  #uuid4 generates some random id
+    
+    
+    
     st.session_state.chats[chat_id] = {
         "title": "New Chat",
         "messages": [],
@@ -81,7 +84,6 @@ def get_current_chat():
     return st.session_state.chats[chat_id]
 
 
-# Start with an empty conversation when the app session first opens.
 if st.session_state.current_chat_id is None and not st.session_state.chats:
     create_new_chat()
 
