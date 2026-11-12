@@ -12,7 +12,7 @@
 ![Groq](https://img.shields.io/badge/LLM-Groq_gpt--oss--20b-F55036?style=flat-square)
 ![FAISS](https://img.shields.io/badge/Vector_DB-FAISS-0467DF?style=flat-square)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white&style=flat-square)
-![Tests](https://img.shields.io/badge/manual_tests-18%2F19_passing-6F8F68?style=flat-square)
+![Tests](https://img.shields.io/badge/manual_tests-19%2F19_passing-6F8F68?style=flat-square)
 
 <!-- ============================================================
      DEMO LINKS: replace the two REPLACE-WITH-... URLs below.
@@ -124,8 +124,7 @@ The result is an answer grounded in **your documents** and **fresh sources**, no
 | <img src="preview/screenshots/agents-working.png" alt="Agents at work"> | <img src="preview/screenshots/recent-chats.png" alt="Recent chats"> | <img src="preview/screenshots/about-page.png" alt="About page"> |
 
 </details>
-
-> Want to add your own images or SVGs? Drop them into [`preview/`](preview/) and see [`preview/README.md`](preview/README.md) for naming and sizing tips.
+s.
 
 <img src="preview/divider.svg" alt="" width="100%">
 

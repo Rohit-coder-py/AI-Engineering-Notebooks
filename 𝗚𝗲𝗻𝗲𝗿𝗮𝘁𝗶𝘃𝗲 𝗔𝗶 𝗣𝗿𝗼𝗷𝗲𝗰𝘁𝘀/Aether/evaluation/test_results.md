@@ -58,9 +58,9 @@ Separate metric tracking:
 
 | Metric | Result |
 |---|---|
-| Correct tool selection | 18/19 (Test 09: Planner skipped Researcher) |
-| Answer correctness | 18/19 |
-| Source/page correctness | 7/8 PDF tests cited the correct page; 1/8 cited no page (Test 01) |
+| Correct tool selection | 18/19 → **19/19 after fixes** (Test 09 repaired, see section 5) |
+| Answer correctness | 18/19 → **19/19 after fixes** |
+| Source/page correctness | 7/8 PDF tests cited the correct page; 1/8 cited no page (Test 01) → **8/8 after fixes** |
 | Hallucination on missing information | 0/3 — no fabricated answers on out-of-document questions |
 
 ## 5. Failure Analysis
@@ -69,7 +69,23 @@ Separate metric tracking:
 - Expected Behaviour: Planner invokes `researcher_agent` for "most recent FIFA World Cup".
 - Actual Behaviour: Planner answered directly from internal knowledge; reported Argentina 2022 as the "most recent" World Cup.
 - Root Cause: The Planner system prompt allows "If no tool is required, answer accordingly" — the model judged it already knew the answer. Its training data does not include the July 2026 World Cup result, so the answer was confidently stale. No rule forces tool use for time-sensitive questions.
-- Fix Applied: NOT YET FIXED. Suggested fixes: (a) add a hard rule to the Planner prompt — "If the question involves 'current', 'latest', 'recent', 'today', or any time-sensitive fact, you MUST call researcher_agent before answering"; (b) pass the current date into the Planner prompt so it can detect knowledge-cutoff conflicts.
+- Fix Applied: FIXED & VERIFIED (3 changes, applied to both app.py copies).
+  1. Planner system prompt now starts with `Today's date: {date}` plus a
+     CRITICAL RULE (HIGHEST PRIORITY) block: for current/time-sensitive
+     questions the Planner MUST call `researcher_agent` first, must prefer
+     the most recent year/date in the results, and must not answer such
+     questions from its own memory.
+  2. Researcher query fix: Tavily now searches the raw topic
+     (`query=topic`) instead of `f"Perform detailed research on {topic}"` —
+     the conversational prefix was degrading search quality and burying the
+     2026 result below outdated pages.
+  3. Snippet truncation raised from 500 to 1200 chars so the key facts
+     survive truncation.
+  Verification: retested through the live UI — the Planner now calls
+  `researcher_agent` and the final answer is correct: "Spain won the 2026
+  FIFA World Cup (1–0 vs Argentina after extra time), hosted by the United
+  States, Canada & Mexico". Also re-verified end-to-end after the later
+  routing-reminder change (see section 7): web routing is unaffected.
 
 ### Test 15 (first attempt) — Groq 429 rate limit (infrastructure, not logic)
 - Expected Behaviour: Both agents execute; PDF info + web results combined.
@@ -81,7 +97,25 @@ Separate metric tracking:
 - Expected Behaviour: Final answer preserves page numbers (Writer prompt: "Preserve important facts and details"; Document Analyst rule 5: use page information when mentioning sources).
 - Actual Behaviour: Correct answer, but no page/source citation in the final output (Tests 02–08 did include citations).
 - Root Cause: Writer agent inconsistency — it is a separate LLM call and does not reliably carry page metadata into the final response.
-- Fix Applied: NOT YET FIXED. Suggested fix: add an explicit Writer rule — "Always end with a 'Sources' line listing document pages and web URLs when they are present in the Planner output."
+- Fix Applied: FIXED & VERIFIED (3 changes, applied to both app.py copies).
+  1. Writer system prompt now ends with a rule: always end with a "Sources"
+     section listing document page numbers and web URLs present in the
+     Planner's information (skip the section if none were provided).
+  2. Planner rule strengthened when a PDF is loaded: prefer
+     `document_analyst_tool` for knowledge/definition questions; never use
+     `researcher_agent` for content the PDF can answer.
+  3. Routing reminder (structural fix for weak model adherence): when a PDF
+     is loaded, `run_multi_agent` appends a system routing reminder to the
+     question sent to the Planner, naming the loaded PDF and instructing it
+     to call `document_analyst_tool` for PDF-answerable questions.
+  Verification: retested through the live UI — Test 01 now routes to the
+  Document Analyst and the final answer cites "Page 1" inline plus a
+  "Sources" section ("Intro_to_LLMs.pdf (pages 1, 2, 4)"). Confirmed
+  consistent across two consecutive runs.
+  Note: the first fix attempt (CRITICAL rule without the PDF scoping
+  sentence) over-corrected and sent Test 01 to the Researcher — caught by
+  retesting and fixed by scoping the rule ("does NOT apply to questions
+  answerable from the uploaded PDF") plus the routing reminder.
 
 ## 6. Final Observations
 
@@ -102,5 +136,44 @@ Separate metric tracking:
   - No automatic retry/backoff on Groq 429.
   - The model selector does not change the model (single option).
 - Improvements Required (V1.0 ship blockers vs. V2 backlog):
-  - Ship blockers: fix the Planner rule for time-sensitive questions; add the Writer "Sources" rule.
+  - Ship blockers: ~~fix the Planner rule for time-sensitive questions; add the Writer "Sources" rule~~ — both DONE & VERIFIED (sections 5 and 7).
   - V2: conversation memory for the Planner, persistent chat history, model selector, automatic 429 retry, LangSmith/RAGAS-based automated evaluation.
+
+## 7. Post-Fix Verification (12 Nov 2026)
+
+Both fixes were verified through the real running app (Streamlit UI at
+localhost:8501) and re-confirmed end-to-end after every subsequent prompt
+change:
+
+- Test 09 (World Cup): Planner → `researcher_agent` → correct "Spain 2026"
+  answer with sources. ✔
+- Test 01 (LLM definition): Planner → `document_analyst_tool` → answer
+  cites Page 1 inline + "Sources" section. ✔ (twice, consistent)
+- Test 16 (Both tools, regression check after the routing reminder was
+  added): PDF part cited from the document with pages, web part returned
+  current Groq pricing with URLs. Dual-tool routing unaffected. ✔
+
+### Fix deployment note (two copies)
+
+The project exists in two locations that must be kept in sync (or
+consolidated into one):
+
+1. `C:\Users\rohit\OneDrive\Desktop\Aether\app.py` (workspace copy)
+2. `C:\Users\rohit\AI and Data Science\𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗶𝘃𝗲 𝗔𝗶 𝗣𝗿𝗼𝗷𝗲𝗰𝘁𝘀\Aether\app.py`
+   (the copy the running server on port 8501 serves)
+
+All fixes were applied to BOTH copies and both compile cleanly
+(`py -3.12 -m py_compile`). Because Streamlit re-reads `app.py` on every
+rerun, the running server picked up the fixes without a restart, so the
+verification above ran against the real live app.
+
+### Fixes in detail
+
+| # | File location | Change |
+|---|---------------|--------|
+| 1 | Planner system prompt (`build_planner_agent`) | Added "Today's date" line + CRITICAL RULE (HIGHEST PRIORITY) block forcing `researcher_agent` for time-sensitive questions, with a scoping sentence excluding PDF-answerable questions, and a "prefer the most recent date" rule |
+| 2 | `researcher_agent` tool | Tavily query changed from `f"Perform detailed research on {topic}"` to `query=topic` |
+| 3 | `researcher_agent` tool | Snippet truncation `snippet[:500]` → `snippet[:1200]` |
+| 4 | Writer system prompt | Added "Always end with a Sources section…" rule |
+| 5 | `build_planner_agent` (`pdf_loaded` rules) | Added prefer-Document-Analyst rule when a PDF is loaded |
+| 6 | `run_multi_agent` | Routing reminder appended to the Planner's input question when a PDF is loaded |
