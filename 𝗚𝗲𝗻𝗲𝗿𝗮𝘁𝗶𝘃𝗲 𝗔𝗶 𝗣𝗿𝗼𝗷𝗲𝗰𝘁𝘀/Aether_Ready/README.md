@@ -14,13 +14,13 @@
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white&style=flat-square)
 ![Tests](https://img.shields.io/badge/manual_tests-19%2F19_passing-6F8F68?style=flat-square)
 
-<!-- ============================================================
-     DEMO LINKS: replace the two REPLACE-WITH-... URLs below.
-     Tip: search this file for "REPLACE-WITH" to find every spot.
-     ============================================================ -->
-[![Live Demo](https://img.shields.io/badge/%E2%96%B6%20LIVE%20DEMO-open%20the%20app-B94E32?style=for-the-badge)](https://REPLACE-WITH-YOUR-LIVE-LINK)
+<a href="https://aether-rohitjha.streamlit.app/" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/%E2%96%B6%20LIVE%20DEMO-open%20the%20app-B94E32?style=for-the-badge" alt="Live demo">
+</a>
 &nbsp;
-[![Docker Hub](https://img.shields.io/badge/%F0%9F%90%B3%20DOCKER%20HUB-pull%20the%20image-34527A?style=for-the-badge)](https://REPLACE-WITH-YOUR-DOCKER-HUB-LINK)
+<a href="https://hub.docker.com/r/rohitcoderpy/aether" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/%F0%9F%90%B3%20DOCKER%20HUB-pull%20the%20image-34527A?style=for-the-badge" alt="Docker Hub">
+</a>
 
 </div>
 
@@ -63,15 +63,13 @@ The result is an answer grounded in **your documents** and **fresh sources**, no
 
 <img src="preview/divider.svg" alt="" width="100%">
 
-## Demo links
+## Demo Links
 
-| | Link | Notes |
-|---|---|---|
-| 🌐 **Live app** | [REPLACE-WITH-YOUR-LIVE-LINK](https://REPLACE-WITH-YOUR-LIVE-LINK) | Upload a PDF and ask away |
-| 🐳 **Docker Hub** | [REPLACE-WITH-YOUR-DOCKER-HUB-LINK](https://REPLACE-WITH-YOUR-DOCKER-HUB-LINK) | `docker pull <your-username>/aether:latest` |
-| 🎬 **Test recording** | [`evaluation/manual_testing.mp4`](evaluation/manual_testing.mp4) | 40 s walkthrough of the manual test run |
-
-<!-- Once the Docker image is pushed, the run command in "Quick start" can use it directly. -->
+| | Link |
+|---|---|
+| 🌐 **Live App** | <a href="https://aether-rohitjha.streamlit.app/" target="_blank" rel="noopener">Click Here To Open</a> |
+| 🐳 **Docker Hub** | <a href="https://hub.docker.com/r/rohitcoderpy/aether" target="_blank" rel="noopener">Click Here To Open</a> |
+| 🎬 **Test Recording** | [evaluation/manual_testing.mp4](evaluation/manual_testing.mp4) |
 
 <img src="preview/divider.svg" alt="" width="100%">
 
@@ -181,7 +179,7 @@ A signature of `file name + size` decides when to re-index, so ordinary Streamli
 ## Quick start
 
 You need **Python 3.10+** (3.11 recommended) and two free API keys:
-[Groq](https://console.groq.com/keys) and [Tavily](https://app.tavily.com/).
+<a href="https://console.groq.com/keys" target="_blank" rel="noopener">Groq</a> and <a href="https://app.tavily.com/" target="_blank" rel="noopener">Tavily</a>.
 
 ### Option A: run locally
 
@@ -218,7 +216,7 @@ docker run --env-file .env -p 8501:8501 aether
 Or, once the image is on Docker Hub:
 
 ```bash
-docker run --env-file .env -p 8501:8501 <your-username>/aether:latest
+docker run --env-file .env -p 8501:8501 rohitcoderpy/aether:latest
 ```
 
 API keys are **never baked into the image**; they are passed at run time. See **Quick start** and **Configuration** above for every setting, and the Docker run commands in this section.
@@ -341,8 +339,12 @@ Aether did not appear in one step. The [`pseudo_codes/`](pseudo_codes/) folder k
 
 **Rohit Jha** · BCA student, building towards an AI/ML career
 
-[![GitHub](https://img.shields.io/badge/GitHub-Rohit--coder--py-181717?logo=github&style=flat-square)](https://github.com/Rohit-coder-py)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-rohit--jha--ai-0A66C2?logo=linkedin&style=flat-square)](https://linkedin.com/in/rohit-jha-ai)
+<a href="https://github.com/Rohit-coder-py" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/GitHub-Rohit--coder--py-181717?logo=github&style=flat-square" alt="GitHub">
+</a>
+<a href="https://linkedin.com/in/rohit-jha-ai" target="_blank" rel="noopener">
+  <img src="https://img.shields.io/badge/LinkedIn-rohit--jha--ai-0A66C2?logo=linkedin&style=flat-square" alt="LinkedIn">
+</a>
 
 <div align="center">
 <br>
