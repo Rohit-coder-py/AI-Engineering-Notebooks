@@ -40,7 +40,7 @@
 9. [Try it: example questions](#try-it-example-questions)
 10. [Project structure](#project-structure)
 11. [Testing and results](#testing-and-results)
-12. [Documentation](#documentation)
+12. [Evaluation artifacts](#evaluation-artifacts)
 13. [Limitations and privacy](#limitations-and-privacy)
 14. [Roadmap](#roadmap)
 15. [Project journey](#project-journey)
@@ -69,7 +69,7 @@ The result is an answer grounded in **your documents** and **fresh sources**, no
 |---|---|---|
 | 🌐 **Live app** | [REPLACE-WITH-YOUR-LIVE-LINK](https://REPLACE-WITH-YOUR-LIVE-LINK) | Upload a PDF and ask away |
 | 🐳 **Docker Hub** | [REPLACE-WITH-YOUR-DOCKER-HUB-LINK](https://REPLACE-WITH-YOUR-DOCKER-HUB-LINK) | `docker pull <your-username>/aether:latest` |
-| 🎬 **Test recording** | [`docs/manual_testing.mp4`](docs/manual_testing.mp4) | 40 s walkthrough of the manual test run |
+| 🎬 **Test recording** | [`evaluation/manual_testing.mp4`](evaluation/manual_testing.mp4) | 40 s walkthrough of the manual test run |
 
 <!-- Once the Docker image is pushed, the run command in "Quick start" can use it directly. -->
 
@@ -111,7 +111,7 @@ The result is an answer grounded in **your documents** and **fresh sources**, no
 </table>
 
 <details>
-<summary><b>More screens</b> (replace the placeholders with your own screenshots)</summary>
+<summary><b>More screens</b></summary>
 
 <br>
 
@@ -124,7 +124,6 @@ The result is an answer grounded in **your documents** and **fresh sources**, no
 | <img src="preview/screenshots/agents-working.png" alt="Agents at work"> | <img src="preview/screenshots/recent-chats.png" alt="Recent chats"> | <img src="preview/screenshots/about-page.png" alt="About page"> |
 
 </details>
-s.
 
 <img src="preview/divider.svg" alt="" width="100%">
 
@@ -162,7 +161,7 @@ s.
 
 A signature of `file name + size` decides when to re-index, so ordinary Streamlit reruns stay fast. Nothing is written to disk: the vectors live in memory and disappear when the PDF is removed.
 
-> Deep dive with Mermaid diagrams: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+> Want the deep technical dive (agents, RAG pipeline, session state)? Open the **About** page inside the app — it ships with the project in [`pages/1_About.py`](pages/1_About.py).
 
 <img src="preview/divider.svg" alt="" width="100%">
 
@@ -222,7 +221,7 @@ Or, once the image is on Docker Hub:
 docker run --env-file .env -p 8501:8501 <your-username>/aether:latest
 ```
 
-API keys are **never baked into the image**; they are passed at run time. More detail, troubleshooting and deployment notes: [`docs/SETUP_AND_DEPLOYMENT.md`](docs/SETUP_AND_DEPLOYMENT.md).
+API keys are **never baked into the image**; they are passed at run time. See **Quick start** and **Configuration** above for every setting, and the Docker run commands in this section.
 
 <img src="preview/divider.svg" alt="" width="100%">
 
@@ -256,7 +255,7 @@ Upload [`sample_data/Intro_to_LLMs.pdf`](sample_data/Intro_to_LLMs.pdf) and try:
 | 🧵 PDF + web | *According to the PDF, what is RAG? Then search the web for recent news about new RAG techniques.* |
 | 🚫 Not in the PDF | *According to the document, how much does the ChatGPT Plus subscription cost per month?* (Aether should say it cannot find it.) |
 
-All 19 evaluation questions: [`docs/demo_questions.md`](docs/demo_questions.md).
+All 19 evaluation questions: [`evaluation/demo_questions.md`](evaluation/demo_questions.md).
 
 <img src="preview/divider.svg" alt="" width="100%">
 
@@ -271,7 +270,7 @@ Aether/
 ├── .streamlit/config.toml  # Theme colours and fonts
 ├── assets/logo.png         # Logo
 ├── sample_data/            # Intro_to_LLMs.pdf (4-page test document)
-├── docs/                   # Capstone documentation (see below)
+├── evaluation/             # Test report, demo questions, test-run recording
 ├── preview/                # README images, animated SVGs, GIF, screenshots
 ├── pseudo_codes/           # Earlier learning versions that led to Aether
 ├── requirements.txt        # Python dependencies
@@ -288,31 +287,27 @@ Aether/
 Aether v1.0 was evaluated end to end through the real Streamlit UI with **19 manual test cases**. Every answer was checked against the actual PDF text and, for current-events questions, against independent web searches.
 
 <div align="center">
-<img src="preview/test-results.svg" alt="18 of 19 tests passed (94.7%)" width="90%">
+<img src="preview/test-results.svg" alt="19 of 19 tests passed after fixes (100%)" width="90%">
 </div>
 
-| Metric | Result |
-|---|---|
-| Tests passed | **18 / 19 (94.7%)** |
-| Correct tool selection | 18 / 19 |
-| Correct page cited (PDF tests) | 7 / 8 |
-| Hallucinations on missing information | **0 / 3** |
+| Metric | First run | After fixes |
+|---|:---:|:---:|
+| Tests passed | 18 / 19 (94.7%) | **19 / 19 (100%)** |
+| Correct tool selection | 18 / 19 | **19 / 19** |
+| Correct page cited (PDF tests) | 7 / 8 | **8 / 8** |
+| Hallucinations on missing information | **0 / 3** | **0 / 3** |
 
-**Honest failure analysis**: the single failure (Test 09) was a current-events question that the Planner answered from stale memory instead of searching. The root cause and two concrete fixes are documented in [`docs/test_results.md`](docs/test_results.md) and turned into a plan in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+**Honest failure analysis**: the first run caught one functional failure (Test 09: a current-events question the Planner answered from stale memory instead of searching) and one citation miss (Test 01). Both root causes were diagnosed, fixed with six small prompt/tool changes, and verified through the live app — the full story is in [`evaluation/test_results.md`](evaluation/test_results.md), section 7.
 
 <img src="preview/divider.svg" alt="" width="100%">
 
-## Documentation
+## Evaluation artifacts
 
-| Document | What is inside |
+| File | What is inside |
 |---|---|
-| [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) | Full capstone report: problem, objectives, design, implementation, testing, conclusion |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Mermaid diagrams, component table, data flow, design decisions |
-| [`docs/SETUP_AND_DEPLOYMENT.md`](docs/SETUP_AND_DEPLOYMENT.md) | Local and Docker setup, pushing to Docker Hub, deployment options, troubleshooting |
-| [`docs/test_results.md`](docs/test_results.md) | The 19-case evaluation report with failure analysis |
-| [`docs/demo_questions.md`](docs/demo_questions.md) | The exact questions used in testing |
-| [`docs/ROADMAP.md`](docs/ROADMAP.md) | Known issues with ready-to-use fixes, and the V2 backlog |
-| [`docs/CAPSTONE_CHECKLIST.md`](docs/CAPSTONE_CHECKLIST.md) | Submission checklist, rubric mapping, presentation outline, viva questions |
+| [`evaluation/test_results.md`](evaluation/test_results.md) | The 19-case evaluation report with failure analysis and post-fix verification |
+| [`evaluation/demo_questions.md`](evaluation/demo_questions.md) | The exact questions used in testing |
+| [`evaluation/manual_testing.mp4`](evaluation/manual_testing.mp4) | Screen recording of the manual test run |
 
 <img src="preview/divider.svg" alt="" width="100%">
 
@@ -330,12 +325,11 @@ Aether v1.0 was evaluated end to end through the real Streamlit UI with **19 man
 
 | Priority | Item |
 |:---:|---|
-| 🔴 V1.1 | Force `researcher_agent` for time-sensitive questions (fixes Test 09) |
-| 🔴 V1.1 | Writer always ends with a **Sources** line (fixes Test 01) |
-| 🟡 V2 | Conversation memory for the Planner, retry with backoff on `429`, persistent chat history |
+| ✅ Shipped | Planner forced to `researcher_agent` for time-sensitive questions (fixes Test 09) |
+| ✅ Shipped | Writer always ends with a **Sources** section (fixes Test 01) |
+| 🟡 V1.1 | Retry with backoff on Groq `429` rate limits |
+| 🟡 V2 | Conversation memory for the Planner, persistent chat history |
 | 🟢 Later | Multi-PDF support, OCR for scans, automated RAG evaluation (RAGAS / LangSmith), CI with GitHub Actions |
-
-Full list with code snippets: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Project journey
 
