@@ -347,11 +347,16 @@ doc_prompt = ChatPromptTemplate.from_messages(
 )
 
 
+# Tools run in a worker thread where st.session_state is empty,
+# so the vector DB is handed over through this plain dictionary.
+doc_store = {"vector_db": None, "sources": []}
+
+
 @tool
 def document_analyst_tool(question: str) -> str:
     """Answers questions about the uploaded PDF document using retrieved document context."""
 
-    vector_db = st.session_state.get("vector_db")
+    vector_db = doc_store["vector_db"]
 
     if vector_db is None:
         return "No document has been uploaded yet. Please upload a PDF first."
@@ -360,6 +365,8 @@ def document_analyst_tool(question: str) -> str:
         question,
         k=RETRIEVAL_K
     )
+
+    doc_store["sources"].extend(doc.metadata.get("page") for doc in retrieved_docs)
 
     context = "\n\n".join(
         [
@@ -491,6 +498,8 @@ writer_agent = writer_prompt | llm
 def run_multi_agent(user_input):
 
     
+    doc_store["vector_db"] = st.session_state.vector_db
+    doc_store["sources"] = []
     planner_agent = build_planner_agent(st.session_state.vector_db is not None)
 
     st.write("Using Planner Agent...")
@@ -512,7 +521,13 @@ def run_multi_agent(user_input):
         }
     )
 
-    return writer_response.content
+    answer = writer_response.content
+
+    if doc_store["sources"]:
+        pages = ", ".join(str(p) for p in sorted(set(doc_store["sources"])))
+        answer += f"\n\n**Sources:** {st.session_state.pdf_name} (pages {pages})"
+
+    return answer
 
 
 

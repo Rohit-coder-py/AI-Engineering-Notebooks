@@ -1,15 +1,4 @@
-"""
-Patchwork Stitched design system for Aether.
 
-Everything here is additive: it styles Streamlit through CSS only.
- - pages/1_About.py calls apply() and uses the .pw-* components below.
- - app.py is NOT modified. If you ever want the stitched borders on the
-   chat + history pages too, add these two lines right after
-   st.set_page_config(...) in app.py:
-
-       import patchwork
-       patchwork.apply()
-"""
 
 import streamlit as st
 
