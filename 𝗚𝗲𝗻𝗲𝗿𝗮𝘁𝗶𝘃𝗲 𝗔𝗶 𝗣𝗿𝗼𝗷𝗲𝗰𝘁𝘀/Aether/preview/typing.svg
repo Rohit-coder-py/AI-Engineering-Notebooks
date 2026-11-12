@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 76" width="900" height="76" role="img" aria-label="How Aether works in three lines">
+  <title>How Aether works</title>
+  <defs>
+  <pattern id="fabric" width="4" height="4" patternUnits="userSpaceOnUse">
+    <path d="M0 0H4M0 0V4" stroke="#785432" stroke-opacity=".06" stroke-width="1"/>
+  </pattern></defs>
+  <rect width="900" height="76" rx="16" fill="#FFF6E3"/>
+  <rect width="900" height="76" rx="16" fill="url(#fabric)"/>
+  <rect x="5" y="5" width="890" height="66" rx="12" fill="none" stroke="#B8946A" stroke-width="2.5" stroke-dasharray="8 6">
+    <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <text x="450" y="46" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="800" fill="#34527A" opacity="1">Planner decides which tool to use
+    <animate attributeName="opacity" keyTimes="0.000;0.030;0.303;0.333;1.000" values="1;1;1;0;0" dur="9.600000000000001s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" keyTimes="0.000;0.030;0.303;0.333;1.000" values="0 0;0 0;0 0;0 10;0 10" dur="9.600000000000001s" repeatCount="indefinite"/>
+  </text>
+  <text x="450" y="46" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="800" fill="#6F8F68" opacity="0">Researcher + Document Analyst fetch the facts
+    <animate attributeName="opacity" keyTimes="0.000;0.333;0.363;0.637;0.667;1.000" values="0;0;1;1;0;0" dur="9.600000000000001s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" keyTimes="0.000;0.333;0.363;0.637;0.667;1.000" values="0 10;0 10;0 0;0 0;0 10;0 10" dur="9.600000000000001s" repeatCount="indefinite"/>
+  </text>
+  <text x="450" y="46" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="800" fill="#B94E32" opacity="0">Writer turns them into one clean answer
+    <animate attributeName="opacity" keyTimes="0.000;0.667;0.697;0.970;1.000" values="0;0;1;1;0" dur="9.600000000000001s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="translate" keyTimes="0.000;0.667;0.697;0.970;1.000" values="0 10;0 10;0 0;0 0;0 10" dur="9.600000000000001s" repeatCount="indefinite"/>
+  </text>
+</svg>

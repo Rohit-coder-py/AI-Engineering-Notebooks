@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 270" width="1100" height="270" role="img" aria-label="RAG pipeline: extract, wrap, chunk, embed, index, retrieve">
+  <title>Aether RAG pipeline</title>
+  <defs>
+  <pattern id="fabric" width="4" height="4" patternUnits="userSpaceOnUse">
+    <path d="M0 0H4M0 0V4" stroke="#785432" stroke-opacity=".06" stroke-width="1"/>
+  </pattern></defs>
+  <rect width="1100" height="270" rx="22" fill="#FFF6E3"/>
+  <rect width="1100" height="270" rx="22" fill="url(#fabric)"/>
+  <rect x="8" y="8" width="1084" height="254" rx="16" fill="none" stroke="#B8946A" stroke-width="2.5" stroke-dasharray="9 7"/>
+  <line x1="95" y1="105" x2="1005" y2="105" stroke="#B8946A" stroke-width="4" stroke-dasharray="12 9" stroke-linecap="round"><animate attributeName="stroke-dashoffset" from="0" to="-42" dur="2s" repeatCount="indefinite"/></line>
+  
+  <g>
+    <circle cx="95" cy="105" r="52" fill="none" stroke="#E8B03A" stroke-width="6" opacity="0">
+      <animate attributeName="opacity" keyTimes="0.000;0.000;0.005;0.162;0.174;1.000" values="0;0;1;1;0;0" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="r" keyTimes="0.000;0.000;0.005;0.162;0.174;1.000" values="44;44;56;56;44;44" dur="9.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="95" cy="105" r="42" fill="#34527A" stroke="#3A2A22" stroke-opacity=".35" stroke-width="2.5"/>
+    <circle cx="95" cy="105" r="34" fill="none" stroke="#FFF6E3" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="95" y="117" text-anchor="middle" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="34" font-weight="800" fill="#FFF6E3">1</text>
+    <text x="95" y="187" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#3A2A22">Extract</text>
+    <text x="95" y="211" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">pypdf reads</text>
+    <text x="95" y="231" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">page by page</text>
+  </g>
+  <g>
+    <circle cx="277" cy="105" r="52" fill="none" stroke="#E8B03A" stroke-width="6" opacity="0">
+      <animate attributeName="opacity" keyTimes="0.000;0.160;0.172;0.328;0.340;1.000" values="0;0;1;1;0;0" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="r" keyTimes="0.000;0.160;0.172;0.328;0.340;1.000" values="44;44;56;56;44;44" dur="9.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="277" cy="105" r="42" fill="#E8B03A" stroke="#3A2A22" stroke-opacity=".35" stroke-width="2.5"/>
+    <circle cx="277" cy="105" r="34" fill="none" stroke="#3A2A22" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="277" y="117" text-anchor="middle" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="34" font-weight="800" fill="#3A2A22">2</text>
+    <text x="277" y="187" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#3A2A22">Wrap</text>
+    <text x="277" y="211" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">Document objects</text>
+    <text x="277" y="231" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">with page metadata</text>
+  </g>
+  <g>
+    <circle cx="459" cy="105" r="52" fill="none" stroke="#E8B03A" stroke-width="6" opacity="0">
+      <animate attributeName="opacity" keyTimes="0.000;0.326;0.338;0.495;0.507;1.000" values="0;0;1;1;0;0" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="r" keyTimes="0.000;0.326;0.338;0.495;0.507;1.000" values="44;44;56;56;44;44" dur="9.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="459" cy="105" r="42" fill="#6F8F68" stroke="#3A2A22" stroke-opacity=".35" stroke-width="2.5"/>
+    <circle cx="459" cy="105" r="34" fill="none" stroke="#FFF6E3" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="459" y="117" text-anchor="middle" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="34" font-weight="800" fill="#FFF6E3">3</text>
+    <text x="459" y="187" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#3A2A22">Chunk</text>
+    <text x="459" y="211" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">1000 characters</text>
+    <text x="459" y="231" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">150 overlap</text>
+  </g>
+  <g>
+    <circle cx="641" cy="105" r="52" fill="none" stroke="#E8B03A" stroke-width="6" opacity="0">
+      <animate attributeName="opacity" keyTimes="0.000;0.493;0.505;0.662;0.674;1.000" values="0;0;1;1;0;0" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="r" keyTimes="0.000;0.493;0.505;0.662;0.674;1.000" values="44;44;56;56;44;44" dur="9.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="641" cy="105" r="42" fill="#B94E32" stroke="#3A2A22" stroke-opacity=".35" stroke-width="2.5"/>
+    <circle cx="641" cy="105" r="34" fill="none" stroke="#FFF6E3" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="641" y="117" text-anchor="middle" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="34" font-weight="800" fill="#FFF6E3">4</text>
+    <text x="641" y="187" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#3A2A22">Embed</text>
+    <text x="641" y="211" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">MiniLM-L6-v2</text>
+    <text x="641" y="231" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">384-dim vectors</text>
+  </g>
+  <g>
+    <circle cx="823" cy="105" r="52" fill="none" stroke="#E8B03A" stroke-width="6" opacity="0">
+      <animate attributeName="opacity" keyTimes="0.000;0.660;0.672;0.828;0.840;1.000" values="0;0;1;1;0;0" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="r" keyTimes="0.000;0.660;0.672;0.828;0.840;1.000" values="44;44;56;56;44;44" dur="9.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="823" cy="105" r="42" fill="#6B4A6E" stroke="#3A2A22" stroke-opacity=".35" stroke-width="2.5"/>
+    <circle cx="823" cy="105" r="34" fill="none" stroke="#FFF6E3" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="823" y="117" text-anchor="middle" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="34" font-weight="800" fill="#FFF6E3">5</text>
+    <text x="823" y="187" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#3A2A22">Index</text>
+    <text x="823" y="211" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">FAISS store</text>
+    <text x="823" y="231" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">kept in memory</text>
+  </g>
+  <g>
+    <circle cx="1005" cy="105" r="52" fill="none" stroke="#E8B03A" stroke-width="6" opacity="0">
+      <animate attributeName="opacity" keyTimes="0.000;0.826;0.838;0.995;1.000;1.000" values="0;0;1;1;0;0" dur="9.0s" repeatCount="indefinite"/>
+      <animate attributeName="r" keyTimes="0.000;0.826;0.838;0.995;1.000;1.000" values="44;44;56;56;44;44" dur="9.0s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1005" cy="105" r="42" fill="#34527A" stroke="#3A2A22" stroke-opacity=".35" stroke-width="2.5"/>
+    <circle cx="1005" cy="105" r="34" fill="none" stroke="#FFF6E3" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="1005" y="117" text-anchor="middle" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="34" font-weight="800" fill="#FFF6E3">6</text>
+    <text x="1005" y="187" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#3A2A22">Retrieve</text>
+    <text x="1005" y="211" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">top-4 chunks</text>
+    <text x="1005" y="231" text-anchor="middle" font-family="Nunito, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#3A2A22" fill-opacity=".8">→ grounded prompt</text>
+  </g>
+</svg>

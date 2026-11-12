@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 28" width="1200" height="28" role="presentation">
+  <line x1="10" y1="14" x2="1190" y2="14" stroke="#B8946A" stroke-width="4" stroke-linecap="round" stroke-dasharray="14 10">
+    <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;1130 0;0 0" dur="9s" repeatCount="indefinite"/>
+    <circle cx="35" cy="14" r="10" fill="#E8B03A" stroke="#3A2A22" stroke-opacity=".6" stroke-width="2.5"/>
+    <circle cx="31" cy="11" r="1.8" fill="#3A2A22"/><circle cx="39" cy="11" r="1.8" fill="#3A2A22"/>
+    <circle cx="31" cy="17" r="1.8" fill="#3A2A22"/><circle cx="39" cy="17" r="1.8" fill="#3A2A22"/>
+  </g>
+</svg>

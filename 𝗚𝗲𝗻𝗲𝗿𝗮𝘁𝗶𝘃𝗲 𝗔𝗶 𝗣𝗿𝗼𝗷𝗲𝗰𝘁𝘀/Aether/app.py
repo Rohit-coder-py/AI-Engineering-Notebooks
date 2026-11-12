@@ -289,7 +289,7 @@ def researcher_agent(topic: str) -> str:
     """Performs detailed research on the provided topic using Tavily Search."""
 
     response = search_tool.search(
-        query=f"Perform detailed research on {topic}",
+        query=topic,
         search_depth="advanced",
         max_results=4
     )
@@ -309,7 +309,7 @@ def researcher_agent(topic: str) -> str:
         research_results.append(
             f"Title: {title}\n"
             f"URL: {url}\n"
-            f"Summary: {snippet[:500]}..."
+            f"Summary: {snippet[:1200]}..."
         )
 
     return (
@@ -423,7 +423,11 @@ def build_planner_agent(pdf_loaded: bool):
         )
         rules = (
             "- Use document_analyst_tool for anything about the uploaded PDF.\n"
-            "    - Use researcher_agent for external research.\n"
+            "    - For knowledge and definition questions, ALWAYS prefer\n"
+            "      document_analyst_tool when a PDF is loaded; never use\n"
+            "      researcher_agent for content the PDF can answer.\n"
+            "    - Use researcher_agent only for current or time-sensitive\n"
+            "      information that is not covered by the PDF.\n"
             "    - Use both tools if the user needs information from\n"
             "      the PDF and external research."
         )
@@ -437,6 +441,21 @@ def build_planner_agent(pdf_loaded: bool):
 
     Your job is to analyze the user's request and decide
     which tools need to be executed.
+
+    Today's date: {datetime.now().strftime('%d %B %Y')}
+
+    CRITICAL RULE (HIGHEST PRIORITY):
+    - Your own knowledge has a training cutoff and is often outdated.
+    - For questions about current events, sports results, prices, news,
+      versions, company leadership, rankings, or anything that may have
+      changed after your training data, you MUST call researcher_agent
+      FIRST and base your answer on its results. Never answer such
+      questions from memory.
+    - This rule does NOT apply to questions that can be answered from
+      the uploaded PDF: for those, use document_analyst_tool only.
+    - When the researcher results contain multiple years or dates,
+      always use the MOST RECENT one (the latest year/date shown).
+      Never report an older entry when a newer one is present.
 
     Available tools:
 
@@ -473,6 +492,9 @@ writer_prompt = ChatPromptTemplate.from_messages(
             - Do not add information that is not provided
               by the Planner Agent.
             - Preserve important facts and details.
+            - Always end with a "Sources" section listing the document
+              page numbers and web URLs that appear in the Planner's
+              information. If none were provided, skip this section.
             """
         ),
         (
@@ -504,10 +526,22 @@ def run_multi_agent(user_input):
 
     st.write("Using Planner Agent...")
 
+    # Routing reminder: steer the Planner toward the Document Analyst when a
+    # PDF is loaded, so PDF-answerable questions use the document tool.
+    planner_question = user_input
+    if st.session_state.vector_db is not None:
+        planner_question = user_input + (
+            "\n\n(System routing reminder: the document "
+            f"'{st.session_state.pdf_name}' is loaded. If this question can "
+            "be answered from that document, call document_analyst_tool. "
+            "Use researcher_agent only for current events or facts that the "
+            "document does not cover.)"
+        )
+
     planner_response = planner_agent.invoke(
         {
             "messages": [
-                HumanMessage(content=user_input)]})
+                HumanMessage(content=planner_question)]})
 
     planner_output = planner_response["messages"][-1].content
 
