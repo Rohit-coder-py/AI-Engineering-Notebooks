@@ -1,0 +1,33 @@
+# Patchwork Stitched theme for Aether.
+# Streamlit reads this file automatically, so the whole app (chat, history,
+# sidebar, About) gets the Patchwork palette and fonts without touching app.py.
+
+[theme]
+base = "light"
+primaryColor = "#B94E32"             # terracotta patch
+backgroundColor = "#F6EBD6"          # linen
+secondaryBackgroundColor = "#EBD7B5" # tan fabric
+textColor = "#3A2A22"                # dark thread
+linkColor = "#34527A"                # denim
+borderColor = "#B8946A"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "0.7rem"
+buttonRadius = "0.7rem"
+
+# Google-hosted fonts (fallbacks are used when offline)
+font = "Nunito:https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap, sans-serif"
+headingFont = "Fraunces:https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&display=swap, serif"
+codeFont = "JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap, monospace"
+
+chartCategoricalColors = ["#34527A", "#E8B03A", "#B94E32", "#6F8F68", "#D98C97", "#6B4A6E"]
+
+[theme.sidebar]
+backgroundColor = "#EAD3A6"
+secondaryBackgroundColor = "#F6EBD6"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

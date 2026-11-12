@@ -1,0 +1,29 @@
+# Keep secrets and junk out of the image
+.env
+.env.*
+!.env.example
+.git
+.gitignore
+.dockerignore
+Dockerfile
+
+# Python / env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Not needed at runtime
+pseudo_codes/
+src/
+*.md
+.streamlit/secrets.toml

@@ -1,0 +1,24 @@
+# Aether - Python dependencies
+# Install with:  pip install -r requirements.txt
+# (Python 3.10+ recommended. Tested layout: LangChain 1.x with create_agent.)
+
+# --- UI ---
+streamlit>=1.46,<2
+pillow>=10
+
+# --- LLM + agents (create_agent / wrap_tool_call need LangChain 1.x) ---
+langchain>=1.0,<2
+langchain-core>=1.0,<2
+langchain-groq>=1.0,<2
+langchain-community>=0.4,<1
+langchain-huggingface>=1.0,<2
+langchain-text-splitters>=1.0,<2
+
+# --- RAG: embeddings, vector store, PDF parsing ---
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+pypdf>=4.0
+
+# --- Web research + config ---
+tavily-python>=0.5
+python-dotenv>=1.0
