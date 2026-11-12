@@ -111,7 +111,7 @@ The result is an answer grounded in **your documents** and **fresh sources**, no
 </table>
 
 <details>
-<summary><b>More screens</b></summary>
+<summary><b>More screens</b> (replace the placeholders with your own screenshots)</summary>
 
 <br>
 
