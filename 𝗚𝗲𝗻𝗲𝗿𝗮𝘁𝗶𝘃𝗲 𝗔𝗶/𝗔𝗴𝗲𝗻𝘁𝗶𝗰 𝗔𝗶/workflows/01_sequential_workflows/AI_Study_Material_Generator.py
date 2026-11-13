@@ -187,7 +187,7 @@ from streamlit.runtime.scriptrunner import get_script_run_ctx
 if get_script_run_ctx(suppress_warning=True) is not None:
 
     # page settings (must be the first streamlit command)
-    st.set_page_config(page_title="AI Study Material Generator", page_icon="📚")
+    st.set_page_config(page_title="AI Study Material Generator")
 
 
     # Step 2: CSS for the Origami Folded Corner look
@@ -254,7 +254,7 @@ if get_script_run_ctx(suppress_warning=True) is not None:
     # Step 4: header card
 
     with st.container(key="fold_header"):
-        st.markdown("# 📚 AI Study Material Generator")
+        st.markdown("#  AI Study Material Generator")
         st.markdown("Enter any topic and get research, explanation, examples and MCQs.")
 
 
