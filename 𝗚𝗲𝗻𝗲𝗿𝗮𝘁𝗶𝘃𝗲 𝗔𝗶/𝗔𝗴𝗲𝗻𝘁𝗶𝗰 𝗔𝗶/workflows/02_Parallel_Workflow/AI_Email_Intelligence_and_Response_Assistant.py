@@ -195,6 +195,123 @@ graph.add_edge( "Email_Generator" , END)
 
 app = graph.compile()
 
+#========================================================
+# UI SECTION (added) - Streamlit - Torn Paper Edge style
+
+import streamlit as st
+from streamlit.runtime.scriptrunner import get_script_run_ctx
+
+if get_script_run_ctx(suppress_warning=True) is not None:
+
+    st.set_page_config(page_title="AI Email Intelligence Assistant", page_icon="✉️")
+
+
+    
+    ui_css = """
+    <style>
+    /* page background (kraft paper desk) */
+    .stApp { background: #d8c9aa; }
+    .block-container { max-width: 900px; }
+
+    /* paper card with torn top and bottom edge */
+    div[class*="st-key-torn"] {
+        background: linear-gradient(to bottom, #e4d6b8 0, #fbf7ee 12px, #fbf7ee calc(100% - 12px), #e4d6b8 100%);
+        padding: 36px 30px;
+        margin-bottom: 22px;
+        clip-path: polygon(0.0% 5px, 2.8% 2px, 5.6% 6px, 8.3% 10px, 11.1% 0px, 13.9% 1px, 16.7% 8px, 19.4% 1px, 22.2% 5px, 25.0% 9px, 27.8% 0px, 30.6% 8px, 33.3% 3px, 36.1% 0px, 38.9% 1px, 41.7% 6px, 44.4% 6px, 47.2% 1px, 50.0% 3px, 52.8% 1px, 55.6% 8px, 58.3% 6px, 61.1% 0px, 63.9% 9px, 66.7% 1px, 69.4% 3px, 72.2% 10px, 75.0% 10px, 77.8% 9px, 80.6% 0px, 83.3% 9px, 86.1% 9px, 88.9% 6px, 91.7% 0px, 94.4% 3px, 97.2% 0px, 100.0% 8px, 100.0% calc(100% - 2px), 97.2% calc(100% - 4px), 94.4% calc(100% - 6px), 91.7% calc(100% - 2px), 88.9% calc(100% - 8px), 86.1% calc(100% - 1px), 83.3% calc(100% - 9px), 80.6% calc(100% - 4px), 77.8% calc(100% - 8px), 75.0% calc(100% - 10px), 72.2% calc(100% - 2px), 69.4% calc(100% - 1px), 66.7% calc(100% - 9px), 63.9% calc(100% - 9px), 61.1% calc(100% - 10px), 58.3% calc(100% - 3px), 55.6% calc(100% - 5px), 52.8% calc(100% - 1px), 50.0% calc(100% - 8px), 47.2% calc(100% - 1px), 44.4% calc(100% - 9px), 41.7% calc(100% - 0px), 38.9% calc(100% - 9px), 36.1% calc(100% - 3px), 33.3% calc(100% - 7px), 30.6% calc(100% - 10px), 27.8% calc(100% - 8px), 25.0% calc(100% - 6px), 22.2% calc(100% - 5px), 19.4% calc(100% - 7px), 16.7% calc(100% - 9px), 13.9% calc(100% - 7px), 11.1% calc(100% - 5px), 8.3% calc(100% - 4px), 5.6% calc(100% - 3px), 2.8% calc(100% - 2px), 0.0% calc(100% - 3px));
+    }
+
+    /* text colours inside the cards */
+    div[class*="st-key-torn"] p,
+    div[class*="st-key-torn"] li,
+    div[class*="st-key-torn"] label { color: #2f2a24; }
+    div[class*="st-key-torn"] h1,
+    div[class*="st-key-torn"] h2,
+    div[class*="st-key-torn"] h3 { color: #a63d2f; }
+
+    /* email input box */
+    div[class*="st-key-torn"] textarea { background: #ffffff; color: #2f2a24; }
+
+    /* button with a small torn edge too */
+    .stButton > button {
+        background: #a63d2f;
+        color: #ffffff;
+        border: none;
+        border-radius: 0;
+        clip-path: polygon(0.0% 1px, 7.1% 4px, 14.3% 4px, 21.4% 1px, 28.6% 2px, 35.7% 4px, 42.9% 3px, 50.0% 4px, 57.1% 0px, 64.3% 4px, 71.4% 0px, 78.6% 3px, 85.7% 2px, 92.9% 4px, 100.0% 1px, 100.0% calc(100% - 1px), 92.9% calc(100% - 3px), 85.7% calc(100% - 4px), 78.6% calc(100% - 4px), 71.4% calc(100% - 3px), 64.3% calc(100% - 3px), 57.1% calc(100% - 1px), 50.0% calc(100% - 1px), 42.9% calc(100% - 1px), 35.7% calc(100% - 4px), 28.6% calc(100% - 3px), 21.4% calc(100% - 0px), 14.3% calc(100% - 0px), 7.1% calc(100% - 1px), 0.0% calc(100% - 4px));
+    }
+    .stButton > button:hover { background: #862f23; color: #ffffff; }
+    </style>
+    """
+
+    st.markdown(ui_css, unsafe_allow_html=True)
+
+
+    
+
+    if "ui_result" not in st.session_state:
+        st.session_state["ui_result"] = None
+
+
+    
+
+    with st.container(key="torn_header"):
+        st.markdown("# ✉️ AI Email Intelligence & Response Assistant")
+        st.markdown("Paste an email and get its intent, priority level and a suggested reply.")
+
+
+    
+    with st.container(key="torn_input"):
+        ui_email = st.text_area("Email", placeholder="Paste your email here...", height=250)
+        ui_clicked = st.button("Analyze Email")
+
+
+    
+
+    if ui_clicked:
+        if ui_email.strip() == "":
+            st.warning("Please paste an email first.")
+        else:
+            with st.spinner("Agents are working..."):
+                st.session_state["ui_result"] = app.invoke({
+                    "raw_email": ui_email,
+                    "aggregator_agent": {}
+                })
+
+
+    
+
+    ui_result = st.session_state["ui_result"]
+
+    if ui_result is not None:
+
+        
+        ui_final = ui_result["aggregator_agent"]
+
+        with st.container(key="torn_intent"):
+            st.markdown("## 🎯 Email Intent")
+            st.markdown(ui_final.get("intent_result", "Not available"))
+
+        
+
+        with st.container(key="torn_priority"):
+            st.markdown("## 🚦 Email Priority")
+            st.markdown(ui_final.get("priority_result", "Not available").replace("\n", "  \n"))
+
+        with st.container(key="torn_reply"):
+            st.markdown("## 💬 Suggested Email Response")
+            st.markdown(ui_final.get("email_response", "Not available").replace("\n", "  \n"))
+
+
+    
+
+    st.stop()
+
+#========================================================
+# END OF UI SECTION
+#========================================================
+
+
 user_email = """**From:** Sarah Mitchell  
 Subject:** URGENT: Project Submission Deadline
 
@@ -241,18 +358,3 @@ print(final_result.get("email_response", "Not available"))
 print("\n" + "=" * 60)
 print("             ANALYSIS COMPLETED")
 print("=" * 60)
-
-
-
-print("\n -----------------")
-
-print(final_result)
-
-    
-
-
-
-
-    
-
-
