@@ -312,49 +312,49 @@ if get_script_run_ctx(suppress_warning=True) is not None:
 #========================================================
 
 
-user_email = """**From:** Sarah Mitchell  
-Subject:** URGENT: Project Submission Deadline
-
-Hi Alex,
-
-The client presentation is scheduled for tomorrow morning, and we still need the final project report.
-
-Please review the latest figures, correct any errors, and send me the completed report by 3:00 PM today.
-
-This is our final deadline before the presentation. Please let me know immediately if you face any issues.
-
-Thanks,  
-Sarah"""
-
-
-result = app.invoke({
-    "raw_email": user_email,
-    "aggregator_agent": {}   #becuase reducers
-    })
-
-# print(result)
-
-
-
-final_result = result["aggregator_agent"]
-
-# Formatted Output
-print("\n" + "=" * 60)
-print("           AI EMAIL INTELLIGENCE REPORT")
-print("=" * 60)
-
-print("\n[ EMAIL INTENT ]")
-print("-" * 60)
-print(final_result.get("intent_result", "Not available"))
-
-print("\n[ EMAIL PRIORITY ]")
-print("-" * 60)
-print(final_result.get("priority_result", "Not available"))
-
-print("\n[ SUGGESTED EMAIL RESPONSE ]")
-print("-" * 60)
-print(final_result.get("email_response", "Not available"))
-
-print("\n" + "=" * 60)
-print("             ANALYSIS COMPLETED")
-print("=" * 60)
+# user_email = """**From:** Sarah Mitchell  
+# Subject:** URGENT: Project Submission Deadline
+# 
+# Hi Alex,
+# 
+# The client presentation is scheduled for tomorrow morning, and we still need the final project report.
+# 
+# Please review the latest figures, correct any errors, and send me the completed report by 3:00 PM today.
+# 
+# This is our final deadline before the presentation. Please let me know immediately if you face any issues.
+# 
+# Thanks,  
+# Sarah"""
+# 
+# 
+# result = app.invoke({
+#     "raw_email": user_email,
+#     "aggregator_agent": {}   #becuase reducers
+#     })
+# 
+# # print(result)
+# 
+# 
+# 
+# final_result = result["aggregator_agent"]
+# 
+# # Formatted Output
+# print("\n" + "=" * 60)
+# print("           AI EMAIL INTELLIGENCE REPORT")
+# print("=" * 60)
+# 
+# print("\n[ EMAIL INTENT ]")
+# print("-" * 60)
+# print(final_result.get("intent_result", "Not available"))
+# 
+# print("\n[ EMAIL PRIORITY ]")
+# print("-" * 60)
+# print(final_result.get("priority_result", "Not available"))
+# 
+# print("\n[ SUGGESTED EMAIL RESPONSE ]")
+# print("-" * 60)
+# print(final_result.get("email_response", "Not available"))
+# 
+# print("\n" + "=" * 60)
+# print("             ANALYSIS COMPLETED")
+# print("=" * 60)
