@@ -277,12 +277,189 @@ graph.add_edge("final_response_node",END)
 app = graph.compile()
 
 
-user_query =input("Ask yur query:")
+# ===================================
+# UI -- Letterpress Debossed (Streamlit)
+# Runs only when launched with `streamlit run app.py`.
+# With plain `python app.py` this block is skipped and the CLI works as before.
+# ===================================
 
-result = app.invoke({"messages":  [("human", user_query)] } )
+try:
+    from streamlit.runtime.scriptrunner import get_script_run_ctx
+    _running_in_streamlit = get_script_run_ctx() is not None
+except Exception:
+    _running_in_streamlit = False
 
-print("\nCareerMate AI:")
+if _running_in_streamlit:
+    import streamlit as st
 
-print(result["messages"][-1].content)
+    st.set_page_config(page_title="CareerMate AI", page_icon="🎓", layout="centered")
 
- 
+    st.markdown(
+        """
+        <style>
+        :root {
+            --bg: #dfe3e8;
+            --ink: #8d949e;
+            --ink-dark: #6f7782;
+            --hi: rgba(255,255,255,0.95);
+            --sh: rgba(120,128,140,0.55);
+        }
+
+        .stApp { background: var(--bg); }
+        header[data-testid="stHeader"] { background: transparent; }
+        #MainMenu, footer { visibility: hidden; }
+
+        .block-container { max-width: 760px; padding-top: 3.5rem; }
+
+        /* Letterpress title */
+        .lp-title {
+            text-align: center;
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--ink);
+            text-shadow: 0 2px 1px var(--hi), 0 -1px 1px var(--sh);
+            margin-bottom: 0.2rem;
+        }
+        .lp-sub {
+            text-align: center;
+            font-family: "Georgia", serif;
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-shadow: 0 1px 1px var(--hi);
+            margin-bottom: 2.2rem;
+        }
+
+        /* Labels */
+        label, .stTextArea label p, .stTextInput label p {
+            color: var(--ink-dark) !important;
+            font-family: "Georgia", serif !important;
+            font-weight: 700 !important;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 1px var(--hi);
+        }
+
+        /* Debossed input */
+        .stTextInput input, .stTextArea textarea {
+            background: var(--bg) !important;
+            color: var(--ink-dark) !important;
+            border: none !important;
+            border-radius: 14px !important;
+            padding: 14px 16px !important;
+            font-family: "Georgia", serif !important;
+            text-shadow: 0 1px 0 var(--hi);
+            box-shadow: inset 5px 5px 10px #b9bec6, inset -5px -5px 10px #ffffff !important;
+        }
+        .stTextInput input::placeholder, .stTextArea textarea::placeholder {
+            color: #a6adb6 !important;
+            text-shadow: 0 1px 0 var(--hi);
+        }
+        .stTextInput > div > div, .stTextArea > div > div {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Debossed button */
+        .stButton > button, .stFormSubmitButton > button {
+            width: 100%;
+            background: var(--bg) !important;
+            color: var(--ink-dark) !important;
+            border: none !important;
+            border-radius: 14px !important;
+            padding: 0.7rem 1rem !important;
+            font-family: "Georgia", serif !important;
+            font-weight: 800 !important;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 0 var(--hi);
+            box-shadow: 5px 5px 10px #b9bec6, -5px -5px 10px #ffffff !important;
+            transition: all 0.15s ease;
+        }
+        .stButton > button:hover, .stFormSubmitButton > button:hover {
+            color: #5d6570 !important;
+        }
+        .stButton > button:active, .stFormSubmitButton > button:active {
+            box-shadow: inset 4px 4px 8px #b9bec6, inset -4px -4px 8px #ffffff !important;
+        }
+
+        /* Debossed response card */
+        [data-testid="stVerticalBlockBorderWrapper"]:has(.lp-card-title) {
+            background: var(--bg);
+            border: none !important;
+            border-radius: 18px;
+            padding: 1.4rem 1.6rem;
+            margin-top: 1.5rem;
+            color: var(--ink-dark);
+            font-family: "Georgia", serif;
+            line-height: 1.7;
+            text-shadow: 0 1px 0 var(--hi);
+            box-shadow: inset 6px 6px 12px #b9bec6, inset -6px -6px 12px #ffffff;
+        }
+        .lp-card-title {
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 0.7rem;
+            color: var(--ink);
+            text-shadow: 0 1px 1px var(--hi);
+        }
+
+        /* Form container */
+        [data-testid="stForm"] {
+            border: none !important;
+            background: var(--bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 8px 8px 16px #b9bec6, -8px -8px 16px #ffffff;
+        }
+
+        .stMarkdown, .stMarkdown p, .stMarkdown li { color: var(--ink-dark); }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown('<div class="lp-title">CareerMate AI</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="lp-sub">Career &amp; Internship Assistant</div>',
+        unsafe_allow_html=True,
+    )
+
+    with st.form("career_form"):
+        ui_query = st.text_area(
+            "Ask your query",
+            placeholder="e.g. How can I improve my resume for a data science internship?",
+            height=130,
+        )
+        ui_submit = st.form_submit_button("Ask")
+
+    if ui_submit and ui_query.strip():
+        with st.spinner("Thinking..."):
+            ui_result = app.invoke({"messages": [("human", ui_query)]})
+        with st.container(border=True):
+            st.markdown('<div class="lp-card-title">CareerMate AI</div>', unsafe_allow_html=True)
+            st.markdown(ui_result["messages"][-1].content)
+
+    # Stop here so the CLI input() below doesn't block inside Streamlit
+    st.stop()
+
+
+while True:
+
+    user_query =input("Ask yur query (type 'exit' to quit):")
+
+    if user_query.strip().lower() in ("exit", "quit"):
+        break
+
+    result = app.invoke({"messages":  [("human", user_query)] } )
+
+    print("\nCareerMate AI:")
+
+    print(result["messages"][-1].content)
+
+    print()
