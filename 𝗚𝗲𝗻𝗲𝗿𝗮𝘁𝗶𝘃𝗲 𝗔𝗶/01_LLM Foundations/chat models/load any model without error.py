@@ -1,5 +1,3 @@
-model_name = input("Enter Model Name you want to download : ")
-
 import filelock
 import huggingface_hub.utils._fixes as fixes
 
@@ -15,7 +13,7 @@ fixes.FileLock = compatible_filelock
 from langchain_huggingface import HuggingFacePipeline
 
 llm = HuggingFacePipeline.from_model_id(
-    model_id=model_name,
+    model_id="Qwen/Qwen3-Embedding-0.6B",
     task="text-generation",
     pipeline_kwargs={
         "max_new_tokens": 30,
