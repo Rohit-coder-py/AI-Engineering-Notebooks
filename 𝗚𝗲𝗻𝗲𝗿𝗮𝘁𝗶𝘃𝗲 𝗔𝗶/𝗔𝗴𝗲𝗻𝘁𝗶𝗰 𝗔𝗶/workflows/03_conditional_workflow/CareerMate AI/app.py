@@ -86,11 +86,10 @@ resume_retriever = build_retriver(resume_PATH)
 
     
 class CarrerState(TypedDict):
-    query : str
-    messages : Annoted[list,add_messages]
-    query_type = str
-    retreived_context : str
-    
+    query: str
+    messages: Annotated[list, add_messages]
+    query_type: str
+    retrieved_context: str
     
     
 #lets create nodes
@@ -123,7 +122,9 @@ def classifier_node(state : CarrerState) -> dict :
 
     f"Student Query: {last_message}\n\n"
 
-    "Return ONLY one word: resume, interview, or general.")
+    "Return ONLY one word: resume, interview, or general."
+    
+    "Only reply in one word stripped and in lower case ")
     
     response = llm.invoke(classifier_prompt)
 
@@ -134,6 +135,92 @@ def classifier_node(state : CarrerState) -> dict :
     }
 
 
+#node 2 - resume_node -Retrieves resume PDF context 
 
+
+def resume_node(state: CarrerState) -> dict:
+    """Retrieves relevant chunks from the resume and portfolio PDF."""
+
+    query = state["messages"][-1].content
+
+    docs = resume_retriever.invoke(query)
+
+    context = "\n\n".join(
+        [doc.page_content for doc in docs]
+    )
+
+    return {"retrieved_context": context}
+
+#node 3 - interview_node -Retrieves interview PDF context 
+
+def interview_rag_node(state: CarrerState) -> dict:
+    """Retrieves relevant chunks from the interview preparation PDF."""
+
+    query = state["messages"][-1].content
+
+    docs = interview_retriever.invoke(query)
+
+    context = "\n\n".join(
+        [doc.page_content for doc in docs]
+    )
+
+    return {"retrieved_context": context}
+
+
+#node 4 - general_node - without any retrival  
+
+
+def general_node(state: CarrerState) -> dict:
+    """Handles general career and internship-related queries."""
+
+    query = state["messages"][-1].content
+
+    return {"retrieved_context": "NO Retreival needed"}
+
+
+#node 5 - final_response_generator - generates final response after getting the retrived content
+
+
+
+from langchain_core.messages import AIMessage
+
+
+def final_response_node(state: CarrerState) -> dict:
+    """Generates the final response using the retrieved context."""
+
+    query = state["messages"][-1].content
+
+    context = state["retrieved_context"]
+
+    prompt = f"""
+    You are CareerMate AI, an intelligent Career and Internship Assistant.
+
+    Your task is to help students with career development,
+    resume building, interview preparation, and internship guidance.
+
+    User Query:
+    {query}
+
+    Retrieved Context:
+    {context}
+
+    Instructions:
+    - Answer the user's query clearly and professionally.
+    - If relevant context is available, use it to generate your answer.
+    - Do not invent facts or claim that information comes from the PDF
+      if it is not present in the retrieved context.
+    - If the retrieved context is empty, answer using your general knowledge.
+    - Provide practical examples and actionable suggestions wherever useful.
+    - Keep the response relevant to the user's question.
+    """
+
+    response = llm.invoke(prompt)
+
+    return {
+        "messages": [AIMessage(content=response.content)]
+    }
+
+
+#all nodes are created now its time to generate a router function
 
 
