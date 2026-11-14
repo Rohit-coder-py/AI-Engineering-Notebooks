@@ -124,7 +124,9 @@ def classifier_node(state : CarrerState) -> dict :
 
     "Return ONLY one word: resume, interview, or general."
     
-    "Only reply in one word stripped and in lower case ")
+    "Only reply in one word stripped and in lower case "
+    "Return ONLY one word: resume, interview, or general. "
+    "Only reply in lowercase.")
     
     response = llm.invoke(classifier_prompt)
 
@@ -153,7 +155,7 @@ def resume_node(state: CarrerState) -> dict:
 
 #node 3 - interview_node -Retrieves interview PDF context 
 
-def interview_rag_node(state: CarrerState) -> dict:
+def interview_node(state: CarrerState) -> dict:
     """Retrieves relevant chunks from the interview preparation PDF."""
 
     query = state["messages"][-1].content
@@ -175,7 +177,7 @@ def general_node(state: CarrerState) -> dict:
 
     query = state["messages"][-1].content
 
-    return {"retrieved_context": "NO Retreival needed"}
+    return {"retrieved_context": "NO_RETRIEVAL_NEEDED"}
 
 
 #node 5 - final_response_generator - generates final response after getting the retrived content
@@ -221,6 +223,66 @@ def final_response_node(state: CarrerState) -> dict:
     }
 
 
-#all nodes are created now its time to generate a router function
+#all nodes are created now its time to create a router function
+
+def route_query(state: CarrerState) -> str:
+    """Routes the query to the appropriate node based on query_type."""
+
+    query_type = state["query_type"]
+
+    if query_type == "resume":
+        return "resume_node"
+
+    elif query_type == "interview":
+        return "interview_node"
+
+    else:
+        return "general_node"
+    
+    
+#everything done now next step is : Graph Construction
+    
+graph = StateGraph(CarrerState)
 
 
+# Register all nodes
+
+graph.add_node("classifier_node", classifier_node)
+
+graph.add_node("resume_node", resume_node)
+
+graph.add_node("interview_node", interview_node)
+
+graph.add_node("general_node", general_node)
+
+graph.add_node("final_response_node", final_response_node)
+
+
+
+#now step step is too add edges
+
+graph.add_edge(START , "classifier_node")
+
+graph.add_conditional_edges("classifier_node",route_query)
+
+
+graph.add_edge("interview_node","final_response_node")
+graph.add_edge("resume_node","final_response_node")
+graph.add_edge("general_node","final_response_node")
+
+
+graph.add_edge("final_response_node",END)
+
+
+app = graph.compile()
+
+
+user_query =input("Ask yur query:")
+
+result = app.invoke({"messages":  [("human", user_query)] } )
+
+print("\nCareerMate AI:")
+
+print(result["messages"][-1].content)
+
+ 

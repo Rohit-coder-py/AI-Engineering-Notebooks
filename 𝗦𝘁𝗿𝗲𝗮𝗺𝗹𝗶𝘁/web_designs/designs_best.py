@@ -832,35 +832,8 @@ DESIGNS = {
                  ".stApp p, .stApp li { font-family: 'Caveat', cursive; font-size: 1.2rem; }",
     },
     # ------------------------------------------------------------ 35
-    "Animated Mesh Gradient": {
-        "icon": "✨",
-        "tagline": "Slowly drifting coloured blobs of light - animated mesh gradient background.",
-        "search": ["animated mesh gradient", "moving blob background CSS", "gradient animation", "liquid background"],
-        "tip": "background:\n  radial-gradient(circle at 20% 30%, #ff6b6b, transparent 40%),\n"
-               "  radial-gradient(circle at 80% 70%, #4ecdc4, transparent 40%),\n  #1a1a2e;\n"
-               "animation: drift 20s ease-in-out infinite alternate;",
-        "vars": {
-            "page_bg": "#1a1a2e", "side_bg": "rgba(20,20,40,0.85)", "card_bg": "rgba(40,40,70,0.6)",
-            "card_border": "1px solid rgba(255,255,255,0.15)",
-            "card_shadow": "0 8px 32px rgba(0,0,0,0.4)",
-            "blur": "blur(20px)",
-            "radius": "20px", "text": "#ffffff", "muted": "#a0a0c0",
-            "accent": "#ff6b9d", "accent2": "#4ecdc4",
-            "font": "'Inter', sans-serif",
-            "btn_bg": "linear-gradient(135deg, #ff6b9d, #4ecdc4)", "btn_text": "#ffffff",
-            "btn_border": "1px solid rgba(255,255,255,0.2)",
-            "btn_hover": "0 6px 24px rgba(255,107,157,0.5)", "btn_move": "translateY(-2px)",
-            "btn_radius": "14px", "inset_bg": "rgba(255,255,255,0.08)",
-            "input_border": "1px solid rgba(255,255,255,0.2)",
-        },
-        "extra": "@keyframes drift1 { 0% { transform: translate(0, 0); } 100% { transform: translate(60px, -40px); } }"
-                 "@keyframes drift2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-50px, 30px); } }"
-                 ".stApp { background: #1a1a2e; position: relative; }"
-                 ".stApp::before, .stApp::after { content: ''; position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(80px); opacity: 0.5; z-index: 0; pointer-events: none; }"
-                 ".stApp::before { background: #ff6b9d; top: -200px; left: -200px; animation: drift1 18s ease-in-out infinite alternate; }"
-                 ".stApp::after { background: #4ecdc4; bottom: -200px; right: -200px; animation: drift2 22s ease-in-out infinite alternate; }"
-                 ".block-container { position: relative; z-index: 1; }",
-    },
+
+    
     # ------------------------------------------------------------ 36
     "Torn Paper Edge": {
         "icon": "📰",
