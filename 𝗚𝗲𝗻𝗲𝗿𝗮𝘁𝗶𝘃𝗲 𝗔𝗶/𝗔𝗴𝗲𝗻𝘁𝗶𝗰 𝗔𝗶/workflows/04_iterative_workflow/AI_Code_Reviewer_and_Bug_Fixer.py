@@ -197,24 +197,24 @@ def review_code(state: CodeState) -> dict:
     """Independently review generated code using Google."""
 
     user_message = f"""
-ORIGINAL USER CODE AND REQUIREMENTS:
+    ORIGINAL USER CODE AND REQUIREMENTS:
 
-{state["user_code"]}
-
-
-GENERATED PYTHON CODE:
-
-{state["generated_code"]}
+    {state["user_code"]}
 
 
-CURRENT ITERATION:
+    GENERATED PYTHON CODE:
 
-{state["iteration"]}
+    {state["generated_code"]}
 
-Review this code carefully.
 
-Return your decision using the required format.
-"""
+    CURRENT ITERATION:
+
+    {state["iteration"]}
+
+    Review this code carefully.
+
+    Return your decision using the required format.
+    """
 
     response = reviewer_google.invoke([
         ("system", google_prompt),
@@ -232,9 +232,7 @@ Return your decision using the required format.
         "review_feedback": review_result,
         "is_approved": is_approved,
         "messages": [
-            ("assistant", f"Google Review:\n{review_result}")
-        ]
-    }
+            ("assistant", f"Google Review:\n{review_result}")]}
 
 
 #  cONDITIONAL ROUTING
@@ -261,13 +259,8 @@ workflow.add_node("review_code", review_code)
 
 # Starting point
 workflow.add_edge(START, "generate_code")
-
-# Generation -> Review
 workflow.add_edge("generate_code", "review_code")
-
-# Review -> Approval or Retry
-workflow.add_conditional_edges(
-    "review_code",
+workflow.add_conditional_edges("review_code",
     route_after_review,
     {
         "approved": END,
@@ -276,14 +269,10 @@ workflow.add_conditional_edges(
     }
 )
 
-# Compile graph
 app = workflow.compile()
 
 
 # RUN WORKFLOW
-
-# (old terminal runner is commented out - the Streamlit UI below replaces it)
-# if __name__ == "__main__":
 
 #     user_input_code = """
 # def add_numbers(a, b):
