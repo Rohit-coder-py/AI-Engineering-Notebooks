@@ -191,9 +191,7 @@ Original user requirements:
     }
 
 
-# ==========================================
-# 4. NODE 2 - REVIEW CODE (GOOGLE)
-# ==========================================
+# NODE 2 - REVIEW CODE (GOOGLE)
 
 def review_code(state: CodeState) -> dict:
     """Independently review generated code using Google."""
@@ -239,9 +237,7 @@ Return your decision using the required format.
     }
 
 
-# ==========================================
-# 5. CONDITIONAL ROUTING
-# ==========================================
+#  cONDITIONAL ROUTING
 
 def route_after_review(state: CodeState) -> str:
     """Decide whether to approve, retry, or stop."""
@@ -255,9 +251,7 @@ def route_after_review(state: CodeState) -> str:
     return "retry"
 
 
-# ==========================================
-# 6. BUILD LANGGRAPH WORKFLOW
-# ==========================================
+# BUILD LANGGRAPH WORKFLOW
 
 workflow = StateGraph(CodeState)
 
@@ -286,9 +280,7 @@ workflow.add_conditional_edges(
 app = workflow.compile()
 
 
-# ==========================================
-# 7. RUN WORKFLOW
-# ==========================================
+# RUN WORKFLOW
 
 # (old terminal runner is commented out - the Streamlit UI below replaces it)
 # if __name__ == "__main__":
@@ -340,10 +332,8 @@ app = workflow.compile()
 #     print("=" * 55)
 
 #========================================================
-# 8. STREAMLIT UI (added) - Bento Grid style
-# Install once:  pip install streamlit
-# Run with:      streamlit run AI_Code_Reviewer___Bug_Fixer.py
-#========================================================
+#Streamlit ui added (using opencode)
+# ===========================================
 
 import streamlit as st
 
