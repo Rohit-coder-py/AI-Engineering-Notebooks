@@ -20,7 +20,7 @@ score = 85
 if score >= 90:
     grade = "A"
 elif score >= 80:
-    grade = "B"            # this runs (score >= 80 and score < 90)
+    grade = "B"  # this runs (score >= 80 and score < 90)
 elif score >= 70:
     grade = "C"
 elif score >= 60:
@@ -28,7 +28,7 @@ elif score >= 60:
 else:
     grade = "F"
 
-print(f"Score {score} -> Grade {grade}")   # Score 85 -> Grade B
+print(f"Score {score} -> Grade {grade}")  # Score 85 -> Grade B
 
 # ------------------------------------------------------------------------------
 # 2. TRUTHINESS IN CONDITIONS
@@ -41,16 +41,16 @@ user = ""
 if user:
     print("logged in")
 else:
-    print("no user")          # runs, because "" is falsy
+    print("no user")  # runs, because "" is falsy
 
 items = [1, 2, 3]
 if items:
-    print("list not empty")   # runs
+    print("list not empty")  # runs
 
 # Anti-pattern: don't compare to True/False explicitly
-if is_active == True:        # bad style
+if is_active == True:  # bad style
     pass
-if is_active:                # good style
+if is_active:  # good style
     pass
 
 # ------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ if age >= 18 and has_id:
 # 4. TERNARY / CONDITIONAL EXPRESSION (value-returning if-else)
 # ------------------------------------------------------------------------------
 status = "adult" if age >= 18 else "minor"
-print(status)   # adult
+print(status)  # adult
 
 # Nested ternary (works, but hurts readability — avoid in production):
 result = "A" if score >= 90 else ("B" if score >= 80 else "C")
@@ -96,7 +96,7 @@ match command:
         print("Loading file...")
     case "exit":
         print("Exiting...")
-    case _:                     # default / wildcard
+    case _:  # default / wildcard
         print("Unknown command")
 
 # With a guard:
@@ -126,8 +126,8 @@ match status_code:
 marks = 85
 if marks >= 90:
     print("A")
-if marks >= 80:               # this ALSO runs — not exclusive!
-    print("B")                # prints both A... no, actually only B here, but logic wrong for grades
+if marks >= 80:  # this ALSO runs — not exclusive!
+    print("B")  # prints both A... no, actually only B here, but logic wrong for grades
 
 # Correct:
 if marks >= 90:
