@@ -1,72 +1,69 @@
 """
-PROJECT 3 (SOLVED) - Student Grade Calculator & Report
-Concepts: dict of lists, tuples, sorting with key, loops, conditionals,
-comprehensions, min/max/sum, formatted output.
-Runs non-interactively with sample data.
+================================================================================
+PROJECT 3 — Grade Calculator
+Concepts used (Day 2): lists, loops, conditionals, enumerate, zip, truthiness,
+list methods (append, sum, len), type conversion (int/float), break/continue.
+================================================================================
 """
 
-STUDENTS = {
-    "Asha": {"Math": 92, "Science": 88, "English": 79},
-    "Ravi": {"Math": 67, "Science": 74, "English": 81},
-    "Neha": {"Math": 45, "Science": 52, "English": 60},
-    "Karan": {"Math": 98, "Science": 95, "English": 91},
-}
-
-
-def grade_for(avg):
-    if avg >= 90:
-        return "A+"
-    elif avg >= 80:
+def letter_grade(average):
+    """Return letter grade based on average score."""
+    if average >= 90:
         return "A"
-    elif avg >= 70:
+    elif average >= 80:
         return "B"
-    elif avg >= 60:
+    elif average >= 70:
         return "C"
-    elif avg >= 50:
+    elif average >= 60:
         return "D"
-    return "F"
+    else:
+        return "F"
 
 
-def student_summary(marks):
-    """Return (total, average, grade) as a tuple."""
-    total = sum(marks.values())
-    avg = total / len(marks)
-    return total, avg, grade_for(avg)
+def get_valid_score(subject):
+    """Keep prompting until a valid score (0-100) is entered."""
+    while True:
+        raw = input(f"Enter score for {subject} (0-100): ").strip()
+        try:
+            score = float(raw)
+        except ValueError:
+            print("Please enter a numeric value.")
+            continue
 
-
-def subject_stats(students):
-    """Per-subject average, topper and lowest."""
-    subjects = next(iter(students.values())).keys()
-    stats = {}
-    for sub in subjects:
-        scores = {name: marks[sub] for name, marks in students.items()}
-        stats[sub] = {
-            "avg": sum(scores.values()) / len(scores),
-            "topper": max(scores, key=scores.get),
-            "lowest": min(scores, key=scores.get),
-        }
-    return stats
+        if 0 <= score <= 100:
+            return score
+        print("Score must be between 0 and 100.")
 
 
 def main():
-    print(f"{'Name':<8}{'Total':>7}{'Avg':>8}  Grade")
-    print("-" * 30)
-    summaries = {n: student_summary(m) for n, m in STUDENTS.items()}
-    ranked = sorted(summaries.items(), key=lambda kv: kv[1][1], reverse=True)
-    for rank, (name, (total, avg, grade)) in enumerate(ranked, start=1):
-        print(f"{name:<8}{total:>7}{avg:>8.2f}  {grade}   (#{rank})")
+    print("=== Grade Calculator ===")
+    subjects = ["Math", "Physics", "Chemistry", "English", "Computer Science"]
+    scores = []
 
-    print("\nSubject statistics")
-    for sub, s in subject_stats(STUDENTS).items():
-        print(f"  {sub:<8} avg={s['avg']:.1f} topper={s['topper']} lowest={s['lowest']}")
+    for subject in subjects:
+        score = get_valid_score(subject)
+        scores.append(score)
 
-    failing = [n for n, (_, avg, _) in summaries.items() if avg < 50]
-    distinction = [n for n, (_, avg, _) in summaries.items() if avg >= 85]
-    print("\nDistinction:", distinction or "none")
-    print("Needs support:", failing or "none")
+    total = sum(scores)
+    average = total / len(scores)
+    grade = letter_grade(average)
 
-    class_avg = sum(avg for _, avg, _ in summaries.values()) / len(summaries)
-    print(f"Class average: {class_avg:.2f}")
+    print("\n--- Result ---")
+    for subject, score in zip(subjects, scores):      # parallel iteration
+        status = "Pass" if score >= 40 else "Fail"
+        print(f"{subject:<20} {score:>6.2f}  [{status}]")
+
+    print(f"{'Total':<20} {total:>6.2f}")
+    print(f"{'Average':<20} {average:>6.2f}")
+    print(f"{'Grade':<20} {grade}")
+
+    # Practical loop-else pattern: check if any subject failed
+    for score in scores:
+        if score < 40:
+            print("\nNote: At least one subject is below 40 (Fail).")
+            break
+    else:
+        print("\nCongratulations — all subjects passed!")
 
 
 if __name__ == "__main__":
