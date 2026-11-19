@@ -55,3 +55,12 @@ x = 3.14
 # Python allows x to reference an integer, then a string, and finally a float without requiring an explicit type declaration.
 
 # Examples include Python, JavaScript, and Ruby.
+
+
+#################################### File 2 :  Dynamic Typing
+x = 5
+print(type(x) is int)  # True
+print(isinstance(x, int))  # True
+
+
+#####################################File 3: multi-assignment
