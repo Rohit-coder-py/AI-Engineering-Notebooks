@@ -105,7 +105,7 @@ PI = 3.14159
 import keyword
 
 print("Keyword count:", len(keyword.kwlist))      # 35 in modern Python 3
-print("Examples:    ", keyword.kwlist[:10])       # ['False','None','True','and',...]
+print("Examples:    ", keyword.kwlist)       # ['False','None','True','and',...]
 
 # class = 10   -> SyntaxError (uncomment to see)
 
