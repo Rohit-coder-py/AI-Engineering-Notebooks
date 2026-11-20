@@ -159,3 +159,51 @@ language = "Python"
 
 print("{0} is learning {1}".format(name, language))
 print("{1} is being learned by {0}".format(name, language))
+
+
+
+# %
+
+name = "Rohit"
+age = 17
+
+print("My name is %s and I am %d years old." % (name, age))
+
+# %s - str
+# 
+# %d = int
+# 
+# %f = float 
+# 
+# %.2f = decimal precised
+
+
+text = "Python Programming"
+
+print("Python" in text)       # True
+print("Java" in text)         # False
+
+print("Java" not in text)     # True
+print("Python" not in text)   # False
+# Important: Membership checks are case-sensitive
+
+
+
+email = "user@gmail.com"
+
+if "@gmail.com" in email:
+    print("Gmail address detected")
+    
+    
+    
+#-----------ord() and chr()
+    
+print(ord("A"))  # 65
+print(ord("a"))  # 97
+print(ord("₹"))  # 8377
+
+print("\u0041")       # A
+print("\u20B9")       # ₹
+print("\U0001F60A")   # 😊
+
+print(chr(66))
