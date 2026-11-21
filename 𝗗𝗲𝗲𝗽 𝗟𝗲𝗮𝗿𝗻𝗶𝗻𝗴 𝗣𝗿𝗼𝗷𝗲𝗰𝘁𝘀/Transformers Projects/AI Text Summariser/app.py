@@ -1,13 +1,3 @@
-"""
-AI Text Summariser — Streamlit app
-Model : sshleifer/distilbart-cnn-12-6 (Hugging Face Transformers + PyTorch)
-Run   : streamlit run app.py
-
-Built on top of ai_test_summerizer.ipynb (notebook is untouched).
-The app re-uses the same model and the same "dynamic length" idea from the
-notebook's final `summarize_text` function, and adds long-text chunking,
-a token inspector and a model-info panel.
-"""
 
 import html
 import re
