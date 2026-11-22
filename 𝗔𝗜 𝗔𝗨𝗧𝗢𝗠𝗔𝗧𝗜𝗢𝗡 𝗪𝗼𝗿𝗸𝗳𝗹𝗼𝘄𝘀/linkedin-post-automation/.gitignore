@@ -1,0 +1,14 @@
+# Secrets - never commit these
+.env
+*.key
+credentials*.json
+
+# n8n local data
+.n8n/
+n8n_data/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

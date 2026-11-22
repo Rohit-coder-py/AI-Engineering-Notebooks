@@ -1,0 +1,184 @@
+{
+  "name": "LinkedIn Post Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Blog to LinkedIn Generator",
+        "formDescription": "Enter a blog URL to generate a LinkedIn post",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Blog URL",
+              "fieldName": "blog_url",
+              "placeholder": "https://example.com/blog/ai-agents",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -64,
+        -80
+      ],
+      "id": "941e08e8-a0cd-4c8d-9bc9-d359aa9d8981",
+      "name": "On form submission",
+      "webhookId": "3a093253-8329-4405-a38c-9ce31b281b49"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.blog_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        176,
+        32
+      ],
+      "id": "e5dd4ea8-c9d4-4a7d-a5c3-3618c2f9ad40",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "article_text",
+              "cssSelector": "body"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        -64
+      ],
+      "id": "68d27878-51af-40c0-bf4f-d5568800fb6d",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3-flash-preview"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=\n{{\n  \"Act as a professional LinkedIn content writer.\\n\\n\" +\n  \"Analyze the following blog article and create an engaging LinkedIn post.\\n\\n\" +\n  \"Requirements:\\n\" +\n  \"- Start with an attention-grabbing hook.\\n\" +\n  \"- Highlight the most important insights.\\n\" +\n  \"- Use short paragraphs.\\n\" +\n  \"- Maintain a professional, conversational tone.\\n\" +\n  \"- End with an engaging question.\\n\" +\n  \"- Add 3-5 relevant hashtags.\\n\" +\n  \"- Do not invent facts.\\n\\n\" +\n  \"Blog Article:\\n\\n\" +\n  $json.article_text\n}}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        -64
+      ],
+      "id": "e6398ddf-af9a-4d3f-8130-b2cccf00517b",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ $('Message a model').item.json.content.parts[0].text }}"
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        960,
+        -48
+      ],
+      "id": "75161b9b-0c8c-4ee9-977c-19d77faef060",
+      "name": "Form",
+      "webhookId": "a960eb58-88b8-4b93-8d2c-34734b270ca0"
+    },
+    {
+      "parameters": {
+        "content": "\n# Created my First N8N Workflow \n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        208
+      ],
+      "typeVersion": 1,
+      "id": "a28263e1-2db6-49f1-a8b8-cad53f1a0d91",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodeGroups": [],
+  "tags": []
+}

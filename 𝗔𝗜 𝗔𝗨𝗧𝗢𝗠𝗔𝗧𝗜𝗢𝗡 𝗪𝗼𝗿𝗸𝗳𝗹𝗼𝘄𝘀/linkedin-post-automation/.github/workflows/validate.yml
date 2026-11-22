@@ -1,0 +1,19 @@
+name: Validate workflow
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check workflow JSON is valid and has no secrets
+        run: |
+          for f in workflows/*.json; do
+            python3 -m json.tool "$f" > /dev/null && echo "OK: $f"
+          done
+          if grep -rEi "AIza[0-9A-Za-z_-]{35}|api[_-]?key\"?\s*:\s*\"[^\"]+" workflows/; then
+            echo "Possible secret found in workflow export"; exit 1
+          fi
