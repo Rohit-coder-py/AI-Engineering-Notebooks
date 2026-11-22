@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="320" rx="20" fill="url(#bg)"/>
+  <circle cx="1180" cy="40" r="140" fill="#38bdf8" opacity="0.08"/>
+  <circle cx="90" cy="300" r="120" fill="#a78bfa" opacity="0.10"/>
+
+  <text x="640" y="105" text-anchor="middle" font-size="54" font-weight="700" fill="#ffffff">LinkedIn Post Automation</text>
+  <text x="640" y="148" text-anchor="middle" font-size="22" fill="#cbd5e1">Turn any blog URL into a ready-to-publish LinkedIn post with n8n + Gemini</text>
+  <rect x="540" y="164" width="200" height="4" rx="2" fill="url(#accent)"/>
+
+  <g font-size="15" font-weight="600" text-anchor="middle">
+    <g transform="translate(150,215)"><rect width="170" height="52" rx="12" fill="#ffffff" fill-opacity="0.10" stroke="#38bdf8" stroke-opacity="0.6"/><text x="85" y="32" fill="#e0f2fe">1 · Form</text></g>
+    <g transform="translate(350,215)"><rect width="170" height="52" rx="12" fill="#ffffff" fill-opacity="0.10" stroke="#38bdf8" stroke-opacity="0.6"/><text x="85" y="32" fill="#e0f2fe">2 · Fetch URL</text></g>
+    <g transform="translate(550,215)"><rect width="170" height="52" rx="12" fill="#ffffff" fill-opacity="0.10" stroke="#38bdf8" stroke-opacity="0.6"/><text x="85" y="32" fill="#e0f2fe">3 · Extract Text</text></g>
+    <g transform="translate(750,215)"><rect width="170" height="52" rx="12" fill="#ffffff" fill-opacity="0.10" stroke="#a78bfa" stroke-opacity="0.8"/><text x="85" y="32" fill="#ede9fe">4 · Gemini AI</text></g>
+    <g transform="translate(950,215)"><rect width="180" height="52" rx="12" fill="#ffffff" fill-opacity="0.10" stroke="#a78bfa" stroke-opacity="0.8"/><text x="90" y="32" fill="#ede9fe">5 · LinkedIn Post</text></g>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M322 241h26M522 241h26M722 241h26M922 241h26"/>
+  </g>
+  <g fill="#94a3b8">
+    <path d="M348 235l8 6-8 6z"/><path d="M548 235l8 6-8 6z"/><path d="M748 235l8 6-8 6z"/><path d="M948 235l8 6-8 6z"/>
+  </g>
+</svg>
