@@ -5,6 +5,5 @@ def my_function():
     x= 50
     print(x)
 
-update()
 my_function()
 print(x)
