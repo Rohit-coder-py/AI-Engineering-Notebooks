@@ -1,0 +1,20 @@
+# Core UI
+streamlit>=1.40
+
+# Agent orchestration
+langgraph>=0.2
+langchain-core>=0.3
+langchain-groq>=0.2
+
+# News + web access
+tavily-python>=0.5
+requests>=2.31
+
+# Content extraction / verification
+trafilatura>=1.12
+beautifulsoup4>=4.12
+
+# Data + config
+pydantic>=2.7
+python-dotenv>=1.0
+pandas>=2.2
